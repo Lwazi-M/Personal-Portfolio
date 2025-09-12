@@ -178,3 +178,118 @@ section {
 .socials i:hover {
     transform: scale(1.2);
 }
+
+
+/* Section titles */
+.section-title {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    position: relative;
+}
+.section-subtitle{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 100;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+/* Experience Section (Uncomment when you have experience to use) */
+/* 
+.exprience-info{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+.grid-card{
+    border: 2px solid black;
+    border-radius: 3rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.grid-card:hover {
+    transform: scale(1.02);
+    background: black;
+    color: white;
+}
+.grid-card i{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.grid-card span{
+    font-size: 1.5rem;
+    font-weight: 500;
+    background: linear-gradient(to right, grey, blue);
+    background-clip: text;
+    color: transparent;
+    opacity: 0.8;
+} 
+*/
+
+/* Scrollbar styling */
+::-webkit-scrollbar{
+    width: 20px;
+}
+::-webkit-scrollbar-track{
+    background-color: rgb(241, 241, 241);
+}
+::-webkit-scrollbar-thumb{
+    background: grey;
+    border-radius: 10px;
+    border: 6px solid rgb(241, 241, 241);
+}
+
+.project-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 2rem;
+}
+.project-card{
+    border: 2px solid black;
+    border-radius: 2rem;
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.project-card:hover{
+    background-color: black;
+    color: white;
+    transform: translateY(-10px)scale(1.02);
+}
+.project-card img{
+    width: 20vw;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+.project-card:hover .btn{
+    border: 2px solid white;
+    color: white;
+}
+.project-card:hover .btn:hover{
+    border: 2px solid white;
+    background-color: white;
+    color: black;
+}
+.project-card h3{
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
