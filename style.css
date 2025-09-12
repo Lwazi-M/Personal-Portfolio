@@ -394,6 +394,9 @@ footer ul li a{
     #menu-icon {
         display: block;
     }
+    header {
+        height: 5.5%;
+    }
     .nav-links {
         position: absolute;
         top: 100%;
@@ -403,14 +406,14 @@ footer ul li a{
         flex-direction: column;
         align-items: center;
         padding: 1rem;
-        border-radius: 0.5rem;
+        border-radius: 0.2rem;
         display: none;
     }
     .nav-links.active {
         display: flex;
     }
     .about img {
-        width: 180px;
+        width: 250px;
     }
     .project-card img {
         max-width: 200px;
