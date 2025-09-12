@@ -113,9 +113,10 @@ section {
     justify-content: center;
     gap: 10rem;
 }
-/* Profile image */
+/* About section image - scale down nicely */
 .about img {
-    width: 350px;
+    width: 300px;
+    max-width: 90%; /* prevent overflow on small screens */
     border-radius: 40%;
 }
 
@@ -275,10 +276,11 @@ section {
     color: white;
     transform: translateY(-10px)scale(1.02);
 }
-.project-card img{
-    width: 20vw;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
+/* Project images - responsive scaling */
+.project-card img {
+    width: 100%;         /* fill the card */
+    max-width: 350px;    /* don’t get too big */
+    height: auto;
 }
 .project-card:hover .btn{
     border: 2px solid white;
@@ -313,15 +315,19 @@ section {
     gap: 2rem;
     margin-top: 5rem;
 }
-.input-box input{
+/* Contact input - smaller font sizes */
+.input-box input {
     border-radius: 3rem;
     border: 2px solid black;
-    padding: 1rem 5.5rem;
-    font-size: 3rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;      /* smaller base font */
+    width: 100%;
+    max-width: 500px;
 }
-.input-box input::placeholder{
-    font-size: 3rem;
+.input-box input::placeholder {
+    font-size: 1rem;
 }
+
 .input{
     position: relative;
 }
@@ -358,4 +364,58 @@ footer ul li a{
     font-size: 300;
     font-weight: 300;
     margin-top: 2rem;
+}
+
+/* ================= RESPONSIVENESS ================= */
+
+/* Tablets */
+@media(max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+    }
+    .visit-btn {
+        display: none;
+    }
+    .about .about-container {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+    .about img {
+        width: 200px;
+    }
+    .info-box span {
+        font-size: 1rem;
+    }
+}
+
+/* Phones */
+@media(max-width: 600px) {
+    #menu-icon {
+        display: block;
+    }
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.9);
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .about img {
+        width: 180px;
+    }
+    .project-card img {
+        max-width: 200px;
+    }
+    .input-box input {
+        font-size: 0.9rem;
+    }
 }
