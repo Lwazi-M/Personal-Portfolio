@@ -1,19 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nhlanzeko Lwazi Mhlongo Portfolio</title>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WY9K1Z51K"></script>
-  <script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhlanzeko Lwazi Mhlongo</title>
+    
+    <!-- Google Analytics tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WY9K1Z51K"></script>
+    <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-3WY9K1Z51K');
-  </script>
+    </script>
 
-  <link rel="stylesheet" href="style.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome icons (social icons & menu icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 </head>
+<body>
+    <!-- Header section: navigation bar -->
+    <header class="header">
+        <a href="#" class="logo"><span>Lwazi Mhlongo</span></a>
+        
+        <!-- Navigation links -->
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Mobile menu icon -->
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+
+        <!-- GitHub button -->
+        <button class="visit-btn">Visit Github</button>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <!-- Profile image -->
+            <img src="Assets/Me-Profile.jpeg" alt="">
+        
+            <!-- Info section -->
+            <div class="info-box">
+
+                <!-- Intro text -->
+                <div class="text">
+                    <h3>Hello, I'm</h3>
+                    <h1>Nhlanzeko Lwazi Mhlongo</h1>
+                    <span>Welcome to my portfolio! I am a passionate student developer with a keen interest in creating innovative solutions.</span>
+                </div>
+
+                <!-- Buttons for CV and Contact -->
+                <div class="btn-group">
+                    <div class="btn">Download CV</div>
+                    <div class="btn">Contact</div>
+                </div>
+
+                <!-- Social links -->
+                <div class="socials">
+                    <i class="fa-brands fa-github"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <p>Here are some of the projects I've worked on:</p>
+        <!-- Project details will go here -->
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>If you'd like to get in touch, please reach out via email or connect with me on LinkedIn.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Nhlanzeko Lwazi Mhlongo. All rights reserved.</p>
+    </footer>
+
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
+</body>
+</html>
