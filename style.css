@@ -170,6 +170,14 @@ section {
 .socials {
     display: flex;
     gap: 2.5rem;
+    justify-content: center;
+    align-items: center;
+}
+.socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
 }
 .socials i {
     font-size: 2.5rem;
