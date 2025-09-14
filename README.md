@@ -20,8 +20,9 @@ About section with introduction and social links
 Projects showcase (more coming soon 🚀)
 
 Contact section with ways to reach me
-    Contact form automation:
-        - Visitors can enter their email and click "Submit" to open their email client with a pre-filled message.
+
+Contact form automation:
+- Visitors can enter their email and click "Submit" to open their email client with a pre-filled message.
 
 Integrated with Google Analytics
 
