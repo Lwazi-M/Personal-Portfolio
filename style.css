@@ -1,4 +1,5 @@
-/* Reset styles and apply global font + box model */
+/* ================= GLOBAL RESET ================= */
+/* Removes default browser spacing + sets global font & behavior */
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +10,7 @@
     list-style: none;
 }
 
-/* Navbar (fixed at top) */
+/* ================= NAVBAR ================= */
 header {
     position: fixed;
     top: 1rem;
@@ -21,6 +22,7 @@ header {
     justify-content: center;
     gap: 5rem;
     background-color: rgba(0, 0, 0, 0.8); /* semi-transparent black */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
     backdrop-filter: blur(8px);
     color: white;
     padding: 0.5rem 1.5rem;
@@ -33,15 +35,14 @@ header {
     color: white;
     font-size: 1.3rem;
     font-weight: 600;
-    text-wrap: nowrap;
+    white-space: nowrap;
     transition: 0.3s ease-in-out;
 }
 .logo:hover {
     transform: scale(1.1);
-    color: rgb(255, 255, 255);
 }
 
-/* Navigation links */
+/* Navigation links (horizontal on desktop) */
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -51,7 +52,7 @@ li a {
     color: white;
     font-weight: 300;
 }
-/* Animated underline effect on hover */
+/* Animated underline on hover */
 li a::before {
     content: '';
     position: absolute;
@@ -67,7 +68,7 @@ li a:hover::before {
     width: 100%;
 }
 
-/* Visit GitHub button */
+/* GitHub button in header */
 .visit-btn {
     padding: 0.5rem 1rem;
     background: linear-gradient(to right, grey, blue);
@@ -77,7 +78,7 @@ li a:hover::before {
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
-    text-wrap: nowrap;
+    white-space: nowrap;
     box-shadow: 0 0 10px blue;
     transition: 0.3s ease-in-out;
 }
@@ -87,13 +88,13 @@ li a:hover::before {
     box-shadow: 0 0 20px blue;
 }
 
-/* Menu icon (for mobile) */
+/* Mobile hamburger menu icon */
 #menu-icon {
     font-size: 2rem;
-    display: none;
+    display: none; /* hidden on desktop */
 }
 
-/* Section styling */
+/* ================= SECTION LAYOUT ================= */
 section {
     min-height: 100vh;
     padding: 8rem 12%;
@@ -101,26 +102,26 @@ section {
     position: relative;
 }
 
-/* About section layout */
-.about {
+/* ================= PROFILE SECTION ================= */
+.profile {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.about .about-container {
+.profile .profile-container {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10rem;
 }
-/* About section image - scale down nicely */
-.about img {
+/* Profile image */
+.profile img {
     width: 350px;
-    max-width: 90%; /* prevent overflow on small screens */
+    max-width: 90%; /* responsive */
     border-radius: 40%;
 }
 
-/* Info box text styles */
+/* Info box with intro text + buttons */
 .info-box {
     display: flex;
     flex-direction: column;
@@ -138,7 +139,7 @@ section {
     font-size: 2rem;
     font-weight: 600;
 }
-/* Gradient text effect */
+/* Gradient effect for intro text */
 .info-box span {
     background: linear-gradient(to right, grey, blue);
     background-clip: text;
@@ -146,7 +147,7 @@ section {
     font-size: 2rem;
 }
 
-/* Buttons inside About section */
+/* Profile buttons */
 .btn-group {
     display: flex;
     gap: 1rem;
@@ -157,7 +158,7 @@ section {
     border: 2px solid black;
     cursor: pointer;
     font-weight: 500;
-    text-wrap: nowrap;
+    white-space: nowrap;
     transition: 0.2s ease-in-out;
 }
 .btn:hover {
@@ -166,7 +167,7 @@ section {
     box-shadow: 0 0 10px black;
 }
 
-/* Social icons */
+/* Social icons (GitHub, LinkedIn, Email, etc.) */
 .socials {
     display: flex;
     gap: 2.5rem;
@@ -188,14 +189,12 @@ section {
     transform: scale(1.2);
 }
 
-
-/* Section titles */
+/* ================= SECTION TITLES ================= */
 .section-title {
     text-align: center;
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 3rem;
-    position: relative;
 }
 .section-subtitle{
     text-align: center;
@@ -206,151 +205,155 @@ section {
     opacity: 0.9;
 }
 
-/* Experience Section (Uncomment when you have experience to use) */
-/* 
-.exprience-info{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 2rem;
-}
-.grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-}
-.grid-card{
-    border: 2px solid black;
-    border-radius: 3rem;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-}
-.grid-card:hover {
-    transform: scale(1.02);
-    background: black;
-    color: white;
-}
-.grid-card i{
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-.grid-card span{
-    font-size: 1.5rem;
-    font-weight: 500;
-    background: linear-gradient(to right, grey, blue);
-    background-clip: text;
-    color: transparent;
-    opacity: 0.8;
-} 
-*/
+/* Small helper classes for About section */
+.section__text__p1 { text-align: center; }
+.title { font-size: 3rem; text-align: center; }
+.icon { cursor: pointer; height: 2rem; }
 
-/* Scrollbar styling */
-::-webkit-scrollbar{
-    width: 20px;
+/* ================= ABOUT SECTION ================= */
+#about { position: relative; }
+
+.about-containers {
+  gap: 2rem;
+  margin: 2rem 0;
 }
-::-webkit-scrollbar-track{
-    background-color: rgb(241, 241, 241);
+.about-details-container {
+  justify-content: center;
+  flex-direction: column;
 }
-::-webkit-scrollbar-thumb{
+.about-containers,
+.about-details-container {
+  display: flex;
+}
+
+/* Education card */
+.details-container {
+  color: #000;
+  padding: 1.5rem;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.752);
+  border-radius: 2rem;
+  border: rgb(56, 56, 56) 0.1rem solid;
+  text-align: center;
+}
+.saqa-link {
+    color: black;
+    text-decoration: underline;
+}
+.section-container {
+  gap: 4rem;
+  height: 80%;
+}
+
+/* ================= TECH STACK SECTION ================= */
+.tech-stack {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+.tech-stack-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+/* Circle badge with tech logo */
+.tech-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.752);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+    cursor: default;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.tech-badge img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 0.4rem;
+}
+.tech-badge:hover {
+    color: #000;
+    background: white;
+    transform: scale(1.1);
+}
+
+/* ================= SCROLLBAR ================= */
+::-webkit-scrollbar { width: 20px; }
+::-webkit-scrollbar-track { background-color: rgb(241, 241, 241); }
+::-webkit-scrollbar-thumb {
     background: grey;
     border-radius: 10px;
-    border: 6px solid rgb(241, 241, 241);
+    border: 4px solid rgb(241, 241, 241);
 }
+/* Dark mode scrollbar */
+body.dark-mode::-webkit-scrollbar-track { background: #1e1e1e; }
+body.dark-mode::-webkit-scrollbar-thumb { background: #888; }
+body.dark-mode::-webkit-scrollbar-thumb:hover { background: #bbb; }
 
-/* Project Section */
-.project-grid{
+/* ================= PROJECT SECTION ================= */
+.project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
     gap: 2rem;
 }
-.project-card{
+.project-card {
     border: 2px solid black;
     border-radius: 2rem;
-    padding: 2rem 2rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
     transition: 0.3s ease-in-out;
 }
-.project-card:hover{
+.project-card:hover {
     background-color: black;
     color: white;
-    transform: translateY(-10px)scale(1.02);
+    transform: translateY(-10px) scale(1.02);
 }
-/* Project images - responsive scaling */
 .project-card img {
-    width: 100%;         /* fill the card */
-    max-width: 350px;    /* don’t get too big */
+    width: 100%;
+    max-width: 350px;
     height: auto;
 }
-.project-card:hover .btn{
-    border: 2px solid white;
-    color: white;
-}
-.project-card:hover .btn:hover{
-    border: 2px solid white;
-    background-color: white;
-    color: black;
-}
-.project-card h3{
-    font-size: 2rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
+.project-card:hover .btn { border: 2px solid white; color: white; }
+.project-card:hover .btn:hover { background-color: white; color: black; }
 
-/*Contact Me Section */
-.contact-me{
+/* ================= CONTACT SECTION ================= */
+.contact-me {
     text-align: center;
     font-size: 1.5rem;
     font-weight: 100;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     opacity: 0.9;
 }
-.input-box{
+.input-box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
     gap: 2rem;
     margin-top: 5rem;
 }
-/* Contact input - smaller font sizes */
 .input-box input {
     border-radius: 3rem;
     border: 2px solid black;
     padding: 1rem 2rem;
-    font-size: 1rem;      /* smaller base font */
+    font-size: 1rem;
     width: 100%;
     max-width: 500px;
 }
-.input-box input::placeholder {
-    font-size: 1rem;
-}
+.input-box input::placeholder { font-size: 1rem; }
 
-.input{
-    position: relative;
-}
-.input i{
-    position: absolute;
-    font-size: 4rem;
-    top: 50%;
-    left: 10px;
-    transform: translate(0%,-0%);
-}
-
-/* Footer Section */
-footer{
-    bottom: 0%;
-    left: 0%;
+/* ================= FOOTER ================= */
+footer {
     height: 10rem;
     width: 100%;
     display: flex;
@@ -359,52 +362,55 @@ footer{
     align-items: center;
     justify-content: center;
 }
-footer ul{
+footer ul {
     display: flex;
-    align-items: center;
     gap: 3rem;
 }
-footer ul li a{
+footer ul li a {
     color: black;
     font-weight: 600;
 }
-.copyright{
-    font-size: 300;
+.copyright {
     font-weight: 300;
     margin-top: 2rem;
 }
 
-/* ================= RESPONSIVENESS ================= */
-
-/* Tablets */
-@media(max-width: 768px) {
-    header {
-        flex-wrap: wrap;
-    }
-    .visit-btn {
-        display: none;
-    }
-    .about .about-container {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
-    }
-    .about img {
-        width: 200px;
-    }
-    .info-box span {
-        font-size: 1rem;
-    }
+/* ================= DARK MODE ================= */
+body { transition: background-color 1s ease, color 1s ease; }
+header, .btn, .visit-btn, .project-card, footer, input, .socials i {
+    transition: background-color 1s ease, color 1s ease, border-color 1s ease;
 }
+body.dark-mode {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+body.dark-mode header { background-color: rgba(255, 255, 255, 0.1); }
+body.dark-mode .btn { border: 2px solid white; color: white; }
+body.dark-mode .btn:hover { background: white; color: black; }
+body.dark-mode .socials a,
+body.dark-mode .socials i { color: white; }
 
-/* Phones */
+/* Dark/Light Toggle styling */
+#theme-toggle {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mobile-theme-toggle { display: none; }
+
+/* ================= RESPONSIVENESS ================= */
+@media(max-width: 768px) {
+    header { flex-wrap: wrap; }
+    .visit-btn { display: none; }
+    .profile .profile-container { flex-direction: column; gap: 2rem; text-align: center; }
+    .profile img { width: 200px; }
+    .info-box span { font-size: 1rem; }
+}
 @media(max-width: 600px) {
-    #menu-icon {
-        display: block;
-    }
-    header {
-        height: 5.5%;
-    }
+    #menu-icon { display: block; }
     .nav-links {
         position: absolute;
         top: 100%;
@@ -414,19 +420,15 @@ footer ul li a{
         flex-direction: column;
         align-items: center;
         padding: 1rem;
-        border-radius: 0.2rem;
         display: none;
     }
-    .nav-links.active {
-        display: flex;
-    }
-    .about img {
-        width: 250px;
-    }
-    .project-card img {
-        max-width: 200px;
-    }
-    .input-box input {
-        font-size: 0.9rem;
-    }
+    .nav-links.active { display: flex; }
+    .profile img { width: 250px; }
+    .project-card img { max-width: 200px; }
+    .input-box input { font-size: 0.9rem; }
+}
+/* Show mobile theme toggle only on phones */
+@media (max-width: 600px) {
+    #theme-toggle { display: none; }
+    .mobile-theme-toggle { display: block; margin-top: 1rem; }
 }
