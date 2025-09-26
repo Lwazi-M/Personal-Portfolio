@@ -411,6 +411,9 @@ body.dark-mode .socials i { color: white; }
 }
 @media(max-width: 600px) {
     #menu-icon { display: block; }
+    header {
+        height: 5.5%;
+    }
     .nav-links {
         position: absolute;
         top: 100%;
@@ -420,6 +423,7 @@ body.dark-mode .socials i { color: white; }
         flex-direction: column;
         align-items: center;
         padding: 1rem;
+        border-radius: 0.2rem;
         display: none;
     }
     .nav-links.active { display: flex; }
