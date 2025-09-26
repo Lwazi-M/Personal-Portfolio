@@ -402,14 +402,16 @@ body.dark-mode .socials i { color: white; }
 .mobile-theme-toggle { display: none; }
 
 /* ================= RESPONSIVENESS ================= */
-@media(max-width: 768px) {
-    header { flex-wrap: wrap; }
+@media(max-width: 783px) {
+    header { flex-wrap: wrap; 
+    height: 5.5%;}
+    .nav-links { gap: 1.5rem; }
     .visit-btn { display: none; }
     .profile .profile-container { flex-direction: column; gap: 2rem; text-align: center; }
     .profile img { width: 200px; }
     .info-box span { font-size: 1rem; }
 }
-@media(max-width: 600px) {
+@media(max-width: 658px) {
     #menu-icon { display: block; }
     header {
         height: 5.5%;
