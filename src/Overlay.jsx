@@ -1,5 +1,7 @@
-import { useState } from 'react' // 👈 Added this for the form
+import { useState } from 'react'
+import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun } from 'react-icons/fa'; // 👈 IMPORT ICONS
 import './App.css'
+// ... keep your image imports (htmlIcon, etc.) ...
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
 import jsIcon from './assets/javascript.png'
@@ -31,8 +33,14 @@ const projects = [
 ]
 
 export default function Overlay() {
-  // ⬇️ LOGIC FOR CONTACT FORM ⬇️
   const [userEmail, setUserEmail] = useState('')
+  const [theme, setTheme] = useState('dark'); // 👈 Theme State
+
+  // Toggle Logic (For now, just switches icon, complex 3D lighting switch is Level 6)
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+    alert("Theme toggle logic for 3D is coming in the next update!");
+  };
 
   const handleContactSubmit = () => {
     if (userEmail) {
@@ -46,17 +54,26 @@ export default function Overlay() {
 
   return (
     <div className="overlay">
-      {/* HEADER */}
+      
+      {/* HEADER WITH OVAL BORDER */}
       <header className="header">
         <a href="#" className="logo">Lwazi Mhlongo</a>
+        
         <nav className="nav-links">
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
         </nav>
-        <button className="visit-btn" onClick={() => window.open('https://github.com/Lwazi-M', '_blank')}>
-          Visit Github
-        </button>
+
+        <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
+             <button className="visit-btn" onClick={() => window.open('https://github.com/Lwazi-M', '_blank')}>
+              Visit Github
+            </button>
+            {/* THEME TOGGLE ICON */}
+            <div onClick={toggleTheme} style={{cursor: 'pointer', color: 'white', fontSize: '1.2rem'}}>
+                {theme === 'dark' ? <FaMoon /> : <FaSun />}
+            </div>
+        </div>
       </header>
 
       {/* HERO */}
@@ -65,7 +82,7 @@ export default function Overlay() {
           <h3>Hello, I'm</h3>
           <h1>Nhlanzeko Lwazi Mhlongo</h1>
           <p className="subtitle">
-            Welcome to my portfolio! I am a passionate developer with a keen interest in creating innovative solutions.
+            Welcome to my portfolio! I am a passionate developer creating innovative solutions.
             <br /> <span style={{color: '#4a90e2'}}>(Try dragging the lanyard!)</span>
           </p>
           <div className="btn-group">
@@ -85,7 +102,7 @@ export default function Overlay() {
             <p><strong>Eduvos</strong></p>
             <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
             <br/>
-            <a href="https://allqs.saqa.org.za/showQualification.php?id=120690" target="_blank" className="link-text">View Qualification</a>
+            <a href="https://allqs.saqa.org.za/showQualification.php?id=120690" target="_blank" className="link-text" style={{color: '#4a90e2'}}>View Qualification</a>
           </div>
 
           <div className="card">
@@ -106,18 +123,12 @@ export default function Overlay() {
         <h2 className="section-title">Recent Projects</h2>
         <div className="projects-grid">
           {projects.map((project, index) => (
-            <ProjectCard 
-              key={index}
-              title={project.title}
-              description={project.description}
-              image={project.image}
-              link={project.link}
-            />
+            <ProjectCard key={index} {...project} />
           ))}
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* CONTACT - FIXED */}
       <section id="contact" className="contact-section">
         <h2 className="section-title">Get in Touch</h2>
         <p className="subtitle" style={{textAlign: 'center'}}>
@@ -136,10 +147,11 @@ export default function Overlay() {
             </button>
         </div>
 
-        <div className="footer-links">
-             <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me">Email</a>
-             <span>|</span>
-             <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener">LinkedIn</a>
+        {/* RESTORED ICONS */}
+        <div className="socials">
+             <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me" className="social-icon"><FaEnvelope /></a>
+             <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener" className="social-icon"><FaLinkedin /></a>
+             <a href="https://github.com/Lwazi-M" target="_blank" rel="noopener" className="social-icon"><FaGithub /></a>
         </div>
       </section>
       

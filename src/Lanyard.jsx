@@ -1,15 +1,16 @@
 /* eslint-disable react/no-unknown-property */
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
-import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
+import { useGLTF, useTexture, Environment, Lightformer, Text, RenderTexture, PerspectiveCamera } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import * as THREE from 'three';
 
 // ⬇️ IMPORTING YOUR ASSETS
-// Make sure these files are inside src/assets/
 import cardGLB from './assets/card.glb'; 
 import lanyard from './assets/lanyard.png';
+import profileImg from './assets/Me-Profile.jpeg';
+import qrImg from './assets/qrcode.png'; 
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -40,11 +41,21 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
   const vec = new THREE.Vector3(), ang = new THREE.Vector3(), rot = new THREE.Vector3(), dir = new THREE.Vector3();
   const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 };
   
-  // Load the model and texture
   const { nodes, materials } = useGLTF(cardGLB);
   const texture = useTexture(lanyard);
+  const profileTexture = useTexture(profileImg);
+   const qrTexture = useTexture(qrImg);
   
-  const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]));
+  // ⬇️ SHIFT EVERYTHING LEFT (X = -1.8 Y = 4.3)
+  const xOffset = -1.8; 
+  const yOffset = 4.3;  
+
+  const [curve] = useState(() => new THREE.CatmullRomCurve3([
+      new THREE.Vector3(xOffset, yOffset, 0), 
+      new THREE.Vector3(xOffset, yOffset - 0.5, 0), 
+      new THREE.Vector3(xOffset, yOffset - 1, 0),   
+      new THREE.Vector3(xOffset, yOffset - 1.5, 0)  
+  ]));
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
 
@@ -90,12 +101,13 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
 
   return (
     <>
-      <group position={[0, 4, 0]}>
-        <RigidBody ref={fixed} {...segmentProps} type="fixed" />
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
-        <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
+      <group position={[0, 0, 0]}>
+        <RigidBody ref={fixed} {...segmentProps} type="fixed" position={[xOffset, yOffset, 0]} />
+        <RigidBody position={[xOffset, yOffset - 0.5, 0]} ref={j1} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
+        <RigidBody position={[xOffset, yOffset - 1, 0]} ref={j2} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
+        <RigidBody position={[xOffset, yOffset - 1.5, 0]} ref={j3} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
+        
+        <RigidBody position={[xOffset, yOffset - 2, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
             scale={2.25}
@@ -107,13 +119,61 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
-                map={materials.base.map}
-                map-anisotropy={16}
                 clearcoat={1}
                 clearcoatRoughness={0.15}
                 roughness={0.3}
                 metalness={0.5}
-              />
+              >
+                 {/* ⬇️ RENDER TEXTURE START ⬇️ */}
+                 <RenderTexture attach="map" anisotropy={16}>
+                    <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 5]} />
+                    {/* ⬇️ Changed background to dark grey/black as requested */}
+                    <color attach="background" args={['#1a1a1a']} />
+                    
+                    {/* ⬇️ SCALED DOWN GROUP (0.9) to fit frame better */}
+                    <group scale={[0.9, -0.9, 0.9]} position={[0, 0, 0]}>
+                        
+                        {/* Black/Dark Card Background */}
+                        <mesh position={[0, 0, -2]}>
+                            <planeGeometry args={[10, 10]} />
+                            <meshBasicMaterial color="#1a1a1a" />
+                        </mesh>
+
+                        {/* Text Colors inverted for dark mode */}
+                        <Text 
+                            fontSize={0.14} 
+                            color="white" 
+                            position={[-1.3, 1.7, 0]} 
+                            anchorX="center" 
+                            anchorY="middle"
+                        >
+                            SOFTWARE ENGINEER
+                        </Text>
+
+                        <Text 
+                            fontSize={0.22} 
+                            color="white" 
+                            position={[-1.3, 2, 0]} 
+                            anchorX="center" 
+                            anchorY="middle"
+                            fontWeight="bold"
+                        >
+                            Lwazi Mhlongo
+                        </Text>
+
+                        {/* Image with White Border for contrast on black card */}
+                        <mesh position={[-1.51, 0.24, -0.9]}>
+                            <planeGeometry args={[1.89, 2.71]} />
+                            <meshBasicMaterial color="white" />
+                        </mesh>
+                        <mesh position={[-1.3, 0.2, 0]}>
+                            <planeGeometry args={[1.6, 2.3]} />
+                            <meshBasicMaterial map={profileTexture} />
+                        </mesh>
+                    </group>
+                 </RenderTexture>
+                 {/* ⬆️ RENDER TEXTURE END ⬆️ */}
+              </meshPhysicalMaterial>
             </mesh>
             <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
