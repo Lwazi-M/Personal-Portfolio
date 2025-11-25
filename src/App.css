@@ -205,3 +205,68 @@ section {
 .link-text:hover {
     text-decoration: underline;
 }
+
+/* CONTACT SECTION */
+.contact-section {
+    background: black; /* Solid black at the bottom */
+    text-align: center;
+    padding-bottom: 5rem;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.input-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem 1.5rem;
+    border-radius: 2rem;
+    border: 2px solid #333;
+    background: #111;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #4a90e2;
+    background: #000;
+}
+
+.submit-btn {
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 1rem 3rem;
+}
+
+.submit-btn:hover {
+    background: #ddd;
+    transform: scale(1.05);
+}
+
+.footer-links {
+    margin-top: 4rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    color: #555;
+}
+
+.footer-links a {
+    color: #888;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
