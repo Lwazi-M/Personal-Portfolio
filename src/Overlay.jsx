@@ -1,3 +1,4 @@
+import { useState } from 'react' // 👈 Added this for the form
 import './App.css'
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
@@ -5,35 +6,44 @@ import jsIcon from './assets/javascript.png'
 import gitIcon from './assets/git.png'
 import pythonIcon from './assets/python.png'
 import educationIcon from './assets/education.png'
-
-// Import Project Images (Make sure you have these or use placeholders!)
-import project1Img from './assets/37917.jpeg' // Using the image you have
-
+import project1Img from './assets/37917.jpeg' 
 import ProjectCard from './ProjectCard'
 
-// ⬇️ EDIT YOUR PROJECTS HERE ⬇️
 const projects = [
   {
-    title: "Project 1",
-    description: "Coming Soon",
-    image: project1Img, 
-    link: null
-  },
-  {
-    title: "Project 2",
-    description: "Coming Soon",
+    title: "Project 3",
+    description: "In Progress",
     image: project1Img, 
     link: null
   },
   {
     title: "Project 3",
-    description: "Coming Soon",
+    description: "In Progress",
+    image: project1Img,
+    link: null
+  },
+  {
+    title: "Project 3",
+    description: "In Progress",
     image: project1Img,
     link: null
   }
 ]
 
 export default function Overlay() {
+  // ⬇️ LOGIC FOR CONTACT FORM ⬇️
+  const [userEmail, setUserEmail] = useState('')
+
+  const handleContactSubmit = () => {
+    if (userEmail) {
+        const subject = "Portfolio Contact";
+        const body = `Hi Lwazi, I was viewing your portfolio and I would love to connect. From: ${userEmail}`;
+        window.location.href = `mailto:nhlamhlongo.work@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    } else {
+        alert("⚠️ Please enter your email first.");
+    }
+  }
+
   return (
     <div className="overlay">
       {/* HEADER */}
@@ -104,6 +114,32 @@ export default function Overlay() {
               link={project.link}
             />
           ))}
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="contact-section">
+        <h2 className="section-title">Get in Touch</h2>
+        <p className="subtitle" style={{textAlign: 'center'}}>
+            Enter your email below to send me a message!
+        </p>
+
+        <div className="input-box">
+            <input 
+                type="email" 
+                placeholder="example@domain.com" 
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+            />
+            <button className="btn submit-btn" onClick={handleContactSubmit}>
+                Send Message
+            </button>
+        </div>
+
+        <div className="footer-links">
+             <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me">Email</a>
+             <span>|</span>
+             <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </section>
       
