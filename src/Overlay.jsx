@@ -1,5 +1,4 @@
 import './App.css'
-// Make sure these images are in your src/assets folder!
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
 import jsIcon from './assets/javascript.png'
@@ -7,10 +6,37 @@ import gitIcon from './assets/git.png'
 import pythonIcon from './assets/python.png'
 import educationIcon from './assets/education.png'
 
+// Import Project Images (Make sure you have these or use placeholders!)
+import project1Img from './assets/37917.jpeg' // Using the image you have
+
+import ProjectCard from './ProjectCard'
+
+// ⬇️ EDIT YOUR PROJECTS HERE ⬇️
+const projects = [
+  {
+    title: "Project 1",
+    description: "Coming Soon",
+    image: project1Img, 
+    link: null
+  },
+  {
+    title: "Project 2",
+    description: "Coming Soon",
+    image: project1Img, 
+    link: null
+  },
+  {
+    title: "Project 3",
+    description: "Coming Soon",
+    image: project1Img,
+    link: null
+  }
+]
+
 export default function Overlay() {
   return (
     <div className="overlay">
-      {/* --- HEADER --- */}
+      {/* HEADER */}
       <header className="header">
         <a href="#" className="logo">Lwazi Mhlongo</a>
         <nav className="nav-links">
@@ -23,7 +49,7 @@ export default function Overlay() {
         </button>
       </header>
 
-      {/* --- SECTION 1: HERO --- */}
+      {/* HERO */}
       <section className="hero-section">
         <div className="hero-content">
           <h3>Hello, I'm</h3>
@@ -39,28 +65,25 @@ export default function Overlay() {
         </div>
       </section>
 
-      {/* --- SECTION 2: ABOUT --- */}
+      {/* ABOUT */}
       <section id="about" className="about-section">
         <h2 className="section-title">About Me</h2>
-        
         <div className="about-grid">
-          {/* Education Card */}
           <div className="card">
             <img src={educationIcon} alt="Education" style={{height: '40px', marginBottom: '1rem'}}/>
             <h3>Education</h3>
             <p><strong>Eduvos</strong></p>
             <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
             <br/>
-            <a href="https://allqs.saqa.org.za/showQualification.php?id=120690" target="_blank" style={{color: '#4a90e2'}}>View Qualification</a>
+            <a href="https://allqs.saqa.org.za/showQualification.php?id=120690" target="_blank" className="link-text">View Qualification</a>
           </div>
 
-          {/* Tech Stack Card */}
           <div className="card">
             <h3>My Tech Stack</h3>
             <div className="tech-container">
               <div className="tech-badge"><img src={htmlIcon} alt="HTML"/><span>HTML</span></div>
               <div className="tech-badge"><img src={cssIcon} alt="CSS"/><span>CSS</span></div>
-              <div className="tech-badge"><img src={jsIcon} alt="JavaScript"/><span>JavaScript</span></div>
+              <div className="tech-badge"><img src={jsIcon} alt="JS"/><span>JS</span></div>
               <div className="tech-badge"><img src={gitIcon} alt="Git"/><span>Git</span></div>
               <div className="tech-badge"><img src={pythonIcon} alt="Python"/><span>Python</span></div>
             </div>
@@ -68,11 +91,22 @@ export default function Overlay() {
         </div>
       </section>
 
-      {/* --- SECTION 3: Projects (Placeholder for now) --- */}
-      <section id="projects" style={{ height: '100vh' }}>
-        <h2 className="section-title">Projects Coming Soon...</h2>
+      {/* PROJECTS */}
+      <section id="projects" className="projects-section">
+        <h2 className="section-title">Recent Projects</h2>
+        <div className="projects-grid">
+          {projects.map((project, index) => (
+            <ProjectCard 
+              key={index}
+              title={project.title}
+              description={project.description}
+              image={project.image}
+              link={project.link}
+            />
+          ))}
+        </div>
       </section>
-
+      
     </div>
   )
 }
