@@ -1,15 +1,126 @@
-body {
+/* RESET */
+* {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Stops scrollbars from appearing */
-  background: #000;
+  box-sizing: border-box;
 }
 
+body {
+  background: #000;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  overflow-x: hidden; /* Prevent side-scrolling */
+  /* We removed 'overflow: hidden' so now you can scroll down! */
+}
+
+/* 3D BACKGROUND (Fixed) */
 .lanyard-wrapper {
-  position: relative;
+  position: fixed; /* 👈 This keeps the 3D model stuck to the screen */
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 0; /* Behind everything */
+  pointer-events: all; /* Allows grabbing the lanyard */
 }
+
+/* CONTENT LAYER (Scrollable) */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10; /* In front of the 3D model */
+  pointer-events: none; /* Let clicks pass through to the lanyard where there is no text */
+}
+
+/* Enable clicking on buttons/text */
+header, .hero-section, .about-section, footer {
+  pointer-events: auto;
+}
+
+/* HEADER */
+.header {
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed; /* Stick header to top */
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5); /* Glass effect */
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
+  backdrop-filter: blur(5px);         /* Standard support */
+}
+
+.logo { font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { color: white; text-decoration: none; font-weight: 500; }
+.visit-btn {
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(to right, grey, blue);
+  border: none; border-radius: 2rem; color: white; cursor: pointer;
+}
+
+/* SECTIONS */
+section {
+  min-height: 100vh; /* Each section takes up full screen height */
+  padding: 100px 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* HERO TEXT */
+.hero-content h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; }
+.hero-content h3 { font-size: 1.5rem; color: #ccc; }
+.subtitle { max-width: 500px; color: #aaa; margin-bottom: 2rem; }
+.btn-group { display: flex; gap: 1rem; }
+.btn {
+  padding: 0.8rem 2rem; border: 2px solid white; border-radius: 2rem;
+  color: white; text-decoration: none; font-weight: 600; transition: 0.3s;
+}
+.btn:hover { background: white; color: black; }
+
+/* ABOUT SECTION */
+.about-section {
+  background: rgba(0,0,0,0.8); /* Dark background so text is readable over the lanyard */
+}
+
+.section-title { font-size: 3rem; text-align: center; margin-bottom: 2rem; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns */
+  gap: 2rem;
+  align-items: start;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+}
+
+/* TECH STACK */
+.tech-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.tech-badge {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 50%;
+  width: 80px; height: 80px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: transform 0.3s;
+}
+.tech-badge:hover { transform: scale(1.1); background: white; color: black; }
+.tech-badge img { width: 30px; margin-bottom: 5px; }
