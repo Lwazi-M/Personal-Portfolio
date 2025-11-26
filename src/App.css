@@ -8,7 +8,7 @@
 }
 
 body {
-  background: #000;
+  background: #0c0c0c;
   font-family: 'Poppins', sans-serif;
   color: white;
   overflow-x: hidden;
@@ -48,7 +48,7 @@ body {
   justify-content: space-between;
   
   /* GLASS OVAL EFFECT */
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
@@ -82,7 +82,7 @@ body {
   color: white;
   text-decoration: none;
   font-weight: 300;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 /* RESTORED: Animated Underline (Green/Blue) */
@@ -91,7 +91,7 @@ body {
   position: absolute;
   width: 0;
   left: 0;
-  height: 3px;
+  height: 4px;
   bottom: -5px;
   border-radius: 1rem;
   transition: 0.3s ease-in-out;
@@ -215,7 +215,7 @@ section {
 
 /* ABOUT & PROJECTS */
 .about-section, .projects-section {
-  background: rgba(0, 0, 0, 0.85); /* Darker bg for readability */
+  background:  #0c0c0c; /* Darker bg for readability */
   pointer-events: auto; /* Make section content interactable */
 }
 
@@ -273,7 +273,7 @@ section {
 
 .project-card {
   /* THE GREY FRAME */
-  background: #1a1a1a; /* Dark Grey Frame Background */
+  background: #0c0c0c; /* Dark Grey Frame Background */
   border: 2px solid #333; /* Grey Border */
   border-radius: var(--card-outer-radius);
   padding: var(--card-padding); /* This creates the gap/frame */
@@ -336,7 +336,7 @@ section {
 
 /* CONTACT SECTION - FIXED ALIGNMENT & CLICKING */
 .contact-section {
-  background: black;
+  background: #0c0c0c;
   padding: 5rem 10%;
   display: flex;
   flex-direction: column;

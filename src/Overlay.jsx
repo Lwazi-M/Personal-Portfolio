@@ -1,5 +1,4 @@
 import { useState } from 'react'
-// Assuming `npm install react-icons` has been run for these imports
 import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa'; 
 import './App.css'
 
@@ -40,9 +39,8 @@ const projects = [
   }
 ]
 
-export default function Overlay() {
+export default function Overlay({ theme, toggleTheme }) { 
   const [userEmail, setUserEmail] = useState('')
-  const [theme, setTheme] = useState('dark');
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile Menu State
 
   // Toggle mobile menu state
@@ -55,21 +53,16 @@ export default function Overlay() {
     setIsMenuOpen(false);
   };
 
-
-  // Toggle Logic (For now, just switches icon, complex 3D lighting switch is Level 6)
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-    // Note: The actual global CSS switch and 3D scene lighting switch needs global state management (out of scope for this turn, but planned!)
-    alert("Theme toggle functionality is currently toggling the icon only. Full site theme switch is coming soon!");
-  };
-
   const handleContactSubmit = () => {
     if (userEmail) {
         const subject = "Portfolio Contact";
         const body = `Hi Lwazi, I was viewing your portfolio and I would love to connect. From: ${userEmail}`;
+        // Replacing alert() with console log and direct action
+        console.log("Sending email link:", window.location.href = `mailto:nhlamhlongo.work@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
         window.location.href = `mailto:nhlamhlongo.work@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     } else {
-        alert("⚠️ Please enter your email first.");
+        // Replacing alert() with console log for compliance
+        console.log("Error: Please enter your email first.");
     }
   }
 
@@ -86,7 +79,6 @@ export default function Overlay() {
         </div>
         
         {/* NAVIGATION LINKS (Desktop & Mobile Menu) */}
-        {/* Added dynamic class for mobile menu activation */}
         <nav className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           <a href="#about" onClick={handleNavClick}>About</a>
           <a href="#projects" onClick={handleNavClick}>Projects</a>
@@ -98,9 +90,11 @@ export default function Overlay() {
               Visit Github
             </button>
             {/* THEME TOGGLE ICON (Desktop) */}
-            <div onClick={toggleTheme} className="theme-toggle-desktop" style={{display: 'flex', alignItems: 'center',cursor: 'pointer', color: 'white', fontSize: '1.4rem'}}>
+            {/* Uses toggleTheme prop from App.jsx */}
+            
+            {/* <div onClick={toggleTheme} className="theme-toggle-desktop" style={{display: 'flex', alignItems: 'center',cursor: 'pointer', color: 'var(--color-text-primary)', fontSize: '1.4rem'}}>
                 {theme === 'dark' ? <FaMoon /> : <FaSun />}
-            </div>
+            </div> */}
         </div>
       </header>
 
