@@ -14,18 +14,15 @@ body {
   overflow-x: hidden;
 }
 
-/* 3D BACKGROUND (SCROLLABLE NOW) 
-   Changed from 'fixed' to 'absolute' so it stays in the Hero section 
-   and scrolls away when you go down.
-*/
+/* 3D BACKGROUND (Absolute) */
 .lanyard-wrapper {
-  position: absolute; /* 👈 This makes it scroll with the page! */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 0;
-  pointer-events: all; 
+  pointer-events: all; /* Allows grabbing the lanyard */
 }
 
 /* CONTENT LAYER */
@@ -35,10 +32,10 @@ body {
   left: 0;
   width: 100%;
   z-index: 10;
-  pointer-events: none; 
+  pointer-events: none; /* Default: click through to 3D */
 }
 
-/* HEADER & NAV */
+/* HEADER & NAV RESTORATION */
 .header {
   position: fixed;
   top: 1rem;
@@ -49,6 +46,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
+  /* GLASS OVAL EFFECT */
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(8px);
@@ -56,7 +55,7 @@ body {
   padding: 0.8rem 2rem;
   border-radius: 3rem;
   z-index: 1000;
-  pointer-events: auto; 
+  pointer-events: auto; /* Make Nav Clickable */
 }
 
 .logo {
@@ -75,6 +74,7 @@ body {
 .nav-links {
   display: flex;
   gap: 2rem;
+  transition: all 0.3s ease-in-out; /* For opening/closing on mobile */
 }
 
 .nav-links a {
@@ -85,6 +85,7 @@ body {
   font-size: 1rem;
 }
 
+/* RESTORED: Animated Underline (Green/Blue) */
 .nav-links a::before {
   content: '';
   position: absolute;
@@ -120,6 +121,12 @@ body {
   box-shadow: 0 0 20px blue;
 }
 
+/* THEME TOGGLE (Desktop) */
+.theme-toggle-desktop {
+    margin-left: 1rem;
+}
+
+
 /* SECTIONS */
 section {
   min-height: 100vh;
@@ -129,21 +136,19 @@ section {
   justify-content: center;
 }
 
-/* HERO SECTION UPDATE 
-   We use flexbox to push the text to the right side.
-*/
+/* HERO SECTION UPDATE */
 .hero-section {
   display: flex;
-  flex-direction: row;        /* Layout horizontal */
-  justify-content: flex-end;  /* Push content to the right */
+  flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
-  height: 100vh; /* Lock height to full screen */
+  height: 100vh;
 }
 
 .hero-content {
   pointer-events: none;
-  width: 50%; /* Only take up the right half of the screen */
+  width: 50%;
   text-align: left; 
   padding-left: 2rem;
 }
@@ -151,11 +156,16 @@ section {
 .hero-content h1 { font-size: 4rem; margin-bottom: 1rem; }
 .hero-content h3 { font-size: 1.5rem; color: #ccc; }
 .subtitle { max-width: 500px; color: #aaa; margin-bottom: 2rem; }
+.instruction {
+    /* Hide the instruction line on mobile to avoid clutter */
+    display: block; 
+}
+
 
 .btn-group {
   display: flex;
   gap: 1rem;
-  pointer-events: auto; 
+  pointer-events: auto;
 }
 
 .btn {
@@ -176,10 +186,37 @@ section {
   box-shadow: 0 0 15px rgba(255,255,255,0.5);
 }
 
+/* CARD BUTTONS STYLES */
+.card-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem; /* Space between description and buttons */
+    justify-content: center; /* 👈 Center buttons horizontally */
+}
+
+.sm-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    pointer-events: auto;
+    border-width: 1px; /* Thinner border for small buttons */
+}
+
+.outline-btn {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.outline-btn:hover {
+    background: white;
+    color: black;
+}
+
+
 /* ABOUT & PROJECTS */
 .about-section, .projects-section {
-  background: rgba(0, 0, 0, 0.85); 
-  pointer-events: auto; 
+  background: rgba(0, 0, 0, 0.85); /* Darker bg for readability */
+  pointer-events: auto; /* Make section content interactable */
 }
 
 .section-title { font-size: 3rem; text-align: center; margin-bottom: 3rem; }
@@ -190,9 +227,11 @@ section {
   gap: 2rem;
 }
 
-/* CARD STYLES */
+/* ================== UPDATED CARDS WITH NESTED RADIUS ================== */
+
+/* Define the math variables */
 :root {
-  --card-outer-radius: 24px;
+  --card-outer-radius: 15px;
   --card-padding: 10px;
   --card-inner-radius: calc(var(--card-outer-radius) - var(--card-padding));
 }
@@ -200,11 +239,12 @@ section {
 .card {
   background: rgba(255, 255, 255, 0.05);
   padding: 2rem;
-  border-radius: var(--card-outer-radius);
+  border-radius: var(--card-outer-radius); /* Updated radius */
   border: 1px solid rgba(255,255,255,0.1);
   text-align: center;
 }
 
+/* TECH STACK */
 .tech-container {
   display: flex;
   flex-wrap: wrap;
@@ -214,7 +254,7 @@ section {
 }
 
 .tech-badge {
-  width: 80px; height: 80px;
+  width: 105px; height: 105px;
   border-radius: 50%;
   background: rgba(255,255,255,0.1);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -222,19 +262,23 @@ section {
   transition: 0.3s;
 }
 .tech-badge:hover { transform: scale(1.1); background: white; color: black; }
-.tech-badge img { width: 30px; margin-bottom: 5px; }
+.tech-badge img { width: 40px; margin-bottom: 5px; }
 
+/* PROJECT CARDS */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 2rem;
 }
 
 .project-card {
-  background: #1a1a1a; 
-  border: 1px solid #333; 
+  /* THE GREY FRAME */
+  background: #1a1a1a; /* Dark Grey Frame Background */
+  border: 2px solid #333; /* Grey Border */
   border-radius: var(--card-outer-radius);
-  padding: var(--card-padding); 
+  padding: var(--card-padding); /* This creates the gap/frame */
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   transition: 0.3s ease-in-out;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -242,17 +286,21 @@ section {
 
 .project-card:hover {
   transform: translateY(-10px);
-  border-color: #666; 
+  border-color: #666; /* Lighter grey on hover */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
+/* THE INNER IMAGE (With Calculated Radius) */
 .card-image-container {
-  width: 100%;
-  height: 200px;
+    width: 100%;
+    height: 315px;
   background: #222;
   overflow: hidden;
+  
+  /* Top corners obey the math */
   border-top-left-radius: var(--card-inner-radius);
   border-top-right-radius: var(--card-inner-radius);
+  /* Bottom corners are sharp or slightly rounded depending on preference */
   border-bottom-left-radius: 4px; 
   border-bottom-right-radius: 4px;
 }
@@ -269,17 +317,31 @@ section {
 }
 
 .card-content {
-  padding: 1rem 0.5rem 0.5rem 0.5rem; 
+  padding: 1rem 0.5rem 0.5rem 0.5rem; /* Inner padding */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 👈 Center text content vertically */
+  text-align: center; /* 👈 Center text horizontally */
 }
 
-/* CONTACT SECTION */
+.card-content h3 {
+    margin-top: 0.5rem;
+}
+
+.card-content p {
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+/* CONTACT SECTION - FIXED ALIGNMENT & CLICKING */
 .contact-section {
   background: black;
   padding: 5rem 10%;
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  pointer-events: auto; 
+  align-items: center; /* Centers everything */
+  pointer-events: auto; /* CRITICAL: Enables clicking */
 }
 
 .input-box {
@@ -301,7 +363,7 @@ section {
   color: white;
   font-size: 1rem;
   outline: none;
-  pointer-events: auto; 
+  pointer-events: auto; /* CRITICAL: Enables typing */
 }
 
 .input-box input:focus { border-color: #4a90e2; }
@@ -314,9 +376,10 @@ section {
   border: none;
   font-weight: bold;
   cursor: pointer;
-  pointer-events: auto; 
+  pointer-events: auto; /* CRITICAL: Enables clicking */
 }
 
+/* ICONS & FOOTER */
 .socials {
   margin-top: 3rem;
   display: flex;
@@ -331,16 +394,124 @@ section {
 
 .social-icon:hover { transform: scale(1.2); color: #4a90e2; }
 
-/* RESPONSIVE LAYOUT FOR MOBILE */
+/* ================= MOBILE RESPONSIVENESS ================= */
+
+/* Mobile Menu Icon */
+.mobile-menu-icon {
+  display: none; /* Hidden on desktop */
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  z-index: 1001; /* Above the menu */
+  pointer-events: auto;
+}
+
+/* Static Profile Image for Mobile (Hidden on Desktop) */
+.mobile-profile-img {
+  display: none; 
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  pointer-events: auto;
+}
+
+/* TABLET & MOBILE BREAKPOINT */
 @media (max-width: 768px) {
-  .hero-section {
-    flex-direction: column-reverse; /* Put text below lanyard on mobile */
-    justify-content: flex-end;
-    padding-bottom: 5rem;
+  
+  /* 1. HIDE 3D LANYARD & DRAG INSTRUCTION */
+  .lanyard-wrapper {
+    display: none; /* Hide the 3D canvas on mobile */
   }
+  .instruction {
+      display: none !important; /* Hide instruction on small screen */
+  }
+
+  /* 2. SHOW STATIC IMAGE */
+  .mobile-profile-img {
+    display: block; /* Show static image */
+  }
+  
+  /* 3. ADJUST HEADER & HIDE DESKTOP ELEMENTS */
+  .header {
+    top: 0; /* Full width header */
+    transform: none;
+    width: 100%;
+    padding: 1rem 5%;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 0;
+    border: none;
+  }
+  .theme-toggle-desktop, .visit-btn {
+    display: none !important; /* Hide desktop specific elements */
+  }
+
+  /* 4. HAMBURGER MENU */
+  .mobile-menu-icon {
+    display: block; /* Show hamburger icon */
+  }
+  
+  /* Mobile Menu Container */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 0;
+    transition: all 0.3s ease-in-out;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none; /* Cannot click links until visible */
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  /* Mobile Menu Active State */
+  .nav-links.active {
+    height: 150px; /* Adjusted height */
+    opacity: 1;
+    padding: 1rem 0;
+    gap: 1rem;
+    pointer-events: auto;
+  }
+  
+  .nav-links a {
+      font-size: 1.2rem;
+  }
+
+  /* 5. HERO SECTION LAYOUT */
+  .hero-section {
+    flex-direction: column; /* Stack vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 100px; /* Space for fixed header */
+    min-height: 80vh;
+  }
+
   .hero-content {
     width: 100%;
+    padding: 0 1rem;
     text-align: center;
-    padding: 0;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem; /* Smaller font for mobile */
+  }
+
+  .btn-group {
+    justify-content: center; /* Center buttons */
+  }
+  
+  /* Project Grid Layout */
+  .projects-grid {
+      grid-template-columns: 1fr;
   }
 }

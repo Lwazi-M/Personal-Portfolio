@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun } from 'react-icons/fa'; // 👈 IMPORT ICONS
+// Assuming `npm install react-icons` has been run for these imports
+import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa'; 
 import './App.css'
-// ... keep your image imports (htmlIcon, etc.) ...
+
+// IMPORTANT: Ensure these files exist in src/assets/
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
 import jsIcon from './assets/javascript.png'
@@ -9,37 +11,56 @@ import gitIcon from './assets/git.png'
 import pythonIcon from './assets/python.png'
 import educationIcon from './assets/education.png'
 import project1Img from './assets/37917.jpeg' 
+import profileImg from './assets/Me-Profile.jpeg' 
+
+// Ensure ProjectCard.jsx exists in the same folder (src/)
 import ProjectCard from './ProjectCard'
 
 const projects = [
   {
-    title: "Project 3",
-    description: "In Progress",
+    title: "Project 1",
+    description: "Coming Soon",
     image: project1Img, 
-    link: null
+    link: null,
+    repoLink: null
+  },
+  {
+    title: "Project 2",
+    description: "Coming Soon",
+    image: project1Img,
+    link: null,
+    repoLink: null
   },
   {
     title: "Project 3",
-    description: "In Progress",
+    description: "Coming Soon",
     image: project1Img,
-    link: null
-  },
-  {
-    title: "Project 3",
-    description: "In Progress",
-    image: project1Img,
-    link: null
+    link: null,
+    repoLink: null
   }
 ]
 
 export default function Overlay() {
   const [userEmail, setUserEmail] = useState('')
-  const [theme, setTheme] = useState('dark'); // 👈 Theme State
+  const [theme, setTheme] = useState('dark');
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile Menu State
+
+  // Toggle mobile menu state
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+  
+  // Close menu when navigating (important for mobile UX)
+  const handleNavClick = () => {
+    setIsMenuOpen(false);
+  };
+
 
   // Toggle Logic (For now, just switches icon, complex 3D lighting switch is Level 6)
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-    alert("Theme toggle logic for 3D is coming in the next update!");
+    // Note: The actual global CSS switch and 3D scene lighting switch needs global state management (out of scope for this turn, but planned!)
+    alert("Theme toggle functionality is currently toggling the icon only. Full site theme switch is coming soon!");
   };
 
   const handleContactSubmit = () => {
@@ -55,22 +76,29 @@ export default function Overlay() {
   return (
     <div className="overlay">
       
-      {/* HEADER WITH OVAL BORDER */}
+      {/* HEADER */}
       <header className="header">
         <a href="#" className="logo">Lwazi Mhlongo</a>
         
-        <nav className="nav-links">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+        {/* HAMBURGER ICON (Visible on Mobile) */}
+        <div className="mobile-menu-icon" onClick={toggleMenu}>
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </div>
+        
+        {/* NAVIGATION LINKS (Desktop & Mobile Menu) */}
+        {/* Added dynamic class for mobile menu activation */}
+        <nav className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+          <a href="#about" onClick={handleNavClick}>About</a>
+          <a href="#projects" onClick={handleNavClick}>Projects</a>
+          <a href="#contact" onClick={handleNavClick}>Contact</a>
         </nav>
 
         <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
              <button className="visit-btn" onClick={() => window.open('https://github.com/Lwazi-M', '_blank')}>
               Visit Github
             </button>
-            {/* THEME TOGGLE ICON */}
-            <div onClick={toggleTheme} style={{cursor: 'pointer', color: 'white', fontSize: '1.2rem'}}>
+            {/* THEME TOGGLE ICON (Desktop) */}
+            <div onClick={toggleTheme} className="theme-toggle-desktop" style={{display: 'flex', alignItems: 'center',cursor: 'pointer', color: 'white', fontSize: '1.4rem'}}>
                 {theme === 'dark' ? <FaMoon /> : <FaSun />}
             </div>
         </div>
@@ -78,15 +106,21 @@ export default function Overlay() {
 
       {/* HERO */}
       <section className="hero-section">
+        
+        {/* STATIC IMAGE (Visible only on Mobile via CSS) */}
+        <img src={profileImg} alt="Profile" className="mobile-profile-img" />
+
         <div className="hero-content">
           <h3>Hello, I'm</h3>
           <h1>Nhlanzeko Lwazi Mhlongo</h1>
           <p className="subtitle">
-            Welcome to my portfolio! I am a passionate developer creating innovative solutions.
-            <br /> <span style={{color: '#4a90e2'}}>(Try dragging the lanyard!)</span>
+            Welcome to my portfolio! I am a Junior Software Engineer creating innovative solutions.
+            <br /> 
+            {/* Hide instruction on mobile since 3D is hidden */}
+            <span className="instruction" style={{color: '#4a90e2', display: 'inline-block'}}>(Try dragging the lanyard!)</span>
           </p>
           <div className="btn-group">
-            <button className="btn">Download CV</button>
+            <button className="btn">Resume / CV</button>
             <a href="#contact" className="btn">Contact</a>
           </div>
         </div>
@@ -110,7 +144,7 @@ export default function Overlay() {
             <div className="tech-container">
               <div className="tech-badge"><img src={htmlIcon} alt="HTML"/><span>HTML</span></div>
               <div className="tech-badge"><img src={cssIcon} alt="CSS"/><span>CSS</span></div>
-              <div className="tech-badge"><img src={jsIcon} alt="JS"/><span>JS</span></div>
+              <div className="tech-badge"><img src={jsIcon} alt="JS"/><span>JavaScript</span></div>
               <div className="tech-badge"><img src={gitIcon} alt="Git"/><span>Git</span></div>
               <div className="tech-badge"><img src={pythonIcon} alt="Python"/><span>Python</span></div>
             </div>
@@ -123,12 +157,19 @@ export default function Overlay() {
         <h2 className="section-title">Recent Projects</h2>
         <div className="projects-grid">
           {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
+            <ProjectCard 
+                key={index} 
+                title={project.title} 
+                description={project.description} 
+                image={project.image} 
+                link={project.link}
+                repoLink={project.repoLink}
+            />
           ))}
         </div>
       </section>
 
-      {/* CONTACT - FIXED */}
+      {/* CONTACT */}
       <section id="contact" className="contact-section">
         <h2 className="section-title">Get in Touch</h2>
         <p className="subtitle" style={{textAlign: 'center'}}>
@@ -147,7 +188,7 @@ export default function Overlay() {
             </button>
         </div>
 
-        {/* RESTORED ICONS */}
+        {/* ICONS */}
         <div className="socials">
              <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me" className="social-icon"><FaEnvelope /></a>
              <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener" className="social-icon"><FaLinkedin /></a>
