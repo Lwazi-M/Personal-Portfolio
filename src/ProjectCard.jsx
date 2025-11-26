@@ -1,10 +1,9 @@
 import './App.css'
 
-export default function ProjectCard({ title, description, image, link }) {
+export default function ProjectCard({ title, description, image, link, repoLink }) {
   return (
     <div className="project-card">
       <div className="card-image-container">
-        {/* If we have an image, show it. If not, show a colorful placeholder */}
         {image ? (
           <img src={image} alt={title} className="card-image" />
         ) : (
@@ -15,10 +14,16 @@ export default function ProjectCard({ title, description, image, link }) {
         <h3>{title}</h3>
         <p>{description}</p>
         <div className="card-buttons">
-            {/* Only show the button if a link exists */}
+            {/* Live Demo Button */}
             {link && (
                 <a href={link} target="_blank" rel="noopener noreferrer" className="btn sm-btn">
-                    View Project
+                    Live Demo
+                </a>
+            )}
+            {/* View Repo Button */}
+             {repoLink && (
+                <a href={repoLink} target="_blank" rel="noopener noreferrer" className="btn sm-btn outline-btn">
+                    View Repo
                 </a>
             )}
         </div>
