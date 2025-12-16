@@ -394,7 +394,7 @@ section {
 
 .social-icon:hover { transform: scale(1.2); color: #4a90e2; }
 
-/* ================= MOBILE RESPONSIVENESS ================= */
+/* ================= MOBILE RESPONSIVENESS FIXED ================= */
 
 /* Mobile Menu Icon */
 .mobile-menu-icon {
@@ -419,48 +419,114 @@ section {
   pointer-events: auto;
 }
 
-/* TABLET & MOBILE BREAKPOINT */
-@media (max-width: 768px) {
+
+/* ================= RESPONSIVENESS (TABLET, FOLDABLES, & PHONE) ================= */
+
+/* 1. TABLET / SQUARE-ISH SCREEN / SMALL LAPTOP 
+   Triggers if:
+   1. Width is less than 1200px (Traditional Tablets)
+   OR
+   2. Aspect Ratio is less than 1.5 (Squarish screens, Foldables, portrait tablets)
+*/
+@media (max-width: 1200px), (max-aspect-ratio: 1.5/1) {
   
-  /* 1. HIDE 3D LANYARD & DRAG INSTRUCTION */
+  /* Hide 3D Lanyard & Instruction */
   .lanyard-wrapper {
-    display: none; /* Hide the 3D canvas on mobile */
+    display: none;
   }
   .instruction {
-      display: none !important; /* Hide instruction on small screen */
+      display: none !important;
   }
 
-  /* 2. SHOW STATIC IMAGE */
+  /* Show Static Image (Large for Tablet) */
   .mobile-profile-img {
-    display: block; /* Show static image */
+    display: block;
+    width: 380px; 
+    height: 380px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 2rem;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    pointer-events: auto;
   }
-  
-  /* 3. ADJUST HEADER & HIDE DESKTOP ELEMENTS */
+
+  /* Center the Hero Section (Vertical Layout) */
+  .hero-section {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding-top: 140px; /* Space for header */
+    height: auto;
+    min-height: 100vh; /* Ensure full height */
+  }
+
+  /* Make content full width */
+  .hero-content {
+    width: 100%;
+    padding: 0 2rem;
+    text-align: center;
+    align-items: center;
+  }
+
+  .btn-group {
+    justify-content: center;
+  }
+
+  /* Project Grid: 2 Columns on Tablet */
+  .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+  }
+}
+
+/* 2. PHONE BREAKPOINT (Max-Width: 680px)
+   Specific adjustments for very small screens (Hamburger menu, small fonts) */
+@media (max-width: 680px) {
+
+  /* Scale down the profile image for phone */
+  .mobile-profile-img {
+    width: 320px;
+    height: 320px;
+    border-width: 3px;
+  }
+
+  /* HEADER & NAV (Hamburger Menu Logic) */
   .header {
-    top: 0; /* Full width header */
+    top: 0;
+    left: 0;
     transform: none;
     width: 100%;
-    padding: 1rem 5%;
-    background: rgba(0, 0, 0, 0.9);
+    max-width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(12, 12, 12, 0.95); 
     border-radius: 0;
     border: none;
-  }
-  .theme-toggle-desktop, .visit-btn {
-    display: none !important; /* Hide desktop specific elements */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
   }
 
-  /* 4. HAMBURGER MENU */
+  .theme-toggle-desktop, .visit-btn {
+    display: none !important;
+  }
+
   .mobile-menu-icon {
-    display: block; /* Show hamburger icon */
+    display: block;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    z-index: 100;
+    pointer-events: auto;
   }
   
-  /* Mobile Menu Container */
+  /* Mobile Nav Container */
   .nav-links {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.95);
+    background: #0c0c0c;
     flex-direction: column;
     align-items: center;
     padding: 0;
@@ -469,49 +535,48 @@ section {
     height: 0;
     overflow: hidden;
     opacity: 0;
-    pointer-events: none; /* Cannot click links until visible */
+    pointer-events: none;
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
   
-  /* Mobile Menu Active State */
   .nav-links.active {
-    height: 150px; /* Adjusted height */
+    height: 220px;
     opacity: 1;
     padding: 1rem 0;
-    gap: 1rem;
+    gap: 1.5rem;
     pointer-events: auto;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
   }
   
   .nav-links a {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem 0;
+      display: block;
   }
 
-  /* 5. HERO SECTION LAYOUT */
-  .hero-section {
-    flex-direction: column; /* Stack vertically */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding-top: 100px; /* Space for fixed header */
-    min-height: 80vh;
-  }
-
-  .hero-content {
-    width: 100%;
-    padding: 0 1rem;
-    text-align: center;
-  }
-
+  /* Typography Adjustments */
   .hero-content h1 {
-    font-size: 2.5rem; /* Smaller font for mobile */
-  }
-
-  .btn-group {
-    justify-content: center; /* Center buttons */
+    font-size: 2rem;
+    line-height: 1.2;
   }
   
-  /* Project Grid Layout */
+  .hero-content h3 {
+      font-size: 1.1rem;
+  }
+
+  .subtitle {
+      font-size: 0.9rem;
+  }
+
+  /* Project Grid: 1 Column on Phone */
   .projects-grid {
       grid-template-columns: 1fr;
+      padding: 0 1rem;
+  }
+  
+  .input-box input {
+      width: 90%;
   }
 }
