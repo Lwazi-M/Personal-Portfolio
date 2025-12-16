@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { projects } from './projectData';
+import { projects } from './projects';
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from 'react-icons/fa';
 import { useEffect } from 'react';
 import './App.css';

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'; 
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa'; 
 import './App.css'
-import { projects } from './projectData'; // 👈 We use this data source only!
+import { projects } from './projects'; 
 
 // Images for this component specifically (Icons & Profile)
 import htmlIcon from './assets/html.png'
