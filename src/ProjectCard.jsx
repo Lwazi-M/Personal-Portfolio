@@ -1,6 +1,6 @@
 import './App.css'
 
-export default function ProjectCard({ title, description, image, link, repoLink }) {
+export default function ProjectCard({ title, description, image, onViewMore }) {
   return (
     <div className="project-card">
       <div className="card-image-container">
@@ -12,20 +12,14 @@ export default function ProjectCard({ title, description, image, link, repoLink 
       </div>
       <div className="card-content">
         <h3>{title}</h3>
-        <p>{description}</p>
+        {/* Show a shorter version of description on the card */}
+        <p>{description.substring(0, 80)}...</p>
+        
         <div className="card-buttons">
-            {/* Live Demo Button */}
-            {link && (
-                <a href={link} target="_blank" rel="noopener noreferrer" className="btn sm-btn">
-                    Live Demo
-                </a>
-            )}
-            {/* View Repo Button */}
-             {repoLink && (
-                <a href={repoLink} target="_blank" rel="noopener noreferrer" className="btn sm-btn outline-btn">
-                    View Repo
-                </a>
-            )}
+            {/* Opens the modal */}
+            <button onClick={onViewMore} className="btn sm-btn">
+                View More
+            </button>
         </div>
       </div>
     </div>

@@ -1,54 +1,33 @@
 import { useState } from 'react'
-import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa'; 
+import { Link } from 'react-router-dom'; 
+import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa'; 
 import './App.css'
+import { projects } from './projectData'; // 👈 We use this data source only!
 
-// IMPORTANT: Ensure these files exist in src/assets/
+// Images for this component specifically (Icons & Profile)
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
 import jsIcon from './assets/javascript.png'
 import gitIcon from './assets/git.png'
 import pythonIcon from './assets/python.png'
 import educationIcon from './assets/education.png'
-import project1Img from './assets/37917.jpeg' 
 import profileImg from './assets/Me-Profile.jpeg' 
+import reactIcon from './assets/react.png'
+import tailwindIcon from './assets/tailwind.png'
+import typescriptIcon from './assets/typescript.png'
+import nextjsIcon from './assets/nextjs.png'
 
-// Ensure ProjectCard.jsx exists in the same folder (src/)
+// ProjectCard Component
 import ProjectCard from './ProjectCard'
 
-const projects = [
-  {
-    title: "Project 1",
-    description: "Coming Soon",
-    image: project1Img, 
-    link: null,
-    repoLink: null
-  },
-  {
-    title: "Project 2",
-    description: "Coming Soon",
-    image: project1Img,
-    link: null,
-    repoLink: null
-  },
-  {
-    title: "Project 3",
-    description: "Coming Soon",
-    image: project1Img,
-    link: null,
-    repoLink: null
-  }
-]
-
-export default function Overlay({ theme, toggleTheme }) { 
+export default function Overlay() { 
   const [userEmail, setUserEmail] = useState('')
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile Menu State
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Toggle mobile menu state
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   
-  // Close menu when navigating (important for mobile UX)
   const handleNavClick = () => {
     setIsMenuOpen(false);
   };
@@ -57,11 +36,8 @@ export default function Overlay({ theme, toggleTheme }) {
     if (userEmail) {
         const subject = "Portfolio Contact";
         const body = `Hi Lwazi, I was viewing your portfolio and I would love to connect. From: ${userEmail}`;
-        // Replacing alert() with console log and direct action
-        console.log("Sending email link:", window.location.href = `mailto:nhlamhlongo.work@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
         window.location.href = `mailto:nhlamhlongo.work@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     } else {
-        // Replacing alert() with console log for compliance
         console.log("Error: Please enter your email first.");
     }
   }
@@ -72,45 +48,30 @@ export default function Overlay({ theme, toggleTheme }) {
       {/* HEADER */}
       <header className="header">
         <a href="#" className="logo">Lwazi Mhlongo</a>
-        
-        {/* HAMBURGER ICON (Visible on Mobile) */}
         <div className="mobile-menu-icon" onClick={toggleMenu}>
             {isMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
-        
-        {/* NAVIGATION LINKS (Desktop & Mobile Menu) */}
         <nav className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           <a href="#about" onClick={handleNavClick}>About</a>
           <a href="#projects" onClick={handleNavClick}>Projects</a>
           <a href="#contact" onClick={handleNavClick}>Contact</a>
         </nav>
-
         <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
              <button className="visit-btn" onClick={() => window.open('https://github.com/Lwazi-M', '_blank')}>
               Visit Github
             </button>
-            {/* THEME TOGGLE ICON (Desktop) */}
-            {/* Uses toggleTheme prop from App.jsx */}
-            
-            {/* <div onClick={toggleTheme} className="theme-toggle-desktop" style={{display: 'flex', alignItems: 'center',cursor: 'pointer', color: 'var(--color-text-primary)', fontSize: '1.4rem'}}>
-                {theme === 'dark' ? <FaMoon /> : <FaSun />}
-            </div> */}
         </div>
       </header>
 
       {/* HERO */}
       <section className="hero-section">
-        
-        {/* STATIC IMAGE (Visible only on Mobile via CSS) */}
         <img src={profileImg} alt="Profile" className="mobile-profile-img" />
-
         <div className="hero-content">
           <h3>Hello, I'm</h3>
           <h1>Nhlanzeko Lwazi Mhlongo</h1>
           <p className="subtitle">
             Welcome to my portfolio! I am a Junior Software Engineer creating innovative solutions.
             <br /> 
-            {/* Hide instruction on mobile since 3D is hidden */}
             <span className="instruction" style={{color: '#4a90e2', display: 'inline-block'}}>(Try dragging the lanyard!)</span>
           </p>
           <div className="btn-group">
@@ -141,6 +102,11 @@ export default function Overlay({ theme, toggleTheme }) {
               <div className="tech-badge"><img src={jsIcon} alt="JS"/><span>JavaScript</span></div>
               <div className="tech-badge"><img src={gitIcon} alt="Git"/><span>Git</span></div>
               <div className="tech-badge"><img src={pythonIcon} alt="Python"/><span>Python</span></div>
+              <div className="tech-badge"><img src={reactIcon} alt="React"/><span>React</span></div>
+              <div className="tech-badge"><img src={typescriptIcon} alt="TypeScript"/><span>TypeScript</span></div>
+              <div className="tech-badge"><img src={tailwindIcon} alt="Tailwind"/><span>Tailwind</span></div>
+              <div className="tech-badge"><img src={nextjsIcon} alt="Nextjs"/><span>Next JS</span></div>
+              
             </div>
           </div>
         </div>
@@ -151,14 +117,24 @@ export default function Overlay({ theme, toggleTheme }) {
         <h2 className="section-title">Recent Projects</h2>
         <div className="projects-grid">
           {projects.map((project, index) => (
-            <ProjectCard 
-                key={index} 
-                title={project.title} 
-                description={project.description} 
-                image={project.image} 
-                link={project.link}
-                repoLink={project.repoLink}
-            />
+            <div className="project-card" key={index}>
+                <div className="card-image-container">
+                    {project.image ? (
+                    <img src={project.image} alt={project.title} className="card-image" />
+                    ) : (
+                    <div className="card-placeholder"></div>
+                    )}
+                </div>
+                <div className="card-content">
+                    <h3>{project.title}</h3>
+                    <p>{project.shortDescription}</p>
+                    <div className="card-buttons">
+                        <Link to={`/project/${project.id}`} className="btn sm-btn">
+                            View More
+                        </Link>
+                    </div>
+                </div>
+            </div>
           ))}
         </div>
       </section>
@@ -166,10 +142,6 @@ export default function Overlay({ theme, toggleTheme }) {
       {/* CONTACT */}
       <section id="contact" className="contact-section">
         <h2 className="section-title">Get in Touch</h2>
-        <p className="subtitle" style={{textAlign: 'center'}}>
-            Enter your email below to send me a message!
-        </p>
-
         <div className="input-box">
             <input 
                 type="email" 
@@ -181,8 +153,6 @@ export default function Overlay({ theme, toggleTheme }) {
                 Send Message
             </button>
         </div>
-
-        {/* ICONS */}
         <div className="socials">
              <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me" className="social-icon"><FaEnvelope /></a>
              <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener" className="social-icon"><FaLinkedin /></a>

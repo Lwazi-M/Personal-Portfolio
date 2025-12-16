@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import cardGLB from './assets/card.glb'; 
 import lanyard from './assets/lanyard.png';
 import profileImg from './assets/Me-Profile.jpeg';
-import qrImg from './assets/qrcode.png'; 
+ 
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -44,7 +44,6 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
   const { nodes, materials } = useGLTF(cardGLB);
   const texture = useTexture(lanyard);
   const profileTexture = useTexture(profileImg);
-   const qrTexture = useTexture(qrImg);
   
   // ⬇️ SHIFT EVERYTHING LEFT (X = -1.8 Y = 4.3)
   const xOffset = -1.8; 
@@ -72,6 +71,9 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
   }, [hovered, dragged]);
 
   useFrame((state, delta) => {
+    // ⬇️ PATCH: Cap delta to 0.1s to prevent division-by-zero errors on initialization
+    const dt = Math.min(delta, 0.1);
+
     if (dragged) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
@@ -83,7 +85,8 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
       [j1, j2].forEach((ref) => {
         if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
         const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
-        ref.current.lerped.lerp(ref.current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)));
+        // Use 'dt' instead of 'delta' here
+        ref.current.lerped.lerp(ref.current.translation(), dt * (minSpeed + clampedDistance * (maxSpeed - minSpeed)));
       });
       curve.points[0].copy(j3.current.translation());
       curve.points[1].copy(j2.current.lerped);
@@ -127,41 +130,23 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
                  {/* ⬇️ RENDER TEXTURE START ⬇️ */}
                  <RenderTexture attach="map" anisotropy={16}>
                     <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 5]} />
-                    {/* ⬇️ Changed background to dark grey/black as requested */}
                     <color attach="background" args={['#1a1a1a']} />
                     
-                    {/* ⬇️ SCALED DOWN GROUP (0.9) to fit frame better */}
                     <group scale={[0.9, -0.9, 0.9]} position={[0, 0, 0]}>
                         
-                        {/* Black/Dark Card Background */}
                         <mesh position={[0, 0, -2]}>
                             <planeGeometry args={[10, 10]} />
                             <meshBasicMaterial color="#1a1a1a" />
                         </mesh>
 
-                        {/* Text Colors inverted for dark mode */}
-                        <Text 
-                            fontSize={0.14} 
-                            color="white" 
-                            position={[-1.3, 1.7, 0]} 
-                            anchorX="center" 
-                            anchorY="middle"
-                        >
+                        <Text fontSize={0.14} color="white" position={[-1.3, 1.7, 0]} anchorX="center" anchorY="middle">
                             SOFTWARE ENGINEER
                         </Text>
 
-                        <Text 
-                            fontSize={0.22} 
-                            color="white" 
-                            position={[-1.3, 2, 0]} 
-                            anchorX="center" 
-                            anchorY="middle"
-                            fontWeight="bold"
-                        >
+                        <Text fontSize={0.22} color="white" position={[-1.3, 2, 0]} anchorX="center" anchorY="middle" fontWeight="bold">
                             Lwazi Mhlongo
                         </Text>
 
-                        {/* Image with White Border for contrast on black card */}
                         <mesh position={[-1.51, 0.24, -0.9]}>
                             <planeGeometry args={[1.89, 2.71]} />
                             <meshBasicMaterial color="white" />

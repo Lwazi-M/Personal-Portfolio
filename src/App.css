@@ -223,7 +223,7 @@ section {
 
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
   gap: 2rem;
 }
 
@@ -242,6 +242,7 @@ section {
   border-radius: var(--card-outer-radius); /* Updated radius */
   border: 1px solid rgba(255,255,255,0.1);
   text-align: center;
+
 }
 
 /* TECH STACK */
@@ -419,6 +420,178 @@ section {
   pointer-events: auto;
 }
 
+/* ================= PROJECT PAGE STYLES (NEW) ================= */
+.project-page-container {
+    padding-top: 100px; /* Space for fixed header */
+    min-height: 100vh;
+    background: #0c0c0c;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the main column */
+}
+
+.project-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 2.5%; 
+    background: rgba(12, 12, 12, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: flex-start; /* 👈 MOVES BUTTON TO THE LEFT */
+}
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.back-link:hover { color: #4a90e2; }
+
+.project-content {
+    width: 80%;
+    max-width: auto; 
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children (Hero) */
+}
+
+/* HERO SECTION (Centered) */
+.project-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 👈 Center Horizontal */
+    text-align: center;  /* 👈 Center Text */
+    width: 100%;
+}
+
+.project-title {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.project-hero-image {
+    width: 100%;
+    height: auto;
+    max-height: 65vh;
+    object-fit: contain;
+    background: #050505;
+    border-radius: 20px;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.project-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    justify-content: center; /* 👈 Center Buttons */
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    margin: 3rem 0;
+}
+
+/* DETAILS SECTION (Split View) */
+.project-details {
+    width: 100%;
+    display: grid;
+    /* Keep the layout: Overview gets 65%, Tech gets 35% */
+    grid-template-columns: 1.8fr 1fr;
+    gap: 6rem;
+    text-align: left; /* Keep text left-aligned */
+    align-items: start;
+}
+
+.project-details h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #4a90e2;
+    border-bottom: 2px solid #4a90e2;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.project-details p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+}
+
+/* TECH STACK GRID */
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.5rem;
+}
+
+.tech-badge-small {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.tech-badge-small:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+    border-color: #4a90e2;
+}
+
+.tech-badge-small img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.tech-badge-small span {
+    font-size: 0.9rem;
+    color: #eee;
+}
+
+/* MOBILE FIXES */
+@media (max-width: 900px) {
+    .project-details {
+        grid-template-columns: 1fr; /* Stack vertically on tablet/mobile */
+        gap: 2rem;
+    }
+    
+    .tech-stack-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .project-title { font-size: 2.5rem; }
+    .project-links { flex-direction: column; width: 100%; }
+    .project-links .btn { width: 100%; }
+}
 
 /* ================= RESPONSIVENESS (TABLET, FOLDABLES, & PHONE) ================= */
 
@@ -484,6 +657,11 @@ section {
 /* 2. PHONE BREAKPOINT (Max-Width: 680px)
    Specific adjustments for very small screens (Hamburger menu, small fonts) */
 @media (max-width: 680px) {
+
+  /* Mobile Adjustments for Project Page */
+  .project-links { flex-direction: column; }
+  .project-content h1 { font-size: 2.2rem; }
+  .back-link { margin-left: 1rem; }
 
   /* Scale down the profile image for phone */
   .mobile-profile-img {
