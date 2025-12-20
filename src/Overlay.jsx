@@ -22,13 +22,19 @@ import ProjectCard from './ProjectCard'
 
 export default function Overlay() { 
   const [userEmail, setUserEmail] = useState('')
+  const [userMessage, setUserMessage] = useState('') 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  // Handle scrolling to #projects when returning from detail page
+  // Form States
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // Your Formspree Endpoint
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xdaneony"; 
+
   const location = useLocation();
 
   useEffect(() => {
-    // If the URL has #projects, scroll to that section
     if (location.hash === '#projects') {
       const element = document.getElementById('projects');
       if (element) {
@@ -41,16 +47,14 @@ export default function Overlay() {
     setIsMenuOpen(!isMenuOpen);
   };
   
-  // 👇 NEW: Smooth Scroll Function
   const scrollToSection = (id) => {
-    setIsMenuOpen(false); // Close mobile menu first
+    setIsMenuOpen(false); 
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // 👇 NEW: Scroll to Top Function (for Logo)
   const scrollToTop = () => {
     setIsMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -60,22 +64,55 @@ export default function Overlay() {
     setIsMenuOpen(false);
   };
 
-  const handleContactSubmit = () => {
-    if (userEmail) {
-        const subject = "Portfolio Contact";
-        const body = `Hi Lwazi, I was viewing your portfolio and I would love to connect. From: ${userEmail}`;
-        window.location.href = `mailto:nhlamhlongo.work@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    } else {
-        console.log("Error: Please enter your email first.");
+  const handleContactSubmit = async (e) => {
+    e.preventDefault(); 
+
+    if (!userEmail || !userMessage) {
+        alert("Please fill in both your email and a message.");
+        return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: userEmail, message: userMessage })
+        });
+
+        if (response.ok) {
+            setIsSubmitting(false); // Stop loading animation
+            setIsSuccess(true);     // Trigger success animation
+            setUserEmail('');
+            setUserMessage('');
+            
+            // Reset button to normal after 3 seconds
+            setTimeout(() => {
+                setIsSuccess(false);
+            }, 3000);
+        } else {
+            setIsSubmitting(false);
+            alert("Oops! There was a problem sending your form. Please try again.");
+        }
+    } catch (error) {
+        setIsSubmitting(false);
+        alert("Oops! There was a network error. Please try again later.");
     }
   }
+
+  // Helper to determine button class based on state
+  const getButtonClass = () => {
+    if (isSubmitting) return 'loading';
+    if (isSuccess) return 'success';
+    return '';
+  };
 
   return (
     <div className="overlay">
       
       {/* HEADER */}
       <header className="header">
-        {/* Logo now scrolls to top smoothly */}
         <a href="#" className="logo" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>
             Lwazi Mhlongo
         </a>
@@ -84,7 +121,6 @@ export default function Overlay() {
             {isMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
-        {/* Nav links use smooth scroll handler */}
         <nav className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>About</a>
           <a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>Projects</a>
@@ -110,15 +146,12 @@ export default function Overlay() {
             <span className="instruction" style={{color: '#4a90e2', display: 'inline-block'}}>(Try dragging the lanyard!)</span>
           </p>
           <div className="btn-group">
-            {/* 👇 UPDATED: Added temporary alert for Resume button */}
             <button 
                 className="btn" 
                 onClick={() => alert("My Resume is currently being updated. Please check back soon!")}
             >
                 Resume / CV
             </button>
-            
-            {/* Contact button now scrolls smoothly */}
             <button className="btn" onClick={() => scrollToSection('contact')}>Contact</button>
           </div>
         </div>
@@ -172,13 +205,11 @@ export default function Overlay() {
                     <p>{project.shortDescription}</p>
                     
                     <div className="card-buttons">
-                        {/* Only show button if there is a Repo or Live Link */}
                         {(project.link || project.repoLink) ? (
                             <Link to={`/project/${project.id}`} className="btn sm-btn">
                                 View More
                             </Link>
                         ) : (
-                            /* Optional: Render a disabled button */
                             <button className="btn sm-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed', borderColor: '#555', color: '#555'}}>
                                 Coming Soon
                             </button>
@@ -193,17 +224,68 @@ export default function Overlay() {
       {/* CONTACT */}
       <section id="contact" className="contact-section">
         <h2 className="section-title">Get in Touch</h2>
-        <div className="input-box">
+        
+        <form className="input-box" onSubmit={handleContactSubmit}>
             <input 
                 type="email" 
-                placeholder="example@domain.com" 
+                placeholder="Your Email" 
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
+                required
             />
-            <button className="btn submit-btn" onClick={handleContactSubmit}>
-                Send Message
+            
+            <textarea 
+                className="message-box"
+                placeholder="Your Message..."
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
+                required
+            />
+
+            {/* 👇 UPDATED: Animated SVG Button */}
+            <button 
+                type="submit" 
+                className={`kk-submit-container ${getButtonClass()}`}
+                disabled={isSubmitting || isSuccess}
+            >
+                <svg width="196" height="70" viewBox="0 0 196 70">
+                    {/* The Background Rect (Morphs to circle) */}
+                    <rect 
+                        className="btn-shape btn-bg"
+                        x="3" y="3" 
+                        width="190" height="64"
+                        rx="32" ry="32"
+                    />
+                    
+                    {/* The Loading Spinner (Hidden normally) */}
+                    <rect 
+                        className="btn-shape btn-color"
+                        x="3" y="3" 
+                        width="190" height="64"
+                        rx="32" ry="32" 
+                    />
+                    
+                    {/* The Success Checkmark */}
+                    <text 
+                        className="kk-check" 
+                        x="96" y="42" 
+                        textAnchor="middle"
+                    >
+                        ✔
+                    </text>
+                    
+                    {/* The Normal Text */}
+                    <text 
+                        className="kk-text" 
+                        x="96" y="42" 
+                        textAnchor="middle"
+                    >
+                        Send Message
+                    </text>
+                </svg>
             </button>
-        </div>
+        </form>
+
         <div className="socials">
              <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me" className="social-icon"><FaEnvelope /></a>
              <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener" className="social-icon"><FaLinkedin /></a>

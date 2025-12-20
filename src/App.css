@@ -345,11 +345,12 @@ section {
   pointer-events: auto; /* CRITICAL: Enables clicking */
 }
 
+/* UPDATED INPUT BOX CONTAINER */
 .input-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;      /* Decreased gap slightly for tighter layout */
   margin-top: 2rem;
   width: 100%;
 }
@@ -368,6 +369,38 @@ section {
 }
 
 .input-box input:focus { border-color: #4a90e2; }
+
+/* NEW: MESSAGE TEXTAREA STYLING */
+.message-box {
+  width: 100%;
+  max-width: 500px;
+  height: 120px;
+  padding: 1rem 2rem;
+  border-radius: 1.5rem; /* Slightly less round for a box */
+  border: 2px solid #333;
+  background: #111;
+  color: white;
+  font-family: 'Poppins', sans-serif; /* Ensure font matches */
+  font-size: 1rem;
+  outline: none;
+  resize: none; /* Prevents resizing breaking the layout */
+  pointer-events: auto;
+}
+
+.message-box:focus {
+  border-color: #4a90e2;
+}
+
+/* NEW: SUCCESS MESSAGE STYLING */
+.success-message {
+    color: #4bb543;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 .submit-btn {
   padding: 1rem 3rem;
@@ -480,6 +513,7 @@ section {
     margin-bottom: 2rem;
     background: linear-gradient(to right, #fff, #aaa);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -781,4 +815,115 @@ section {
 /* We add this class via JavaScript when the user clicks 'Back' */
 .project-page-container.slide-out {
   animation: slideDownFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ================= ANIMATED SUBMIT BUTTON (Wobble Fixed) ================= */
+
+.kk-submit-container {
+  position: relative;
+  width: 196px;
+  height: 70px;
+  margin-top: 1rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+.kk-submit-container:disabled {
+  cursor: default;
+}
+
+/* Text Styles - Black initially */
+.kk-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  fill: #000000; /* Black Text */
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.kk-check {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  fill: #ffffff; /* White Checkmark */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Button Background Shape - White with Black Border */
+.btn-bg {
+  fill: #ffffff; /* White BG */
+  stroke: #000000; /* Black Border */
+  stroke-width: 3;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* The Loading Spinner (Hidden by default) - Grey/Black */
+.btn-color {
+  fill: transparent;
+  stroke: #000000; /* Black Spinner */
+  stroke-width: 3;
+  stroke-dasharray: 453;
+  stroke-dashoffset: 453; /* Hidden initially */
+  opacity: 0;
+  transition: all 0.5s ease;
+  transform-origin: center;
+  transform-box: fill-box; /* 👈 CRITICAL FIX FOR WOBBLE */
+}
+
+/* === LOADING STATE (Shrink to Circle) === */
+.kk-submit-container.loading .btn-bg {
+  width: 64px; /* Shrink width */
+  x: 66px;     /* Move to center (196 - 64) / 2 */
+  stroke: #cccccc; /* Light Grey border while loading */
+}
+
+.kk-submit-container.loading .kk-text {
+  opacity: 0; /* Hide text */
+}
+
+.kk-submit-container.loading .btn-color {
+  opacity: 1;
+  width: 64px;
+  x: 66px;
+  /* Animate the stroke */
+  animation: dash 1.5s linear infinite 0.4s; /* 0.4s delay waits for shrink */
+}
+
+/* === SUCCESS STATE (Expand & Green) === */
+.kk-submit-container.success .btn-bg {
+  fill: #4bb543; /* Green Success */
+  stroke: #4bb543;
+  width: 190px;
+  x: 3px;
+}
+
+.kk-submit-container.success .kk-text {
+  opacity: 0;
+}
+
+.kk-submit-container.success .kk-check {
+  opacity: 1; /* Show Checkmark */
+}
+
+/* Spinner Animation */
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 453;
+    transform: rotate(0deg);
+  }
+  50% {
+    stroke-dashoffset: 226;
+    transform: rotate(180deg);
+  }
+  100% {
+    stroke-dashoffset: 453;
+    transform: rotate(360deg);
+  }
 }
