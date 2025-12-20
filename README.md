@@ -66,7 +66,7 @@ I replaced the unreliable mailto: link with a fully styled form connected to the
 
 **Feedback Loop:** The UI updates through three distinct states: Idle -> Submitting -> Success.
 
-###**4. The "KK Edition" Interactive Button**
+### **4. The "KK Edition" Interactive Button**
 
 The submit button uses SVG geometry morphing to provide visual feedback, implemented purely in CSS/React (no heavy GSAP libraries).
 
