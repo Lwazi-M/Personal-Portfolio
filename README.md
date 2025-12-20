@@ -97,7 +97,6 @@ src/
 ```
 
 ### **💬 The Technical Interview Story**
-(Use this section to explain the project to recruiters)
 
 "I originally built this portfolio with static HTML and CSS, but I hit a wall with scalability—adding a new project meant manually updating code in five different files.
 
