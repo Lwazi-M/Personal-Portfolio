@@ -2,7 +2,7 @@
 
 A high-performance, immersive portfolio built with **React**, **Three.js (Fiber)**, and **Tailwind CSS**.
 
-This project represents a complete architectural overhaul from a static HTML website to a scalable Single Page Application (SPA). [cite_start]It features physics-based 3D interactions, cinema-quality page transitions, and a serverless contact engine[cite: 1, 99].
+This project represents a complete architectural overhaul from a static HTML website to a scalable Single Page Application (SPA). It features physics-based 3D interactions, cinema-quality page transitions, and a serverless contact engine.
 
 ---
 
@@ -10,43 +10,43 @@ This project represents a complete architectural overhaul from a static HTML web
 
 ### The "Before" State (The Monolith)
 Originally, this portfolio was built using vanilla HTML, CSS, and JavaScript. While functional, it suffered from scalability issues common in static sites:
-* **Monolithic Files:** `index.html` was 500+ lines long. [cite_start]Adding a project meant copy-pasting 30 lines of HTML code manually[cite: 27, 28].
-* [cite_start]**Global CSS Chaos:** Styles were global, leading to naming conflicts where changing a `.card` class would break layouts in unrelated sections[cite: 46, 48].
-* [cite_start]**Imperative DOM Manipulation:** JavaScript had to manually query selectors (`document.querySelector`) to handle basic interactions like mobile menus[cite: 51, 54].
+* **Monolithic Files:** `index.html` was 500+ lines long. Adding a project meant copy-pasting 30 lines of HTML code manually.
+* **Global CSS Chaos:** Styles were global, leading to naming conflicts where changing a `.card` class would break layouts in unrelated sections.
+* **Imperative DOM Manipulation:** JavaScript had to manually query selectors (`document.querySelector`) to handle basic interactions like mobile menus.
 
 ### The "After" State (React Architecture)
-I re-engineered the site as a data-driven React application. [cite_start]This shift solved the maintenance nightmare and improved User Experience (UX) significantly[cite: 98, 103].
+I re-engineered the site as a data-driven React application. This shift solved the maintenance nightmare and improved User Experience (UX) significantly.
 
 ### 🆚 Architecture Comparison
 
 | Feature | Old Version (HTML/CSS) | New Version (React Architecture) | Engineering Value |
 | :--- | :--- | :--- | :--- |
-| **Data Management** | Hardcoded HTML blocks. Copy-paste to add projects. | **Data-Driven (`projects.js`)**. Single source of truth. | **Scalability:** Add a new project by adding one JSON object. [cite_start]The UI renders automatically[cite: 607, 620]. |
-| **State** | Manual DOM manipulation. | **Declarative State (`useState`)**. | **Reliability:** React guarantees UI sync with state. [cite_start]No "desynchronized" interface bugs[cite: 607]. |
-| **Routing** | Multiple `.html` files with repeated navbars. | **Client-Side Routing (`react-router-dom`)**. | **Performance:** True SPA. No full page reloads. [cite_start]Instant transitions[cite: 607, 198]. |
-| **UX & Motion** | Basic CSS `:hover`. Jarring page jumps. | **Lifecycle Animations**. | [cite_start]**Polish:** Components animate *out* (slide down) before unmounting, impossible with static CSS[cite: 607, 286]. |
-| **Contact** | `mailto:` link (relied on user's email client). | **Integrated Form (Formspree)**. | [cite_start]**Lead Gen:** Serverless backend handles emails directly in-app[cite: 607, 335]. |
+| **Data Management** | Hardcoded HTML blocks. Copy-paste to add projects. | **Data-Driven (`projects.js`)**. Single source of truth. | **Scalability:** Add a new project by adding one JSON object. The UI renders automatically. |
+| **State** | Manual DOM manipulation. | **Declarative State (`useState`)**. | **Reliability:** React guarantees UI sync with state. No "desynchronized" interface bugs. |
+| **Routing** | Multiple `.html` files with repeated navbars. | **Client-Side Routing (`react-router-dom`)**. | **Performance:** True SPA. No full page reloads. Instant transitions. |
+| **UX & Motion** | Basic CSS `:hover`. Jarring page jumps. | **Lifecycle Animations**. | **Polish:** Components animate *out* (slide down) before unmounting, impossible with static CSS. |
+| **Contact** | `mailto:` link (relied on user's email client). | **Integrated Form (Formspree)**. | **Lead Gen:** Serverless backend handles emails directly in-app. |
 
 ---
 
 ## 🛠️ Technical Implementation Details
 
 ### 1. The "Overlay" Strategy (3D vs. UI Separation)
-[cite_start]To ensure 60fps performance, I separated the 3D physics engine from the DOM interface[cite: 125, 136].
+To ensure 60fps performance, I separated the 3D physics engine from the DOM interface.
 
 * **Background Layer (`z-index: 0`):** Runs the heavy `react-three-fiber` physics simulation (Lanyard).
-* [cite_start]**Foreground Layer (`z-index: 10`):** A lightweight `Overlay.jsx` component that handles all user interactions (scrolling, clicking, forms)[cite: 131, 132].
+* **Foreground Layer (`z-index: 10`):** A lightweight `Overlay.jsx` component that handles all user interactions (scrolling, clicking, forms).
 
-[cite_start]**Benefit:** Complex UI interactions never block the WebGL render loop[cite: 136].
+**Benefit:** Complex UI interactions never block the WebGL render loop.
 
 ### 2. The Animation Engine (Exit Transitions)
-React Router unmounts components instantly, making "exit" animations difficult. [cite_start]I engineered a delay system to solve this[cite: 286, 287].
+React Router unmounts components instantly, making "exit" animations difficult. I engineered a delay system to solve this.
 
 **The Logic:**
 1.  User clicks "Back".
 2.  State changes: `setIsExiting(true)`.
 3.  CSS Animation `slideDownFade` plays (0.5s).
-4.  [cite_start]`setTimeout` waits 500ms, *then* triggers `Maps('/')`[cite: 290, 296].
+4.  `setTimeout` waits 500ms, *then* triggers `Maps('/')`.
 
 ```css
 /* The Exit Animation */
@@ -105,7 +105,7 @@ I re-architected it as a React Single Page Application. I moved all data into a 
 
 I also optimized the performance by separating the 3D WebGL layer from the UI layer, ensuring that the physics simulation doesn't cause input lag on the contact form."
 
-Setup & Installation
+* **Setup & Installation**
 1. Clone the repository
 Terminal:
 ```git clone [https://github.com/yourusername/portfolio.git](https://github.com/yourusername/portfolio.git)```
