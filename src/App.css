@@ -458,8 +458,8 @@ section {
 .back-link:hover { color: #4a90e2; }
 
 .project-content {
-    width: 80%;
-    max-width: auto; 
+    width: 95%; /* UPDATED: Changed from 80% to 95% to fill screen */
+    max-width: 1600px; /* UPDATED: Increased max-width */
     padding-bottom: 3rem;
     display: flex;
     flex-direction: column;
@@ -757,4 +757,28 @@ section {
   .input-box input {
       width: 90%;
   }
+}
+
+/* ================= PAGE ANIMATIONS ================= */
+
+/* 1. ENTRY: Slide Up (Existing) */
+@keyframes slideUpFade {
+  0% { transform: translateY(100vh); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.project-page-container {
+  /* Runs when page loads */
+  animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2. EXIT: Slide Down (New) */
+@keyframes slideDownFade {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; } /* Slide way down */
+}
+
+/* We add this class via JavaScript when the user clicks 'Back' */
+.project-page-container.slide-out {
+  animation: slideDownFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

@@ -1,33 +1,49 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // 👈 Import useNavigate
 import { projects } from './projects';
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from 'react-icons/fa';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react'; // 👈 Import useState
 import './App.css';
 
 export default function ProjectPage() {
   const { id } = useParams();
   const project = projects.find((p) => p.id === id);
+  const navigate = useNavigate(); // 👈 Hook for manual navigation
+  const [isExiting, setIsExiting] = useState(false); // 👈 State to track animation
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // 👇 Handles the "Slide Down then Navigate" logic
+  const handleBackClick = (e) => {
+    e.preventDefault(); // Stop instant navigation
+    setIsExiting(true); // Trigger the CSS animation
+    
+    // Wait 500ms (matches CSS animation time) then go back
+    setTimeout(() => {
+        navigate('/#projects');
+    }, 500);
+  };
 
   if (!project) {
     return <div className="project-page-container"><h1>Project not found</h1></div>;
   }
 
   return (
-    <div className="project-page-container">
+    // 👇 Add the 'slide-out' class if isExiting is true
+    <div className={`project-page-container ${isExiting ? 'slide-out' : ''}`}>
+      
       {/* Navbar */}
       <nav className="project-nav">
-        <Link to="/" className="back-link">
+        {/* 👇 Changed Link to <a> with onClick handler */}
+        <a href="/#projects" onClick={handleBackClick} className="back-link" style={{cursor: 'pointer'}}>
             <FaArrowLeft /> Back to Portfolio
-        </Link>
+        </a>
       </nav>
 
       <div className="project-content">
         
-        {/* Hero Section (Centered) */}
+        {/* Hero Section */}
         <div className="project-hero">
             <h1 className="project-title">{project.title}</h1>
             
@@ -63,7 +79,6 @@ export default function ProjectPage() {
             {project.techStack.length > 0 && (
                 <div className="details-tech">
                     <h3>Technologies Used</h3>
-                    {/* 👇 Rendering the Badges */}
                     <div className="tech-stack-grid">
                         {project.techStack.map((tech, index) => (
                             <div key={index} className="tech-badge-small">

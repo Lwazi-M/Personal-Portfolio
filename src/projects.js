@@ -1,17 +1,17 @@
 // Import Project Images
-import project1Img from './assets/37917.jpeg' 
-import studyConnectLogo from './assets/studyconnect.png'
-import studyConnectScreen from './assets/studyconnectapp.png'
+import project1Img from './assets/37917.webp' 
+import studyConnectLogo from './assets/studyconnect.webp'
+import studyConnectScreen from './assets/studyconnectapp.webp'
 
 // Import Icons 
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
-import jsIcon from './assets/javascript.png'
+import jsIcon from './assets/javascript.webp'
 import gitIcon from './assets/git.png'
-import reactIcon from './assets/react.png'
-import tailwindIcon from './assets/tailwind.png'
+import reactIcon from './assets/react.webp'
+import tailwindIcon from './assets/tailwind.webp'
 import typescriptIcon from './assets/typescript.png'
-import nextjsIcon from './assets/nextjs.png'
+import nextjsIcon from './assets/nextjs.webp'
 
 export const projects = [
   {
@@ -51,10 +51,9 @@ export const projects = [
     repoLink: "https://github.com/Lwazi-M/studyconnect-2.0",
     
     techStack: [
-      { name: "Next.js", icon: nextjsIcon },
-      { name: "React", icon: reactIcon },
       { name: "TypeScript", icon: typescriptIcon },
-      { name: "Tailwind", icon: tailwindIcon },
+      { name: "CSS", icon: cssIcon },
+      { name: "Javascript", icon: jsIcon },
       { name: "Git", icon: gitIcon }
     ]
   },

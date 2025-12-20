@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'; 
+import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'; 
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa'; 
 import './App.css'
 import { projects } from './projects'; 
@@ -7,15 +7,15 @@ import { projects } from './projects';
 // Images for this component specifically (Icons & Profile)
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
-import jsIcon from './assets/javascript.png'
+import jsIcon from './assets/javascript.webp'
 import gitIcon from './assets/git.png'
-import pythonIcon from './assets/python.png'
+import pythonIcon from './assets/python.webp'
 import educationIcon from './assets/education.png'
 import profileImg from './assets/Me-Profile.jpeg' 
-import reactIcon from './assets/react.png'
-import tailwindIcon from './assets/tailwind.png'
+import reactIcon from './assets/react.webp'
+import tailwindIcon from './assets/tailwind.webp'
 import typescriptIcon from './assets/typescript.png'
-import nextjsIcon from './assets/nextjs.png'
+import nextjsIcon from './assets/nextjs.webp'
 
 // ProjectCard Component
 import ProjectCard from './ProjectCard'
@@ -23,9 +23,37 @@ import ProjectCard from './ProjectCard'
 export default function Overlay() { 
   const [userEmail, setUserEmail] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // Handle scrolling to #projects when returning from detail page
+  const location = useLocation();
+
+  useEffect(() => {
+    // If the URL has #projects, scroll to that section
+    if (location.hash === '#projects') {
+      const element = document.getElementById('projects');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  
+  // 👇 NEW: Smooth Scroll Function
+  const scrollToSection = (id) => {
+    setIsMenuOpen(false); // Close mobile menu first
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // 👇 NEW: Scroll to Top Function (for Logo)
+  const scrollToTop = () => {
+    setIsMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
   const handleNavClick = () => {
@@ -47,15 +75,22 @@ export default function Overlay() {
       
       {/* HEADER */}
       <header className="header">
-        <a href="#" className="logo">Lwazi Mhlongo</a>
+        {/* Logo now scrolls to top smoothly */}
+        <a href="#" className="logo" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>
+            Lwazi Mhlongo
+        </a>
+
         <div className="mobile-menu-icon" onClick={toggleMenu}>
             {isMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
+
+        {/* Nav links use smooth scroll handler */}
         <nav className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-          <a href="#about" onClick={handleNavClick}>About</a>
-          <a href="#projects" onClick={handleNavClick}>Projects</a>
-          <a href="#contact" onClick={handleNavClick}>Contact</a>
+          <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>About</a>
+          <a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>Projects</a>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a>
         </nav>
+
         <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
              <button className="visit-btn" onClick={() => window.open('https://github.com/Lwazi-M', '_blank')}>
               Visit Github
@@ -75,8 +110,16 @@ export default function Overlay() {
             <span className="instruction" style={{color: '#4a90e2', display: 'inline-block'}}>(Try dragging the lanyard!)</span>
           </p>
           <div className="btn-group">
-            <button className="btn">Resume / CV</button>
-            <a href="#contact" className="btn">Contact</a>
+            {/* 👇 UPDATED: Added temporary alert for Resume button */}
+            <button 
+                className="btn" 
+                onClick={() => alert("My Resume is currently being updated. Please check back soon!")}
+            >
+                Resume / CV
+            </button>
+            
+            {/* Contact button now scrolls smoothly */}
+            <button className="btn" onClick={() => scrollToSection('contact')}>Contact</button>
           </div>
         </div>
       </section>
@@ -106,7 +149,6 @@ export default function Overlay() {
               <div className="tech-badge"><img src={typescriptIcon} alt="TypeScript"/><span>TypeScript</span></div>
               <div className="tech-badge"><img src={tailwindIcon} alt="Tailwind"/><span>Tailwind</span></div>
               <div className="tech-badge"><img src={nextjsIcon} alt="Nextjs"/><span>Next JS</span></div>
-              
             </div>
           </div>
         </div>
@@ -128,10 +170,19 @@ export default function Overlay() {
                 <div className="card-content">
                     <h3>{project.title}</h3>
                     <p>{project.shortDescription}</p>
+                    
                     <div className="card-buttons">
-                        <Link to={`/project/${project.id}`} className="btn sm-btn">
-                            View More
-                        </Link>
+                        {/* Only show button if there is a Repo or Live Link */}
+                        {(project.link || project.repoLink) ? (
+                            <Link to={`/project/${project.id}`} className="btn sm-btn">
+                                View More
+                            </Link>
+                        ) : (
+                            /* Optional: Render a disabled button */
+                            <button className="btn sm-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed', borderColor: '#555', color: '#555'}}>
+                                Coming Soon
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
