@@ -45,8 +45,8 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
   const texture = useTexture(lanyard);
   const profileTexture = useTexture(profileImg);
   
-  // ⬇️ SHIFT EVERYTHING LEFT (X = -1.8 Y = 4.3)
-  const xOffset = -1.8; 
+  // ⬇️ SHIFT EVERYTHING LEFT (X = -1.5 Y = 4.3)
+  const xOffset = -1.52; 
   const yOffset = 4.3;  
 
   const [curve] = useState(() => new THREE.CatmullRomCurve3([
