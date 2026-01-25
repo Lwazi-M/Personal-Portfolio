@@ -1,16 +1,30 @@
+/* Imports the 'Poppins' font from Google Fonts. 
+   We request weights 300 (Light), 400 (Regular), 500 (Medium), and 600 (Semi-Bold). 
+*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 /* ================= GLOBAL RESET ================= */
+/* :root defines CSS variables (custom properties) that can be reused throughout the file.
+   If you change a color here, it updates everywhere it's used.
+*/
 :root {
-  --nav-gray: #3f3f3f;
-  --nav-black: #0f0f0f;
-  --nav-white: #ffffff;
-  /* Card Math Variables */
+  --nav-gray: #3f3f3f;   /* Dark gray used for borders and backgrounds */
+  --nav-black: #0f0f0f;  /* Very dark gray, almost black */
+  --nav-white: #ffffff;  /* Pure white */
+  
+  /* These variables handle the math for nested border radiuses.
+     If you have a card with rounded corners, the inner content needs a slightly 
+     smaller radius to look perfect. This calculation does that automatically.
+  */
   --card-outer-radius: 15px;
   --card-padding: 10px;
   --card-inner-radius: calc(var(--card-outer-radius) - var(--card-padding));
 }
 
+/* The universal selector (*) targets ALL elements on the page.
+   We remove default margins and paddings so we have full control over layout.
+   border-box ensures padding doesn't increase the width of an element.
+*/
 * {
   margin: 0;
   padding: 0;
@@ -18,14 +32,19 @@
 }
 
 body {
-  background: #0c0c0c;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  overflow-x: hidden;
-  interpolate-size: allow-keywords; 
+  background: #0c0c0c; /* Sets the main background color of the page */
+  font-family: 'Poppins', sans-serif; /* Sets the default font */
+  color: white; /* Sets the default text color to white */
+  overflow-x: hidden; /* Prevents horizontal scrolling if content is too wide */
+  interpolate-size: allow-keywords; /* Enables smooth transitions for keywords like 'auto' */
 }
 
 /* ================= 3D BACKGROUND (Restored) ================= */
+/* This wrapper holds your 3D Lanyard scene.
+   position: absolute + top: 0 + left: 0 makes it cover the whole screen.
+   z-index: 0 puts it behind your text content.
+   pointer-events: all ensures you can still click and drag the 3D model.
+*/
 .lanyard-wrapper {
   position: absolute;
   top: 0;
@@ -37,6 +56,10 @@ body {
 }
 
 /* ================= CONTENT LAYER (Restored) ================= */
+/* The overlay sits on top of the 3D background but below the text.
+   pointer-events: none ensures clicks pass THROUGH this layer so you can 
+   grab the 3D model behind it.
+*/
 .overlay {
   position: absolute;
   top: 0;
@@ -47,6 +70,10 @@ body {
 }
 
 /* ================= HEADER CONTAINER ================= */
+/* The header is fixed to the top of the screen so it follows you as you scroll.
+   transform: translateX(-50%) centers it horizontally perfectly.
+   display: flex lays out the Logo and Menu side-by-side.
+*/
 .header {
   position: fixed;
   top: 1rem;
@@ -57,11 +84,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1000;
-  pointer-events: auto;
+  z-index: 1000; /* Ensures it stays on top of everything */
+  pointer-events: auto; /* Re-enables clicking since the parent overlay disabled it */
 }
 
 /* ================= LOGO (With Active White Glow) ================= */
+/* Styles for your name/logo in the top left.
+   border-radius: 500px creates a pill shape.
+   isolation: isolate creates a new stacking context so the ::before pseudo-element
+   (the background bubble) stays behind the text properly.
+*/
 .logo {
   position: relative;
   color: white;
@@ -73,7 +105,7 @@ body {
   padding: 10px 20px; 
   border-radius: 500px;
   
-  transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out; /* Smooths out hover effects */
   text-shadow: 0 0 10px rgba(0,0,0,0.5);
   
   /* Stacking context */
@@ -81,35 +113,40 @@ body {
   z-index: 10;
 }
 
-/* Logo Bubble Background */
+/* The ::before pseudo-element acts as the background bubble for the logo.
+   It scales up from 0.9 to 1 when hovered.
+*/
 .logo::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 0; /* Stretches to fill the parent .logo */
   border-radius: 500px;
   
   /* Default: Dark Hover Style */
   background: linear-gradient(180deg, var(--nav-gray), #212121);
   box-shadow: inset 0 2px 7px rgba(255,255,255,0.1);
   
-  z-index: -1; 
-  opacity: 0;
+  z-index: -1; /* Puts it behind the text */
+  opacity: 0; /* Invisible by default */
   transform: scale(0.9); 
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Logo Hover State */
+/* Logo Hover State: Makes the bubble visible and scales it up */
 .logo:hover::before {
   opacity: 1;
   transform: scale(1);
 }
 
+/* Adds a glow effect to the text on hover */
 .logo:hover {
   transform: scale(1.02);
   text-shadow: 0 0 15px rgba(74, 144, 226, 0.8);
 }
 
-/* Logo Active State (Triggered by ScrollSpy 'home') */
+/* Logo Active State: When you are at the top of the page (Home),
+   this makes the logo background white and text black.
+*/
 .logo.active::before {
   opacity: 1;
   transform: scale(1);
@@ -124,6 +161,9 @@ body {
 
 /* ================= NEW NAVBAR (JS POSITIONED BUBBLES) ================= */
 
+/* The container for your navigation menu.
+   It creates the "Island" look with the border and background gradient.
+*/
 .nav-wrap {
   position: relative;
   width: fit-content;
@@ -136,7 +176,9 @@ body {
   isolation: isolate; 
 }
 
-/* Outer Glow Border Effect */
+/* Outer Glow Border Effect: Adds a subtle gradient border around the nav
+   using a negative inset.
+*/
 .nav-wrap::after {
   content: "";
   display: block;
@@ -147,6 +189,7 @@ body {
   z-index: -1;
 }
 
+/* The actual flex container holding the links */
 .nav {
   position: relative; /* Anchor for JS bubbles */
   width: fit-content;
@@ -154,9 +197,10 @@ body {
   gap: 5px; 
 }
 
+/* Styles for the individual links (About, Projects, Contact) */
 .nav a {
   position: relative;
-  z-index: 10; /* Sit on top of bubbles */
+  z-index: 10; /* Sit on top of bubbles so text is clickable */
   display: inline-block;
   padding: 10px 25px; 
   color: white;
@@ -166,6 +210,7 @@ body {
   border-radius: 500px;
 }
 
+/* When a link is active (scrolled to), text turns black */
 .nav a.active {
   color: black;
   font-weight: 600;
@@ -180,6 +225,10 @@ body {
 
 /* === BUBBLES (Controlled by JS inline styles) === */
 
+/* These are the floating backgrounds behind the nav links.
+   Their position (left/width) is calculated by JavaScript in Overlay.jsx.
+   pointer-events: none ensures they don't block clicks on the text.
+*/
 .bubble {
   position: absolute;
   top: 0;
@@ -189,20 +238,21 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth floating movement */
 }
 
-/* 1. The Active White Bubble */
+/* 1. The Active White Bubble: Tracks which section you are currently viewing */
 .bubble.active {
   z-index: 5; 
   background: white;
   box-shadow: 0 2px 10px rgba(255,255,255,0.3);
 }
 
-/* 2. The Hover Grey Bubble */
+/* 2. The Hover Grey Bubble: Follows your mouse cursor */
 .bubble.hover {
   z-index: 1;
   background: linear-gradient(180deg, var(--nav-gray), #212121);
   box-shadow: inset 0 2px 7px rgba(255,255,255,0.1);
 }
 
+/* Styles for the "Visit Github" button */
 .visit-btn {
   padding: 0.5rem 1.5rem;
   background: linear-gradient(to right, grey, blue);
@@ -228,6 +278,9 @@ body {
 }
 
 /* ================= SECTIONS ================= */
+/* Common styles for all major sections (Hero, About, Projects, Contact).
+   min-height: 100vh ensures each section takes up at least the full screen height.
+*/
 section {
   min-height: 100vh;
   padding: 120px 10% 50px 10%;
@@ -247,7 +300,7 @@ section {
 }
 
 .hero-content {
-  pointer-events: none;
+  pointer-events: none; /* Allows clicks to pass through to background */
   width: 50%;
   text-align: left; 
   padding-left: 2rem;
@@ -326,6 +379,9 @@ section {
 }
 
 /* ================== CARDS WITH NESTED RADIUS ================== */
+/* This defines the styling for cards (About Me, Education, etc).
+   It uses the CSS variables defined at the top for consistent rounding.
+*/
 .card {
   background: rgba(255, 255, 255, 0.05);
   padding: 2rem;

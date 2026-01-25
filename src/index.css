@@ -1,68 +1,111 @@
+/* =========================================
+   1. ROOT VARIABLES (Global Defaults)
+   ========================================= */
+/* :root is the highest level of CSS. 
+   Variables defined here are accessible everywhere. */
 :root {
+  /* Sets the default font stack. It tries 'system-ui' (your OS font) first, 
+     then falls back to Avenir, Helvetica, etc., if the first one isn't found. */
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+  /* Sets the spacing between lines of text (1.5 is standard for readability). */
   line-height: 1.5;
+  
+  /* Sets the default thickness of the text (400 is 'Regular'). */
   font-weight: 400;
 
+  /* Tells the browser this site supports both light and dark modes standardly. */
   color-scheme: light dark;
+  
+  /* OPTIMIZATION: Updated to match your App.css color (#0c0c0c) 
+     so the page background matches your 3D portfolio perfectly. */
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0c0c0c; 
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* These properties improve text rendering quality. */
+  font-synthesis: none; /* Prevents browser from faking bold/italics if font is missing */
+  text-rendering: optimizeLegibility; /* Prioritizes readability over rendering speed */
+  -webkit-font-smoothing: antialiased; /* Makes text look smoother on Mac/iOS */
+  -moz-osx-font-smoothing: grayscale; /* Same as above, for Firefox on Mac */
 }
 
+/* =========================================
+   2. LINKS (Anchor Tags)
+   ========================================= */
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  font-weight: 500; /* Makes links slightly bolder */
+  color: #646cff; /* Default purple-blue link color */
+  text-decoration: inherit; /* Removes the default underline */
 }
+
+/* Adds a hover effect to links */
 a:hover {
-  color: #535bf2;
+  color: #535bf2; /* Slightly brighter purple on hover */
 }
 
+/* =========================================
+   3. BODY (Main Page Container)
+   ========================================= */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  margin: 0; /* Removes default browser white space around edges */
+  
+  /* OPTIMIZATION: I commented out 'flex' and 'place-items'.
+     Why? Because Flexbox here centers EVERYTHING in the middle of the screen
+     and breaks scrolling. We want your portfolio to scroll normally! */
+  /* display: flex; */
+  /* place-items: center; */
+  
+  min-width: 320px; /* Ensures layout doesn't break on very small phones (e.g. iPhone SE) */
+  min-height: 100vh; /* Ensures the body is at least as tall as the screen */
 }
 
+/* =========================================
+   4. HEADINGS
+   ========================================= */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 3.2em; /* Sets H1 size relative to the parent font size */
+  line-height: 1.1; /* Tighter line height for large headings looks better */
 }
 
+/* =========================================
+   5. BUTTONS (Global Defaults)
+   ========================================= */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid transparent; /* Invisible border (unless focused/hovered) */
+  padding: 0.6em 1.2em; /* Internal spacing (Top/Bottom, Left/Right) */
+  font-size: 1em; /* Inherits font size from parent */
+  font-weight: 500; /* Medium weight */
+  font-family: inherit; /* Uses the same font as the rest of the app */
+  background-color: #1a1a1a; /* Dark button background */
+  cursor: pointer; /* Changes mouse cursor to a hand pointer */
+  transition: border-color 0.25s; /* Smooths the color change on hover */
 }
+
 button:hover {
-  border-color: #646cff;
+  border-color: #646cff; /* Adds a purple border when hovering */
 }
+
+/* Accessibility: Shows a ring when using Keyboard Navigation (Tab key) */
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* =========================================
+   6. LIGHT MODE OVERRIDES
+   ========================================= */
+/* This block detects if the user's computer is set to "Light Mode".
+   If true, it swaps the colors to be dark text on light background. */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #213547; /* Dark text */
+    background-color: #ffffff; /* White background */
   }
   a:hover {
-    color: #747bff;
+    color: #747bff; /* Lighter link hover */
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Light grey button */
   }
 }
