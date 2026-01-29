@@ -22,9 +22,19 @@ import './App.css'
 import { projects } from './projects'; 
 
 // ====================================================================
-// 2. IMAGE IMPORTS
+// 2. ASSET IMPORTS
 // We import images here so Vite can bundle them correctly for the website.
 // ====================================================================
+
+// 👇 CV IMPORT 
+// (Make sure "Lwazi_Mhlongo_CV.pdf" is in src/assets/)
+import myResume from './assets/Lwazi_Mhlongo_CV.pdf'
+
+// 👇 COMPLETION LETTER IMPORT 
+// (Make sure you renamed your file to "CompletionLetter.pdf" and put it in src/assets/)
+import completionLetter from './assets/CompletionLetter.pdf'
+
+// Images & Icons
 import htmlIcon from './assets/html.png'
 import cssIcon from './assets/css.png'
 import jsIcon from './assets/javascript.webp'
@@ -332,7 +342,8 @@ export default function Overlay() {
             </span>
           </p>
           <div className="btn-group">
-            <button className="btn" onClick={() => alert("My Resume is currently being updated. Please check back soon!")}>
+            {/* 👇 RESUME BUTTON: Opens your PDF in a new tab */}
+            <button className="btn" onClick={() => window.open(myResume, '_blank')}>
                 Resume / CV
             </button>
             <button className="btn" onClick={() => scrollToSection('contact')}>Contact</button>
@@ -353,7 +364,15 @@ export default function Overlay() {
             <p><strong>Eduvos</strong></p>
             <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
             <br/>
-            <a href="https://allqs.saqa.org.za/showQualification.php?id=120690" target="_blank" className="link-text" style={{color: '#4a90e2'}}>
+            
+            {/* 👇 QUALIFICATION LINK: Now opens your uploaded Letter of Completion */}
+            <a 
+                href={completionLetter} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="link-text" 
+                style={{color: '#4a90e2'}}
+            >
                 View Qualification
             </a>
           </div>
