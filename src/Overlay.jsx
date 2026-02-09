@@ -16,6 +16,9 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes } from 'react-icons/f
 import './App.css'
 import { projects } from './projects'; 
 
+// 👇 NEW IMPORT: Glare Effect Component
+import GlareHover from './GlareHover';
+
 // ====================================================================
 // 2. ASSET IMPORTS
 // We import images here so Vite can bundle them correctly for the website.
@@ -281,7 +284,7 @@ export default function Overlay() {
             </span>
           </p>
           <div className="btn-group">
-            {/* RESUME BUTTON: Now linked to your PDF file */}
+            {/* RESUME BUTTON */}
             <button className="btn" onClick={() => window.open(myResume, '_blank')}>
                 Resume / CV
             </button>
@@ -301,7 +304,7 @@ export default function Overlay() {
             <p><strong>Eduvos</strong></p>
             <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
             <br/>
-            {/* QUALIFICATION LINK: Now linked to your Completion Letter PDF */}
+            {/* QUALIFICATION LINK */}
             <a 
                 href={completionLetter} 
                 target="_blank" 
@@ -335,9 +338,18 @@ export default function Overlay() {
         <h2 className="section-title">Recent Projects</h2>
         <div className="projects-grid">
           
-          {/* 👇 SLICE TO 3: Only show the first 3 projects here */}
+          {/* 👇 GLARE EFFECT INTEGRATION */}
           {projects.slice(0, 3).map((project, index) => (
-            <div className="project-card" key={index}>
+            
+            // Replaced outer <div> with <GlareHover>
+            <GlareHover 
+                key={index}
+                className="project-card" 
+                borderRadius="15px"
+                // Using props to match your theme
+                background="#0c0c0c"
+                borderColor="#333"
+            >
                 <div className="card-image-container">
                     {project.image ? (
                     <img src={project.image} alt={project.title} className="card-image" loading="lazy" />
@@ -358,11 +370,11 @@ export default function Overlay() {
                         )}
                     </div>
                 </div>
-            </div>
+            </GlareHover>
           ))}
         </div>
 
-        {/* 👇 "VIEW ALL" BUTTON: Links to the new page */}
+        {/* 👇 "VIEW ALL" BUTTON */}
         <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
             <Link to="/all-projects" className="btn">
                 View All Projects →
