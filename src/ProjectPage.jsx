@@ -11,7 +11,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { projects } from './projects';
 
 // Import icons for the buttons.
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from 'react-icons/fa';
+// 👇 Added FaMagic for the AI button
+import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaMagic } from 'react-icons/fa';
 
 // React Hooks:
 // - useEffect: Used to run code when the page loads (like scrolling to the top).
@@ -38,33 +39,55 @@ export default function ProjectPage() {
   const navigate = useNavigate(); 
   
   // Create a state variable to track if the exit animation is running.
-  // false = showing normally.
-  // true = sliding down.
   const [isExiting, setIsExiting] = useState(false); 
 
+  // 👇 NEW: AI STATE VARIABLES
+  const [aiText, setAiText] = useState('');       // Stores the text as it gets typed out
+  const [isTyping, setIsTyping] = useState(false); // Prevents clicking the button twice
+
   // -- SCROLL TO TOP --
-  // When this page loads, force the browser to scroll to the very top.
-  // Otherwise, you might start halfway down the page if you were scrolling previously.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   // -- NAVIGATION HANDLER --
-  // This function runs when the user clicks "Back to Portfolio".
   const handleBackClick = (e) => {
-    e.preventDefault(); // Stop the browser from jumping to the link immediately.
-    
-    setIsExiting(true); // 1. Turn on the 'slide-out' CSS class.
-    
-    // 2. Wait 500ms (0.5 seconds) for the animation to finish.
+    e.preventDefault(); 
+    setIsExiting(true); 
     setTimeout(() => {
-        // 3. Actually change the URL back to the home page (#projects section).
         navigate('/#projects');
     }, 500);
   };
 
+  // SIMULATE AI TYPING FUNCTION (Fixed "Missing First Letter" Bug)
+  const handleAskAI = () => {
+    if (isTyping || aiText) return; 
+    setIsTyping(true);
+    
+    // Safety check: ensure text exists
+    // We add a tiny space at the start to ensure the first real letter isn't skipped by any rendering quirk, 
+    // though the logic below is corrected to catch index 0 properly.
+    const textToType = project.aiAnalysis || "AI Analysis unavailable for this project.";
+    
+    setAiText(""); // Clear first
+
+    let i = -1; // Start at -1 so the first increment goes to 0
+
+    const typingInterval = setInterval(() => {
+        i++; // Increment first: -1 -> 0 (First letter)
+        
+        if (i < textToType.length) {
+            // Append the character at current index
+            setAiText(prev => prev + textToType.charAt(i));
+        } else {
+            // Finished
+            clearInterval(typingInterval);
+            setIsTyping(false);
+        }
+    }, 20); 
+  };
+
   // -- SAFETY CHECK --
-  // If the URL has an ID that doesn't exist (e.g. /project/blahblah), show an error.
   if (!project) {
     return <div className="project-page-container"><h1>Project not found</h1></div>;
   }
@@ -73,14 +96,10 @@ export default function ProjectPage() {
   // 3. RENDER (HTML STRUCTURE)
   // ====================================================================
   return (
-    // Dynamic Class:
-    // If 'isExiting' is true, add the "slide-out" class.
-    // This triggers the CSS animation defined in App.css (@keyframes slideDownFade).
     <div className={`project-page-container ${isExiting ? 'slide-out' : ''}`}>
       
       {/* --- NAVBAR --- */}
       <nav className="project-nav">
-        {/* Back Button with custom click handler */}
         <a 
             href="/#projects" 
             onClick={handleBackClick} 
@@ -97,24 +116,18 @@ export default function ProjectPage() {
         <div className="project-hero">
             <h1 className="project-title">{project.title}</h1>
             
-            {/* Main Project Image */}
             <img 
                 src={project.modalImage || project.image} 
                 alt={project.title} 
                 className="project-hero-image" 
             />
 
-            {/* Action Buttons (Live & Repo) */}
             <div className="project-links">
-                
-                {/* Only show "View Live" if a link exists in the data */}
                 {project.link && (
                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn">
                         View Live <FaExternalLinkAlt style={{marginLeft:'8px'}}/>
                     </a>
                 )}
-                
-                {/* Only show "GitHub" if a repo link exists */}
                 {project.repoLink && (
                     <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="btn outline-btn">
                         GitHub Repo <FaGithub style={{marginLeft:'8px'}}/>
@@ -126,23 +139,60 @@ export default function ProjectPage() {
         {/* Divider Line */}
         <hr className="divider"/>
 
+        {/* 👇 NEW: AI ANALYSIS SECTION */}
+        <div className="project-details" style={{marginBottom: '3rem', display: 'block'}}> 
+            {/* We use a separate block container for the AI box so it spans full width */}
+            <div style={{
+                width: '100%', 
+                background: 'rgba(255,255,255,0.03)', 
+                padding: '2rem', 
+                borderRadius: '15px', 
+                border: '1px solid rgba(255,255,255,0.1)'
+            }}>
+                <div style={{display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap'}}>
+                    {/* 👇 CHANGED HEADER TO "SIMPLE ENGLISH" */}
+                    <h3 style={{margin: 0, color: '#a0aec0', border: 'none'}}>AI Summary (Simple English)</h3>
+                    
+                    {/* Only show button if text hasn't started yet */}
+                    {!aiText && (
+                        <button 
+                            onClick={handleAskAI} 
+                            className="btn sm-btn" 
+                            style={{display: 'flex', alignItems: 'center', gap: '8px'}}
+                        >
+                            <FaMagic /> Generate Analysis
+                        </button>
+                    )}
+                </div>
+                
+                {/* The Output Box (Typewriter Effect) */}
+                <div style={{
+                    minHeight: '60px', 
+                    fontFamily: 'monospace', 
+                    color: '#4a90e2', 
+                    lineHeight: '1.6',
+                    fontSize: '1rem'
+                }}>
+                    {aiText}
+                    {/* Blinking Cursor */}
+                    {isTyping && <span className="cursor-blink">|</span>}
+                </div>
+            </div>
+        </div>
+
         {/* --- DETAILS SECTION --- */}
         <div className="project-details">
             
             {/* Text Description */}
             <div className="details-text">
                 <h3>Overview</h3>
-                {/* whiteSpace: 'pre-line' preserves line breaks from your text data */}
                 <p style={{whiteSpace: 'pre-line'}}>{project.fullDescription}</p>
             </div>
             
-            {/* Tech Stack Grid */}
-            {/* Only render this section if there are items in the techStack array */}
             {project.techStack.length > 0 && (
                 <div className="details-tech">
                     <h3>Technologies Used</h3>
                     <div className="tech-stack-grid">
-                        {/* Loop through techStack and create a badge for each */}
                         {project.techStack.map((tech, index) => (
                             <div key={index} className="tech-badge-small">
                                 <img src={tech.icon} alt={tech.name} />

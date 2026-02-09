@@ -1071,3 +1071,21 @@ section {
       width: 90%;
   }
 }
+
+/* ================= NEW AI & FILTER ANIMATIONS ================= */
+
+/* 1. BLINKING CURSOR (For AI Typewriter Effect) */
+.cursor-blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 2. ACTIVE FILTER BUTTON (For All Projects Page) */
+.active-filter {
+    border-color: white !important;
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}

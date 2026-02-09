@@ -39,9 +39,15 @@ export const projects = [
     // Title displayed on the card and hero section
     title: "Project",
     
+    // ⬇️ NEW: Category for filtering
+    category: "In Development",
+
     // Short description for the small card on the home page (max ~80 chars)
     shortDescription: "Coming Soon",
     
+    // ⬇️ NEW: Simple English AI Analysis
+    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
+
     // Full text for the detail page. Supports newlines/formatting.
     fullDescription: "This project is currently under development.",
     
@@ -64,8 +70,15 @@ export const projects = [
   {
     id: "studyconnect",
     title: "StudyConnect",
+    
+    // ⬇️ NEW: Category for filtering
+    category: "Web App",
+
     shortDescription: "A comprehensive student connection platform built for educational resource management.",
     
+    // ⬇️ NEW: Simple English AI Analysis
+    aiAnalysis: "Analysis: Think of this as a social network designed strictly for studying. Its purpose is to solve the isolation students feel when studying alone. It helps by instantly connecting you with classmates, allowing you to share notes, chat, and form study groups so no one has to struggle with difficult modules on their own.",
+
     // Template Literals (backticks ` `) allow multi-line strings.
     fullDescription: `StudyConnect was born from a simple realization: students often feel isolated and frustrated when wrestling with tough academic concepts late at night. 
     
@@ -100,8 +113,15 @@ export const projects = [
   {
     id: "humble-coffee",
     title: "Humble Coffee",
+    
+    // ⬇️ NEW: Category for filtering
+    category: "E-Commerce",
+
     shortDescription: "A high-performance e-commerce application featuring dynamic pricing logic and real-time inventory.",
     
+    // ⬇️ NEW: Simple English AI Analysis
+    aiAnalysis: "Analysis: This is a digital storefront for a premium coffee brand. The goal was to make buying specialized coffee online as easy as walking into a shop. It helps customers by allowing them to pick the exact weight of coffee they want (like 250g or 1kg) and automatically updates the price, all while working super fast on mobile phones so you don't use up all your data.",
+
     fullDescription: `The Challenge:
     To design and build a modern digital storefront for an artisanal coffee brand that reflects their premium in-store atmosphere while solving complex e-commerce challenges—specifically non-linear product pricing (e.g., 1kg vs 250g bags) and mobile performance constraints.
 

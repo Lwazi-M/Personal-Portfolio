@@ -4,14 +4,9 @@
 // ====================================================================
 
 // Hooks from React:
-// - useState: Lets us store data that changes (like user input or menu status).
-// - useEffect: Lets us run code automatically when something happens (like scrolling).
-// - useRef: Lets us "grab" a specific HTML element to measure or control it.
 import { useState, useEffect, useRef } from 'react'
 
 // Tools from React Router for navigation:
-// - Link: Creates clickable links that change the URL without reloading the page.
-// - useLocation: Tells us which page/URL we are currently on.
 import { Link, useLocation } from 'react-router-dom'; 
 
 // Icons from the 'react-icons' library (FontAwesome pack).
@@ -26,12 +21,10 @@ import { projects } from './projects';
 // We import images here so Vite can bundle them correctly for the website.
 // ====================================================================
 
-// 👇 CV IMPORT 
-// (Make sure "Lwazi_Mhlongo_CV.pdf" is in src/assets/)
+// 👇 CV IMPORT (Using the specific filename you provided)
 import myResume from './assets/Lwazi_Mhlongo_CV_09-02-2026.pdf'
 
-// 👇 COMPLETION LETTER IMPORT 
-// (Make sure you renamed your file to "CompletionLetter.pdf" and put it in src/assets/)
+// 👇 COMPLETION LETTER IMPORT
 import completionLetter from './assets/CompletionLetter.pdf'
 
 // Images & Icons
@@ -54,7 +47,6 @@ import nextjsIcon from './assets/nextjs.webp'
 export default function Overlay() { 
   
   // -- STATE VARIABLES (Memory for the component) --
-  // Stores what the user types in the contact form.
   const [userEmail, setUserEmail] = useState('')
   const [userMessage, setUserMessage] = useState('') 
   
@@ -69,10 +61,7 @@ export default function Overlay() {
   const [isSuccess, setIsSuccess] = useState(false);
   
   // -- REFS & BUBBLE STATE --
-  // 'navRef' lets us measure the exact width/position of the navigation bar.
   const navRef = useRef(null);
-  
-  // Stores the position (left) and size (width) for the sliding bubbles.
   const [navBubbleStyle, setNavBubbleStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const [hoverBubbleStyle, setHoverBubbleStyle] = useState({ left: 0, width: 0, opacity: 0 });
 
@@ -88,45 +77,27 @@ export default function Overlay() {
   // ====================================================================
   useEffect(() => {
     const handleScroll = () => {
-      // How far down the user has scrolled (in pixels).
       const scrollY = window.scrollY;
-      
-      // Calculate an "offset" (30% of screen height) so the highlight updates 
-      // BEFORE the section hits the very top of the screen.
       const windowHeight = window.innerHeight;
       const offset = windowHeight * 0.3; 
 
-      // Get the HTML elements for each section.
       const aboutSection = document.getElementById('about');
       const projectsSection = document.getElementById('projects');
       const contactSection = document.getElementById('contact');
 
-      // Check positions:
-      // If we scrolled past Contact, set active to 'contact'.
       if (contactSection && scrollY + offset >= contactSection.offsetTop) {
         setActiveSection('contact');
-      } 
-      // Else if past Projects, set to 'projects'.
-      else if (projectsSection && scrollY + offset >= projectsSection.offsetTop) {
+      } else if (projectsSection && scrollY + offset >= projectsSection.offsetTop) {
         setActiveSection('projects');
-      } 
-      // Else if past About, set to 'about'.
-      else if (aboutSection && scrollY + offset >= aboutSection.offsetTop) {
+      } else if (aboutSection && scrollY + offset >= aboutSection.offsetTop) {
         setActiveSection('about');
-      } 
-      // Otherwise, we must be at the top ('home').
-      else {
+      } else {
         setActiveSection('home');
       }
     };
     
-    // Attach the scroll listener to the window.
     window.addEventListener('scroll', handleScroll);
-    
-    // Run it once immediately to set the initial state.
     handleScroll(); 
-    
-    // Cleanup: Remove the listener when the component unmounts (prevents memory leaks).
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -136,57 +107,43 @@ export default function Overlay() {
   // ====================================================================
   useEffect(() => {
     const updateBubblePosition = () => {
-      // If we are at Home, hide the bubble (opacity: 0).
       if (activeSection === 'home') {
           setNavBubbleStyle(prev => ({ ...prev, opacity: 0 }));
       } else {
-          // If we are in another section, calculate position.
           const navEl = navRef.current;
           if (navEl) {
-              // Find the specific link (e.g., <a href="#about">) inside our nav.
               const activeLink = navEl.querySelector(`a[href="#${activeSection}"]`);
               if (activeLink) {
-                  // Set the bubble's Left position and Width to match the link exactly.
                   setNavBubbleStyle({
                       left: activeLink.offsetLeft,
                       width: activeLink.offsetWidth,
-                      opacity: 1 // Make it visible
+                      opacity: 1 
                   });
               }
           }
       }
     };
 
-    // Run immediately when activeSection changes.
     updateBubblePosition();
-
-    // Also run whenever the window resizes (so the bubble doesn't get misplaced).
     window.addEventListener('resize', updateBubblePosition);
-    
-    // Cleanup listener on unmount.
     return () => window.removeEventListener('resize', updateBubblePosition);
 
-  }, [activeSection, isMenuOpen]); // Runs whenever section changes or menu opens.
+  }, [activeSection, isMenuOpen]); 
 
   // ====================================================================
   // 6. HOVER BUBBLE LOGIC
-  // This handles the Grey Bubble that follows your mouse.
   // ====================================================================
-  
-  // When mouse enters a link: Move grey bubble to that link.
   const handleMouseEnter = (e) => {
     const { offsetLeft, offsetWidth } = e.currentTarget;
     setHoverBubbleStyle({ left: offsetLeft, width: offsetWidth, opacity: 1 });
   };
 
-  // When mouse leaves the nav: Hide the grey bubble.
   const handleMouseLeave = () => {
     setHoverBubbleStyle(prev => ({ ...prev, opacity: 0 }));
   };
 
   // ====================================================================
   // 7. AUTO-SCROLL FOR BACK NAVIGATION
-  // If you come back from a Project Page (e.g. /#projects), scroll there.
   // ====================================================================
   useEffect(() => {
     if (location.hash === '#projects') {
@@ -199,46 +156,38 @@ export default function Overlay() {
   // 8. HELPER FUNCTIONS
   // ====================================================================
 
-  // Toggles the mobile menu open/close.
   const toggleMenu = () => { setIsMenuOpen(!isMenuOpen); };
   
-  // Scrolls smoothly to a specific ID (e.g., "contact") and closes menu.
   const scrollToSection = (id) => {
     setIsMenuOpen(false); 
     const element = document.getElementById(id);
     if (element) { element.scrollIntoView({ behavior: 'smooth' }); }
   };
 
-  // Scrolls smoothly to the very top of the page.
   const scrollToTop = () => {
     setIsMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handles the form submission to Formspree.
   const handleContactSubmit = async (e) => {
-    e.preventDefault(); // Prevents the page from reloading.
-    
-    // Validation: Ensure fields aren't empty.
+    e.preventDefault(); 
     if (!userEmail || !userMessage) { alert("Please fill in both your email and a message."); return; }
     
-    setIsSubmitting(true); // Start loading state.
+    setIsSubmitting(true); 
     
     try {
-        // Send data to Formspree using fetch API.
         const response = await fetch(FORMSPREE_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: userEmail, message: userMessage })
         });
         
-        // If success:
         if (response.ok) {
             setIsSubmitting(false); 
             setIsSuccess(true);     
-            setUserEmail(''); // Clear form
+            setUserEmail(''); 
             setUserMessage('');
-            setTimeout(() => { setIsSuccess(false); }, 3000); // Reset success message after 3s
+            setTimeout(() => { setIsSuccess(false); }, 3000); 
         } else { 
             setIsSubmitting(false); 
             alert("Oops! There was a problem sending your form."); 
@@ -249,7 +198,6 @@ export default function Overlay() {
     }
   }
 
-  // Determines which class to add to the submit button (loading/success).
   const getButtonClass = () => {
     if (isSubmitting) return 'loading';
     if (isSuccess) return 'success';
@@ -258,41 +206,33 @@ export default function Overlay() {
 
   // ====================================================================
   // 9. RENDER (HTML STRUCTURE)
-  // This is what actually appears on the screen.
   // ====================================================================
   return (
     <div className="overlay">
       
       {/* --- HEADER SECTION --- */}
       <header className="header">
-        {/* Name Logo: Clicking it scrolls to top */}
         <a href="#" className={`logo ${activeSection === 'home' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); scrollToTop(); }}>
             Lwazi Mhlongo
         </a>
 
-        {/* Mobile Hamburger Icon (Visible only on small screens) */}
         <div className="mobile-menu-icon" onClick={toggleMenu}>
             {isMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
         
-        {/* --- NAVIGATION MENU (The Island) --- */}
         <div className={`nav-wrap ${isMenuOpen ? 'active' : ''}`}>
-            {/* 'navRef' allows our Bubble Logic to measure this container */}
             <nav className="nav" ref={navRef} onMouseLeave={handleMouseLeave}>
                 
-                {/* 1. Active Bubble (White) */}
                 <div 
                     className="bubble active" 
                     style={{ left: navBubbleStyle.left, width: navBubbleStyle.width, opacity: navBubbleStyle.opacity }}
                 ></div>
 
-                {/* 2. Hover Bubble (Grey) */}
                 <div 
                     className="bubble hover" 
                     style={{ left: hoverBubbleStyle.left, width: hoverBubbleStyle.width, opacity: hoverBubbleStyle.opacity }}
                 ></div>
                 
-                {/* Navigation Links */}
                 <a 
                     href="#about" 
                     className={activeSection === 'about' ? 'active' : ''} 
@@ -320,7 +260,6 @@ export default function Overlay() {
             </nav>
         </div>
 
-        {/* Desktop "Visit Github" Button */}
         <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
              <button className="visit-btn" onClick={() => window.open('https://github.com/Lwazi-M', '_blank')}>
               Visit Github
@@ -342,7 +281,7 @@ export default function Overlay() {
             </span>
           </p>
           <div className="btn-group">
-            {/* 👇 RESUME BUTTON: Opens your PDF in a new tab */}
+            {/* RESUME BUTTON: Now linked to your PDF file */}
             <button className="btn" onClick={() => window.open(myResume, '_blank')}>
                 Resume / CV
             </button>
@@ -356,16 +295,13 @@ export default function Overlay() {
         <h2 className="section-title">About Me</h2>
         <div className="about-grid">
           
-          {/* Education Card */}
           <div className="card">
-            {/* loading="lazy" helps the page load faster by waiting until the image is needed */}
             <img src={educationIcon} alt="Education" loading="lazy" style={{height: '40px', marginBottom: '1rem'}}/>
             <h3>Education</h3>
             <p><strong>Eduvos</strong></p>
             <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
             <br/>
-            
-            {/* 👇 QUALIFICATION LINK: Now opens your uploaded Letter of Completion */}
+            {/* QUALIFICATION LINK: Now linked to your Completion Letter PDF */}
             <a 
                 href={completionLetter} 
                 target="_blank" 
@@ -377,7 +313,6 @@ export default function Overlay() {
             </a>
           </div>
 
-          {/* Tech Stack Card */}
           <div className="card">
             <h3>My Tech Stack</h3>
             <div className="tech-container">
@@ -399,8 +334,9 @@ export default function Overlay() {
       <section id="projects" className="projects-section">
         <h2 className="section-title">Recent Projects</h2>
         <div className="projects-grid">
-          {/* Loop through the 'projects' array and create a card for each one */}
-          {projects.map((project, index) => (
+          
+          {/* 👇 SLICE TO 3: Only show the first 3 projects here */}
+          {projects.slice(0, 3).map((project, index) => (
             <div className="project-card" key={index}>
                 <div className="card-image-container">
                     {project.image ? (
@@ -413,7 +349,6 @@ export default function Overlay() {
                     <h3>{project.title}</h3>
                     <p>{project.shortDescription}</p>
                     <div className="card-buttons">
-                        {/* Only show "View More" if there is a link, otherwise "Coming Soon" */}
                         {(project.link || project.repoLink) ? (
                             <Link to={`/project/${project.id}`} className="btn sm-btn">View More</Link>
                         ) : (
@@ -426,13 +361,20 @@ export default function Overlay() {
             </div>
           ))}
         </div>
+
+        {/* 👇 "VIEW ALL" BUTTON: Links to the new page */}
+        <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
+            <Link to="/all-projects" className="btn">
+                View All Projects →
+            </Link>
+        </div>
+
       </section>
 
       {/* --- CONTACT SECTION --- */}
       <section id="contact" className="contact-section">
         <h2 className="section-title">Get in Touch</h2>
         <form className="input-box" onSubmit={handleContactSubmit}>
-            {/* Email Input */}
             <input 
                 type="email" 
                 placeholder="Your Email" 
@@ -440,7 +382,6 @@ export default function Overlay() {
                 onChange={(e) => setUserEmail(e.target.value)} 
                 required 
             />
-            {/* Message Input */}
             <textarea 
                 className="message-box" 
                 placeholder="Your Message..." 
@@ -449,7 +390,6 @@ export default function Overlay() {
                 required 
             />
             
-            {/* Animated Submit Button */}
             <button 
                 type="submit" 
                 className={`kk-submit-container ${getButtonClass()}`} 
@@ -464,7 +404,6 @@ export default function Overlay() {
             </button>
         </form>
         
-        {/* Social Media Icons */}
         <div className="socials">
              <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me" className="social-icon"><FaEnvelope /></a>
              <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener" className="social-icon"><FaLinkedin /></a>

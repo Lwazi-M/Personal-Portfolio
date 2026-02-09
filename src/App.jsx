@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Lanyard from './Lanyard'       // The 3D Physics Card
 import Overlay from './Overlay'       // The Main Portfolio UI (Home)
 import ProjectPage from './ProjectPage' // The Detail Page for specific projects
+import AllProjects from './AllProjects' // 👈 NEW: The "View All" page
 
 // Import global styles
 import './App.css'
@@ -81,6 +82,9 @@ function Content() {
         {/* HOME PAGE: Shows the Overlay (Hero, About, Contact) */}
         <Route path="/" element={<Overlay />} />
         
+        {/* 👈 NEW ROUTE: The All Projects Archive Page */}
+        <Route path="/all-projects" element={<AllProjects />} />
+
         {/* DYNAMIC PROJECT PAGE:
             ":id" is a variable. It matches anything like:
             /project/studyconnect
