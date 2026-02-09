@@ -417,22 +417,21 @@ section {
     gap: 2rem;
 }
 
+/* 👇 UPDATED: Removed border, background, and radius so GlareHover controls them */
 .project-card {
-  /* THE GREY FRAME */
-  background: #0c0c0c; /* Dark Grey Frame Background */
-  border: 2px solid #333; /* Grey Border */
-  border-radius: var(--card-outer-radius);
-  padding: var(--card-padding); /* This creates the gap/frame */
+  padding: var(--card-padding);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transition: 0.3s ease-in-out;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  height: 100%; /* Ensure card fills the wrapper */
 }
 
 .project-card:hover {
   transform: translateY(-10px);
-  border-color: #666; /* Lighter grey on hover */
+  /* Note: Border color change on hover is now handled by GlareHover if configured, 
+     or you can keep shadow here for lift effect */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 

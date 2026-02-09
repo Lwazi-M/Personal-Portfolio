@@ -4,6 +4,9 @@ import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 import { projects } from './projects';
 import './App.css'; // Re-use styles
 
+// 👇 NEW IMPORT
+import GlareHover from './GlareHover';
+
 export default function AllProjects() {
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
@@ -84,9 +87,27 @@ export default function AllProjects() {
         <div className="projects-grid">
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project, index) => (
-              <div className="project-card" key={index}>
+              
+              // 👇 GLARE EFFECT WRAPPER
+              <GlareHover 
+                  key={index}
+                  className="project-card"
+                  borderRadius="15px"
+                  background="#0c0c0c"
+                  borderColor="#333"
+              >
                   <div className="card-image-container">
-                      <img src={project.image} alt={project.title} className="card-image" />
+                      {project.image ? (
+                        /* 👇 ADDED loading="lazy" HERE */
+                        <img 
+                            src={project.image} 
+                            alt={project.title} 
+                            className="card-image" 
+                            loading="lazy" 
+                        />
+                      ) : (
+                        <div className="card-placeholder"></div>
+                      )}
                   </div>
                   <div className="card-content">
                       <h3>{project.title}</h3>
@@ -95,7 +116,7 @@ export default function AllProjects() {
                           <Link to={`/project/${project.id}`} className="btn sm-btn">View More</Link>
                       </div>
                   </div>
-              </div>
+              </GlareHover>
             ))
           ) : (
             <div style={{gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', color: '#666'}}>

@@ -65,8 +65,6 @@ export default function ProjectPage() {
     setIsTyping(true);
     
     // Safety check: ensure text exists
-    // We add a tiny space at the start to ensure the first real letter isn't skipped by any rendering quirk, 
-    // though the logic below is corrected to catch index 0 properly.
     const textToType = project.aiAnalysis || "AI Analysis unavailable for this project.";
     
     setAiText(""); // Clear first
@@ -120,6 +118,7 @@ export default function ProjectPage() {
                 src={project.modalImage || project.image} 
                 alt={project.title} 
                 className="project-hero-image" 
+                // NOTE: No loading="lazy" here because this is "Above the Fold" (immediately visible)
             />
 
             <div className="project-links">
@@ -150,7 +149,6 @@ export default function ProjectPage() {
                 border: '1px solid rgba(255,255,255,0.1)'
             }}>
                 <div style={{display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap'}}>
-                    {/* 👇 CHANGED HEADER TO "SIMPLE ENGLISH" */}
                     <h3 style={{margin: 0, color: '#a0aec0', border: 'none'}}>AI Summary (Simple English)</h3>
                     
                     {/* Only show button if text hasn't started yet */}
@@ -189,13 +187,15 @@ export default function ProjectPage() {
                 <p style={{whiteSpace: 'pre-line'}}>{project.fullDescription}</p>
             </div>
             
+            {/* Tech Stack Grid */}
             {project.techStack.length > 0 && (
                 <div className="details-tech">
                     <h3>Technologies Used</h3>
                     <div className="tech-stack-grid">
                         {project.techStack.map((tech, index) => (
                             <div key={index} className="tech-badge-small">
-                                <img src={tech.icon} alt={tech.name} />
+                                {/* 👇 ADDED loading="lazy" HERE */}
+                                <img src={tech.icon} alt={tech.name} loading="lazy" />
                                 <span>{tech.name}</span>
                             </div>
                         ))}
