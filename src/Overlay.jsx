@@ -28,7 +28,7 @@ import { projects } from './projects';
 
 // 👇 CV IMPORT 
 // (Make sure "Lwazi_Mhlongo_CV.pdf" is in src/assets/)
-import myResume from './assets/Lwazi_Mhlongo_CV.pdf'
+import myResume from './assets/Lwazi_Mhlongo_CV_09-02-2026.pdf'
 
 // 👇 COMPLETION LETTER IMPORT 
 // (Make sure you renamed your file to "CompletionLetter.pdf" and put it in src/assets/)
