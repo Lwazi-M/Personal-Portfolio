@@ -49,11 +49,12 @@ function Content() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []); 
 
-  // -- LOGIC: WHEN TO SHOW THE 3D LANYARD --
-  // We only want the heavy 3D element to appear if:
-  // 1. !isMobile: The user is on a large screen (Desktop/Tablet).
-  // 2. location.pathname === '/': The user is on the Home page.
-  const showLanyard = !isMobile && location.pathname === '/';
+  // -- LOGIC: 3D VISIBILITY --
+  // 1. Is it a desktop? (If yes, we load the 3D engine)
+  const isDesktop = !isMobile;
+
+  // 2. Are we on the home page? (If yes, we show it. If no, we hide it but keep it loaded)
+  const isHome = location.pathname === '/';
 
   // -- RENDER HTML --
   return (
@@ -71,11 +72,26 @@ function Content() {
         
       </Routes>
 
-      {/* CONDITIONAL RENDERING:
-          We load the Lanyard normally here. No Suspense wrapper to avoid the crash.
+      {/* PERFORMANCE FIX:
+          We only unmount (remove) the Lanyard if the user is on Mobile (to save battery).
+          On Desktop, we keep it mounted but hide it using CSS opacity/visibility.
+          This prevents the "Lag" caused by restarting the physics engine.
       */}
-      {showLanyard && (
-        <Lanyard position={[0, 0, 10]} gravity={[0, -40, 0]} />
+      {isDesktop && (
+        <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: 0,
+            // 👇 VISIBILITY TOGGLE instead of unmounting
+            opacity: isHome ? 1 : 0,
+            pointerEvents: isHome ? 'all' : 'none', // Prevents clicking when hidden
+            transition: 'opacity 0.5s ease' // Smooth fade in/out
+        }}>
+            <Lanyard position={[0, 0, 10]} gravity={[0, -40, 0]} />
+        </div>
       )}
     </>
   );
