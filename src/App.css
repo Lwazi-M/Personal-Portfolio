@@ -936,6 +936,12 @@ section {
   .input-box input {
       width: 90%;
   }
+
+  /* 👇 MOBILE FIX: Stack project details vertically on small screens */
+  .project-details {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+  }
 }
 
 .cursor-blink {
