@@ -1,83 +1,55 @@
 // ====================================================================
 // 1. IMPORTS
-// These lines bring in tools we need from other libraries.
 // ====================================================================
-
-// Hooks from React:
 import { useState, useEffect, useRef } from 'react'
-
-// Tools from React Router for navigation:
 import { Link, useLocation } from 'react-router-dom'; 
-
-// Icons from the 'react-icons' library (FontAwesome pack).
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa'; 
 
-// Import your custom styles and project data.
 import './App.css'
 import { projects } from './projects'; 
-
-// 👇 NEW IMPORT: Glare Effect Component
 import GlareHover from './GlareHover';
 
 // ====================================================================
 // 2. ASSET IMPORTS
-// We import images here so Vite can bundle them correctly for the website.
 // ====================================================================
-
-// 👇 CV IMPORT (Using the specific filename you provided)
 import myResume from './assets/Lwazi_Mhlongo_CV_09-02-2026.pdf'
-
-// 👇 COMPLETION LETTER IMPORT
 import completionLetter from './assets/CompletionLetter.pdf'
 
-// Images & Icons
-import htmlIcon from './assets/html.png'
-import cssIcon from './assets/css.png'
-import jsIcon from './assets/javascript.webp'
-import gitIcon from './assets/git.png'
-import pythonIcon from './assets/python.webp'
-import educationIcon from './assets/education.png'
+// Profile Image
 import profileImg from './assets/Me-Profile.jpeg' 
-import reactIcon from './assets/react.webp'
-import tailwindIcon from './assets/tailwind.webp'
-import typescriptIcon from './assets/typescript.png'
-import nextjsIcon from './assets/nextjs.webp'
+
+// Icons
+import htmlIcon from './assets/html.svg'
+import cssIcon from './assets/css.svg'
+import jsIcon from './assets/javascript.svg'
+import gitIcon from './assets/git.svg'
+import pythonIcon from './assets/python.svg'
+import educationIcon from './assets/education.png' // 👇 Kept as .png
+import reactIcon from './assets/react-native.svg'
+import tailwindIcon from './assets/tailwindcss.svg' // 👇 FIXED FILENAME
+import typescriptIcon from './assets/typescript.svg'
+import nextjsIcon from './assets/next.js.svg'
 
 // ====================================================================
 // 3. THE MAIN COMPONENT
-// This function represents your entire Home Page (Overlay).
 // ====================================================================
 export default function Overlay() { 
   
-  // -- STATE VARIABLES (Memory for the component) --
   const [userEmail, setUserEmail] = useState('')
   const [userMessage, setUserMessage] = useState('') 
-  
-  // Controls if the mobile menu is open (true) or closed (false).
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  // Tracks which section is currently visible on screen (home, about, projects, contact).
   const [activeSection, setActiveSection] = useState('home');
-
-  // Tracks the status of the contact form submission (loading, success, or idle).
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   
-  // -- REFS & BUBBLE STATE --
   const navRef = useRef(null);
   const [navBubbleStyle, setNavBubbleStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const [hoverBubbleStyle, setHoverBubbleStyle] = useState({ left: 0, width: 0, opacity: 0 });
 
-  // Where your contact form sends data (Formspree service).
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xdaneony"; 
-  
-  // Gets the current URL info.
   const location = useLocation();
 
-  // ====================================================================
   // 4. SCROLL SPY LOGIC
-  // This detects which section the user is looking at as they scroll.
-  // ====================================================================
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -104,10 +76,7 @@ export default function Overlay() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // ====================================================================
   // 5. BUBBLE POSITIONING LOGIC
-  // This calculates where the White "Active" Bubble should sit.
-  // ====================================================================
   useEffect(() => {
     const updateBubblePosition = () => {
       if (activeSection === 'home') {
@@ -133,9 +102,7 @@ export default function Overlay() {
 
   }, [activeSection, isMenuOpen]); 
 
-  // ====================================================================
   // 6. HOVER BUBBLE LOGIC
-  // ====================================================================
   const handleMouseEnter = (e) => {
     const { offsetLeft, offsetWidth } = e.currentTarget;
     setHoverBubbleStyle({ left: offsetLeft, width: offsetWidth, opacity: 1 });
@@ -145,9 +112,7 @@ export default function Overlay() {
     setHoverBubbleStyle(prev => ({ ...prev, opacity: 0 }));
   };
 
-  // ====================================================================
   // 7. AUTO-SCROLL FOR BACK NAVIGATION
-  // ====================================================================
   useEffect(() => {
     if (location.hash === '#projects') {
       const element = document.getElementById('projects');
@@ -155,10 +120,7 @@ export default function Overlay() {
     }
   }, [location]);
 
-  // ====================================================================
   // 8. HELPER FUNCTIONS
-  // ====================================================================
-
   const toggleMenu = () => { setIsMenuOpen(!isMenuOpen); };
   
   const scrollToSection = (id) => {
@@ -207,9 +169,7 @@ export default function Overlay() {
     return '';
   };
 
-  // ====================================================================
-  // 9. RENDER (HTML STRUCTURE)
-  // ====================================================================
+  // 9. RENDER
   return (
     <div className="overlay">
       
@@ -284,7 +244,6 @@ export default function Overlay() {
             </span>
           </p>
           <div className="btn-group">
-            {/* RESUME BUTTON */}
             <button className="btn" onClick={() => window.open(myResume, '_blank')}>
                 Resume / CV
             </button>
@@ -304,7 +263,6 @@ export default function Overlay() {
             <p><strong>Eduvos</strong></p>
             <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
             <br/>
-            {/* QUALIFICATION LINK */}
             <a 
                 href={completionLetter} 
                 target="_blank" 
@@ -338,15 +296,11 @@ export default function Overlay() {
         <h2 className="section-title">Recent Projects</h2>
         <div className="projects-grid">
           
-          {/* 👇 GLARE EFFECT INTEGRATION */}
           {projects.slice(0, 3).map((project, index) => (
-            
-            // Replaced outer <div> with <GlareHover>
             <GlareHover 
                 key={index}
                 className="project-card" 
                 borderRadius="15px"
-                // Using props to match your theme
                 background="#0c0c0c"
                 borderColor="#333"
             >
@@ -374,7 +328,6 @@ export default function Overlay() {
           ))}
         </div>
 
-        {/* 👇 "VIEW ALL" BUTTON */}
         <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
             <Link to="/all-projects" className="btn">
                 View All Projects →

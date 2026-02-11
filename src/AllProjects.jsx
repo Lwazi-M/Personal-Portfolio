@@ -109,13 +109,23 @@ export default function AllProjects() {
                         <div className="card-placeholder"></div>
                       )}
                   </div>
+                  
+                  {/* 👇 CARD CONTENT WRAPPER */}
                   <div className="card-content">
                       <h3>{project.title}</h3>
                       <p>{project.shortDescription}</p>
+                      
                       <div className="card-buttons">
-                          <Link to={`/project/${project.id}`} className="btn sm-btn">View More</Link>
+                            {(project.link || project.repoLink) ? (
+                                <Link to={`/project/${project.id}`} className="btn sm-btn">View More</Link>
+                            ) : (
+                                <button className="btn sm-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed', borderColor: '#555', color: '#555'}}>
+                                    Coming Soon
+                                </button>
+                            )}
                       </div>
-                  </div>
+                  </div> {/* 👈 FIXED: Added the missing closing div for card-content! */}
+                  
               </GlareHover>
             ))
           ) : (
