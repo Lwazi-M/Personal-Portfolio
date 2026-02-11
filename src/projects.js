@@ -11,16 +11,22 @@ import studyConnectLogo from './assets/studyconnect.webp'
 import studyConnectScreen from './assets/studyconnectapp.webp'
 import humblecoffeeLogo from './assets/humblecoffee.png'
 import humblecoffeeScreen from './assets/humblecoffee-screen.png'
+import atomicLedgerLogo from './assets/atomic-ledger.jpg'
+import atomicLedgerScreen from './assets/atomic-ledger-screen.png'
 
 // Tech Stack Icons
-import htmlIcon from './assets/html.png'
-import cssIcon from './assets/css.png'
-import jsIcon from './assets/javascript.webp'
-import gitIcon from './assets/git.png'
-import reactIcon from './assets/react.webp'
-import tailwindIcon from './assets/tailwind.webp'
-import typescriptIcon from './assets/typescript.png'
-import nextjsIcon from './assets/nextjs.webp'
+import htmlIcon from './assets/html.svg'
+import cssIcon from './assets/css.svg'
+import jsIcon from './assets/javascript.svg'
+import gitIcon from './assets/git.svg'
+import reactIcon from './assets/react-native.svg'
+import tailwindIcon from './assets/tailwindcss.svg'
+import typescriptIcon from './assets/typescript.svg'
+import nextjsIcon from './assets/next.js.svg'
+import javaIcon from './assets/java.svg'
+import springBootIcon from './assets/spring-boot.svg' 
+import postgresIcon from './assets/postgresql.svg'
+import dockerIcon from './assets/docker.svg'
 
 // ====================================================================
 // 2. PROJECT DATA ARRAY
@@ -31,55 +37,44 @@ import nextjsIcon from './assets/nextjs.webp'
 
 export const projects = [
   
-  // --- PROJECT 1 (Placeholder) ---
+  // --- PROJECT 1: Atomic Ledger ---
   {
-    // Unique ID used for the URL (e.g. /project/project-1)
-    id: "project-1",
-    
-    // Title displayed on the card and hero section
-    title: "Project",
-    
-    // ⬇️ NEW: Category for filtering
-    category: "In Development",
+    id: 'atomic-ledger',
+    title: 'Atomic Ledger',
+    category: "Backend API",
+    shortDescription: 'A secure financial transaction dashboard built with a Java Spring Boot N-Tier architecture.',
+    aiAnalysis: "Atomic Ledger demonstrates advanced backend engineering capabilities. The architecture leverages Java 21 and Spring Boot 3 to execute a clean N-Tier design, separating concerns between API routing, business logic, external AI integrations, and database persistence. The implementation of in-memory caching for third-party API calls drastically reduces latency. Furthermore, the use of Dependency Injection for thread safety and environment variables for secrets management highlights a strong command of enterprise-level security and scalability principles.",
+    fullDescription: `Atomic Ledger is a comprehensive financial application that simulates real-world banking infrastructure through a strict N-Tier Layered Design. 
 
-    // Short description for the small card on the home page (max ~80 chars)
-    shortDescription: "Coming Soon",
-    
-    // ⬇️ NEW: Simple English AI Analysis
-    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
+The architecture includes:
+• A RESTful API Presentation Layer that intercepts HTTP requests and deserializes JSON payloads.
+• A core Business Logic Layer that acts as the central orchestrator, executing pre-condition fraud checks and account-based routing.
+• An Integration Layer that constructs synchronous HTTP requests to the Google Gemini API for intelligent transaction categorization, optimized with an in-memory caching abstraction layer for instant retrieval.
+• A robust Data Access Layer utilizing Spring Data JPA and Hibernate to map objects to a PostgreSQL relational database, ensuring ACID compliance.
 
-    // Full text for the detail page. Supports newlines/formatting.
-    fullDescription: "This project is currently under development.",
+The system was developed with Java 21 and Spring Boot 3, employing constructor-based Dependency Injection for immutability and the "12-Factor App" methodology to secure credentials via environment variables. Everything is containerized via Docker for reliable deployment.`,
     
-    // 'image': The thumbnail shown on the grid card.
-    image: project1Img,
+    image: atomicLedgerLogo, 
+    modalImage: atomicLedgerScreen, 
     
-    // 'modalImage': The large hero image shown on the detail page.
-    // Usually a wider, higher-quality screenshot.
-    modalImage: project1Img,
+    link: 'https://your-render-url-here.onrender.com', // Update with your live Render link
+    repoLink: 'https://github.com/Lwazi-M/atomic-ledger', 
     
-    // Links (set to null if not ready yet)
-    link: null,      // Link to live demo
-    repoLink: null,  // Link to GitHub repo
-    
-    // List of technologies used (renders icons)
-    techStack: []
+    techStack: [
+      { name: 'Java', icon: javaIcon },
+      { name: 'Spring Boot', icon: springBootIcon },
+      { name: 'PostgreSQL', icon: postgresIcon },
+      { name: 'Docker', icon: dockerIcon }
+    ]
   },
 
   // --- PROJECT 2: StudyConnect ---
   {
     id: "studyconnect",
     title: "StudyConnect",
-    
-    // ⬇️ NEW: Category for filtering
     category: "Web App",
-
     shortDescription: "A comprehensive student connection platform built for educational resource management.",
-    
-    // ⬇️ NEW: Simple English AI Analysis
     aiAnalysis: "Analysis: Think of this as a social network designed strictly for studying. Its purpose is to solve the isolation students feel when studying alone. It helps by instantly connecting you with classmates, allowing you to share notes, chat, and form study groups so no one has to struggle with difficult modules on their own.",
-
-    // Template Literals (backticks ` `) allow multi-line strings.
     fullDescription: `StudyConnect was born from a simple realization: students often feel isolated and frustrated when wrestling with tough academic concepts late at night. 
     
     The Mission:
@@ -94,13 +89,10 @@ export const projects = [
     However, to solve the challenge of accessibility and remove the barrier of APK downloads, StudyConnect 2.0 evolves into a Progressive Web App (PWA). We migrated to a modern stack using Next.js (React), TypeScript, and Tailwind CSS. 
     
     This version features a custom "Digital Phone" chassis with Glassmorphism aesthetics, simulating a premium native mobile experience that runs instantly in any web browser.`,
-    
     image: studyConnectLogo,
     modalImage: studyConnectScreen, 
-    
     link: "https://studyconnect-lovat.vercel.app/",
     repoLink: "https://github.com/Lwazi-M/studyconnect-2.0",
-    
     techStack: [
       { name: "TypeScript", icon: typescriptIcon },
       { name: "CSS", icon: cssIcon },
@@ -113,15 +105,9 @@ export const projects = [
   {
     id: "humble-coffee",
     title: "Humble Coffee",
-    
-    // ⬇️ NEW: Category for filtering
     category: "E-Commerce",
-
     shortDescription: "A high-performance e-commerce application featuring dynamic pricing logic and real-time inventory.",
-    
-    // ⬇️ NEW: Simple English AI Analysis
     aiAnalysis: "Analysis: This is a digital storefront for a premium coffee brand. The goal was to make buying specialized coffee online as easy as walking into a shop. It helps customers by allowing them to pick the exact weight of coffee they want (like 250g or 1kg) and automatically updates the price, all while working super fast on mobile phones so you don't use up all your data.",
-
     fullDescription: `The Challenge:
     To design and build a modern digital storefront for an artisanal coffee brand that reflects their premium in-store atmosphere while solving complex e-commerce challenges—specifically non-linear product pricing (e.g., 1kg vs 250g bags) and mobile performance constraints.
 
@@ -134,18 +120,60 @@ export const projects = [
     • Dynamic Pricing Engine: Backend logic that parses non-standard product variants.
     • Adaptive Media: Responsive media loading for optimal mobile data usage.
     • Real-Time Database: Connected to Supabase (PostgreSQL) for live inventory.`,
-    
     image: humblecoffeeLogo,
     modalImage: humblecoffeeScreen, 
-    
     link: "https://humblecoffee-shop.vercel.app/",
     repoLink: "https://github.com/Lwazi-M/humble-coffee-redesign",
-    
     techStack: [
         { name: "Next.js", icon: nextjsIcon },
         { name: "TypeScript", icon: typescriptIcon },
         { name: "Tailwind CSS", icon: tailwindIcon },
         { name: "Git", icon: gitIcon }
     ]
+  },
+
+  // --- PROJECT 4 (Placeholder) ---
+  {
+    id: "project-4",
+    title: "Project",
+    category: "In Development",
+    shortDescription: "Coming Soon",
+    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
+    fullDescription: "This project is currently under development. Detailed specifications will be updated upon completion.",
+    image: project1Img,
+    modalImage: project1Img,
+    link: null,      
+    repoLink: null,  
+    techStack: []
+  },
+
+  // --- PROJECT 5 (Placeholder) ---
+  {
+    id: "project-5",
+    title: "Project",
+    category: "In Development",
+    shortDescription: "Coming Soon",
+    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
+    fullDescription: "This project is currently under development. Detailed specifications will be updated upon completion.",
+    image: project1Img,
+    modalImage: project1Img,
+    link: null,      
+    repoLink: null,  
+    techStack: []
+  },
+
+  // --- PROJECT 6 (Placeholder) ---
+  {
+    id: "project-6",
+    title: "Project",
+    category: "In Development",
+    shortDescription: "Coming Soon",
+    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
+    fullDescription: "This project is currently under development. Detailed specifications will be updated upon completion.",
+    image: project1Img,
+    modalImage: project1Img,
+    link: null,      
+    repoLink: null,  
+    techStack: []
   }
 ];
