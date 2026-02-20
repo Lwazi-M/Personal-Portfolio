@@ -7,12 +7,12 @@
 
 // Project Screenshots & Logos
 import project1Img from './assets/37917.webp' 
-import assetCompassLogo from './assets/assetCompassLogo.png' 
-import assetCompassScreen from './assets/assetCompassScreen.png' 
+import assetCompassLogo from './assets/assetCompassLogo.webp' 
+import assetCompassScreen from './assets/assetCompassScreen.webp' 
 import studyConnectLogo from './assets/studyconnect.webp'
 import studyConnectScreen from './assets/studyconnectapp.webp'
 import humblecoffeeLogo from './assets/humblecoffee.png'
-import humblecoffeeScreen from './assets/humblecoffee-screen.png'
+import humblecoffeeScreen from './assets/humblecoffee-screen.webp'
 import atomicLedgerLogo from './assets/atomic-ledger.jpg'
 import atomicLedgerScreen from './assets/atomic-ledger-screen.png'
 
