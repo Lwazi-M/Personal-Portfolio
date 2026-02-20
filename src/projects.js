@@ -7,6 +7,8 @@
 
 // Project Screenshots & Logos
 import project1Img from './assets/37917.webp' 
+import assetCompassLogo from './assets/assetCompassLogo.png' 
+import assetCompassScreen from './assets/assetCompassScreen.png' 
 import studyConnectLogo from './assets/studyconnect.webp'
 import studyConnectScreen from './assets/studyconnectapp.webp'
 import humblecoffeeLogo from './assets/humblecoffee.png'
@@ -37,13 +39,45 @@ import dockerIcon from './assets/docker.svg'
 
 export const projects = [
   
-  // --- PROJECT 1: Atomic Ledger ---
+  // --- PROJECT 1: Asset Compass ---
+  {
+    id: 'asset-compass',
+    title: "Asset Compass",
+    category: "Full-Stack FinTech",
+    shortDescription: "A professional financial tracking dashboard featuring real-time market data and secure stateless authentication.",
+    aiAnalysis: "Analysis: Think of this as a digital control center for personal wealth. Instead of checking ten different apps to see how your stocks or savings are doing, this app brings it all together in one clear dashboard. The standout feature is its 'safety net'—if the live stock market data provider crashes or limits access, the app automatically switches to backup data, ensuring the user is never left staring at a broken screen.",
+    fullDescription: `Asset Compass is a comprehensive financial tracking platform designed to help users monitor their net worth across various asset classes in real-time.
+
+The architecture is built on a modern, decoupled stack:
+• Frontend: A responsive, dark-themed dashboard built with Next.js 15, Tailwind CSS, and Recharts for interactive data visualization.
+• Backend: A robust Java Spring Boot API utilizing Spring Security for stateless JWT authentication and Spring Data JPA for data persistence.
+• Database: Hosted on Neon (Serverless PostgreSQL) with customized HikariCP connection pooling to handle idle timeouts gracefully.
+
+Key Engineering Highlights:
+• Real-Time Market Data: Integrated with the AlphaVantage API to fetch live stock prices and foreign exchange rates (USD/ZAR).
+• Resilient Design (Circuit Breaker): Engineered a custom fallback mechanism. If the third-party financial API hits its rate limit, the backend seamlessly catches the exception and serves deterministic mock data, ensuring the user experience is never interrupted.
+• Automated Audit Trail: Every asset purchase and price refresh automatically generates an immutable transaction log, powering the historical performance charts.`,
+    image: assetCompassLogo,
+    modalImage: assetCompassScreen,
+    link: 'https://asset-compass-beta.vercel.app',      
+    repoLink: 'https://github.com/Lwazi-M/asset-compass',  
+    techStack: [
+      { name: 'Next.js', icon: nextjsIcon },
+      { name: 'TypeScript', icon: typescriptIcon },
+      { name: 'Tailwind CSS', icon: tailwindIcon },
+      { name: 'Java', icon: javaIcon },
+      { name: 'Spring Boot', icon: springBootIcon },
+      { name: 'PostgreSQL', icon: postgresIcon }
+    ]
+  },
+
+  // --- PROJECT 2: Atomic Ledger ---
   {
     id: 'atomic-ledger',
     title: 'Atomic Ledger',
     category: "Backend API",
     shortDescription: 'A secure financial transaction dashboard built with a Java Spring Boot N-Tier architecture.',
-    aiAnalysis: "Atomic Ledger demonstrates advanced backend engineering capabilities. The architecture leverages Java 21 and Spring Boot 3 to execute a clean N-Tier design, separating concerns between API routing, business logic, external AI integrations, and database persistence. The implementation of in-memory caching for third-party API calls drastically reduces latency. Furthermore, the use of Dependency Injection for thread safety and environment variables for secrets management highlights a strong command of enterprise-level security and scalability principles.",
+    aiAnalysis: "Analysis: This project focuses on the invisible engine that powers modern banking. It's essentially the 'traffic controller' for money, ensuring every transaction goes exactly where it needs to safely and instantly. I built it using strict, enterprise-level rules so that even if thousands of transactions happen at once, the system remains secure, organized, and lightning-fast—partly by 'remembering' common requests to save time.",
     fullDescription: `Atomic Ledger is a comprehensive financial application that simulates real-world banking infrastructure through a strict N-Tier Layered Design. 
 
 The architecture includes:
@@ -68,13 +102,13 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     ]
   },
 
-  // --- PROJECT 2: StudyConnect ---
+  // --- PROJECT 3: StudyConnect ---
   {
     id: "studyconnect",
     title: "StudyConnect",
     category: "Web App",
     shortDescription: "A comprehensive student connection platform built for educational resource management.",
-    aiAnalysis: "Analysis: Think of this as a social network designed strictly for studying. Its purpose is to solve the isolation students feel when studying alone. It helps by instantly connecting you with classmates, allowing you to share notes, chat, and form study groups so no one has to struggle with difficult modules on their own.",
+    aiAnalysis: "Analysis: This is essentially a specialized social network built just for studying. It solves the isolation students often feel by instantly connecting them with classmates taking the same courses. Users can share notes, chat, and form study groups online, ensuring no one has to struggle through difficult modules alone.",
     fullDescription: `StudyConnect was born from a simple realization: students often feel isolated and frustrated when wrestling with tough academic concepts late at night. 
     
     The Mission:
@@ -101,13 +135,13 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     ]
   },
 
-  // --- PROJECT 3: Humble Coffee ---
+  // --- PROJECT 4: Humble Coffee ---
   {
     id: "humble-coffee",
     title: "Humble Coffee",
     category: "E-Commerce",
     shortDescription: "A high-performance e-commerce application featuring dynamic pricing logic and real-time inventory.",
-    aiAnalysis: "Analysis: This is a digital storefront for a premium coffee brand. The goal was to make buying specialized coffee online as easy as walking into a shop. It helps customers by allowing them to pick the exact weight of coffee they want (like 250g or 1kg) and automatically updates the price, all while working super fast on mobile phones so you don't use up all your data.",
+    aiAnalysis: "Analysis: This is a digital storefront designed to make buying premium coffee online feel as seamless as ordering in a cafe. The main challenge was handling complex pricing—like changing the cost automatically if a customer chooses a 1kg bag instead of a 250g bag. It's also optimized to load incredibly fast on mobile devices, preventing users from wasting mobile data while browsing.",
     fullDescription: `The Challenge:
     To design and build a modern digital storefront for an artisanal coffee brand that reflects their premium in-store atmosphere while solving complex e-commerce challenges—specifically non-linear product pricing (e.g., 1kg vs 250g bags) and mobile performance constraints.
 
@@ -130,21 +164,6 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
         { name: "Tailwind CSS", icon: tailwindIcon },
         { name: "Git", icon: gitIcon }
     ]
-  },
-
-  // --- PROJECT 4 (Placeholder) ---
-  {
-    id: "project-4",
-    title: "Project",
-    category: "In Development",
-    shortDescription: "Coming Soon",
-    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
-    fullDescription: "This project is currently under development. Detailed specifications will be updated upon completion.",
-    image: project1Img,
-    modalImage: project1Img,
-    link: null,      
-    repoLink: null,  
-    techStack: []
   },
 
   // --- PROJECT 5 (Placeholder) ---
