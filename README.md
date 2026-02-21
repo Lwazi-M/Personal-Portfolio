@@ -1,5 +1,7 @@
 # 3D Interactive Portfolio 🚀
 
+<img width="1721" height="918" alt="image" src="https://github.com/user-attachments/assets/7c911c29-4665-42e7-908f-da1f2c52fc35" />
+
 A high-performance, immersive portfolio built with **React**, **Three.js (Fiber)**, and **Tailwind CSS**.
 
 This project represents a complete architectural overhaul from a static HTML website to a scalable Single Page Application (SPA). It features physics-based 3D interactions, cinema-quality page transitions, and a serverless contact engine.
