@@ -15,6 +15,8 @@ import humblecoffeeLogo from './assets/humblecoffee.png'
 import humblecoffeeScreen from './assets/humblecoffee-screen.webp'
 import atomicLedgerLogo from './assets/atomic-ledger.jpg'
 import atomicLedgerScreen from './assets/atomic-ledger-screen.png'
+import loansysLogo from './assets/loansystemlogo.webp'
+import loansysScreen from './assets/loansystem-screen.webp'
 
 // Tech Stack Icons
 import htmlIcon from './assets/html.svg'
@@ -29,6 +31,8 @@ import javaIcon from './assets/java.svg'
 import springBootIcon from './assets/spring-boot.svg' 
 import postgresIcon from './assets/postgresql.svg'
 import dockerIcon from './assets/docker.svg'
+import pythonIcon from './assets/python.svg'
+import sqliteIcon from './assets/sqlite.svg'
 
 // ====================================================================
 // 2. PROJECT DATA ARRAY
@@ -166,9 +170,42 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     ]
   },
 
-  // --- PROJECT 5 (Placeholder) ---
+  // --- PROJECT 5: FinTech Loan Scorer ---
   {
     id: "project-5",
+    title: "FinTech Loan Scorer",
+    category: "Full-Stack FinTech",
+    shortDescription: "A credit risk assessment engine featuring weighted scoring logic and high-traffic stress testing.",
+    aiAnalysis: "Analysis: Imagine a bank's 'invisible brain' that decides who gets a loan in seconds. Instead of a human looking at a single number, this app acts like a digital scale. On one side, it weighs your history of paying bills; on the other, it weighs how much money you have left after expenses. I built this to be 'stress-proof'—meaning it can handle a huge rush of thousands of people applying at the exact same time without slowing down or making a mistake. It’s essentially an automated, high-speed security guard for a bank's money.",
+    fullDescription: `The FinTech Loan Scorer is a high-performance credit assessment engine designed to replicate the rigorous risk-analysis workflows used by major South African financial institutions like Investec and Discovery Bank.
+
+    The system is built on a modern, decoupled full-stack architecture:
+    • Frontend: A dark-themed React.js interface featuring a dynamic, real-time 'Risk Gauge' and specialized CSS transitions that provide immediate visual feedback on applicant eligibility.
+    • Backend: A high-concurrency Python API built with FastAPI, implementing strict input sanitization and business logic to prevent 'garbage data' from influencing financial decisions.
+    • Database: An SQLite persistence layer that maintains an immutable audit trail of every loan decision, ensuring data integrity for future reporting and compliance.
+
+    Key Engineering Highlights:
+    • Weighted Scoring Algorithm: Engineered a complex heuristic engine that balances Credit History (60% weight) against Debt-to-Income (DTI) ratios (40%) to generate a nuanced Financial Health Score out of 100.
+    • Resilience & Stress Testing: Developed a custom automated testing utility (stress_test.py) to simulate high-traffic scenarios, successfully processing 100+ concurrent API requests without a single failure or drop in response time.
+    • Self-Healing Infrastructure: Implemented an asynchronous 'lifespan' event in the FastAPI backend that automatically creates necessary SQL table structures upon cloud deployment, ensuring zero-configuration scalability on platforms like Railway.
+    • Secure Coding: Utilized SQL placeholders to mitigate SQL Injection risks and implemented CORS middleware to secure cross-origin communication between the Vercel-hosted UI and the Railway-hosted API.`,
+    image: loansysLogo,
+    modalImage: loansysScreen,
+    link: 'https://mini-fintech-loan-system.vercel.app/',      
+    repoLink: 'https://github.com/Lwazi-M/mini-fintech-loan-system',  
+    techStack: [
+        { name: "React", icon: reactIcon },
+        { name: "Python", icon: pythonIcon },
+        { name: "JavaScript", icon: jsIcon },
+        { name: "HTML", icon: htmlIcon }, 
+        { name: "Git", icon: gitIcon },
+        { name: "SQLite", icon: sqliteIcon } 
+    ]
+  },
+
+  // --- PROJECT 6 (Placeholder) ---
+  {
+    id: "project-6",
     title: "Project",
     category: "In Development",
     shortDescription: "Coming Soon",
@@ -181,9 +218,39 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     techStack: []
   },
 
-  // --- PROJECT 6 (Placeholder) ---
+  // --- PROJECT 7 (Placeholder) ---
   {
-    id: "project-6",
+    id: "project-7",
+    title: "Project",
+    category: "In Development",
+    shortDescription: "Coming Soon",
+    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
+    fullDescription: "This project is currently under development. Detailed specifications will be updated upon completion.",
+    image: project1Img,
+    modalImage: project1Img,
+    link: null,      
+    repoLink: null,  
+    techStack: []
+  }, 
+
+    // --- PROJECT 8 (Placeholder) ---
+  {
+    id: "project-8",
+    title: "Project",
+    category: "In Development",
+    shortDescription: "Coming Soon",
+    aiAnalysis: "Analysis: This project is currently being built. Check back soon to see how it solves real-world problems!",
+    fullDescription: "This project is currently under development. Detailed specifications will be updated upon completion.",
+    image: project1Img,
+    modalImage: project1Img,
+    link: null,      
+    repoLink: null,  
+    techStack: []
+  }, 
+
+    // --- PROJECT 9 (Placeholder) ---
+  {
+    id: "project-9",
     title: "Project",
     category: "In Development",
     shortDescription: "Coming Soon",
