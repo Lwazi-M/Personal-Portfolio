@@ -316,7 +316,7 @@ export default function Overlay() {
                     <p>{project.shortDescription}</p>
                     <div className="card-buttons">
                         {(project.link || project.repoLink) ? (
-                            <Link to={`/project/${project.id}`} className="btn sm-btn">View More</Link>
+                            <Link to={`/project/${project.id}`} state={{ from: 'home' }} className="btn sm-btn">View More</Link>
                         ) : (
                             <button className="btn sm-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed', borderColor: '#555', color: '#555'}}>
                                 Coming Soon

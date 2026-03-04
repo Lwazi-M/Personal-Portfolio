@@ -5,13 +5,14 @@
 // Hooks from React Router:
 // - useParams: Grabs the ":id" from the URL (e.g., gets "studyconnect" from "/project/studyconnect").
 // - useNavigate: Allows us to change the URL using code (instead of just clicking a link).
-import { useParams, useNavigate } from 'react-router-dom'; 
+// 👇 NEW: useLocation to read the "secret note" about where the user came from.
+import { useParams, useNavigate, useLocation } from 'react-router-dom'; 
 
 // Import the data file containing all project details.
 import { projects } from './projects';
 
 // Import icons for the buttons.
-// 👇 Added FaMagic for the AI button
+// Added FaMagic for the AI button
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaMagic } from 'react-icons/fa';
 
 // React Hooks:
@@ -38,10 +39,13 @@ export default function ProjectPage() {
   // Initialize the navigate function so we can use it later.
   const navigate = useNavigate(); 
   
+  // 👇 NEW: Initialize location to read the state passed from the previous page
+  const location = useLocation();
+  
   // Create a state variable to track if the exit animation is running.
   const [isExiting, setIsExiting] = useState(false); 
 
-  // 👇 NEW: AI STATE VARIABLES
+  // AI STATE VARIABLES
   const [aiText, setAiText] = useState('');       // Stores the text as it gets typed out
   const [isTyping, setIsTyping] = useState(false); // Prevents clicking the button twice
 
@@ -54,8 +58,12 @@ export default function ProjectPage() {
   const handleBackClick = (e) => {
     e.preventDefault(); 
     setIsExiting(true); 
+    
+    // 👇 NEW: Check the secret note. If they came from 'all-projects', send them there. Otherwise, default to Home.
+    const destination = location.state?.from === 'all-projects' ? '/all-projects' : '/#projects';
+
     setTimeout(() => {
-        navigate('/#projects');
+        navigate(destination);
     }, 500);
   };
 
@@ -98,13 +106,14 @@ export default function ProjectPage() {
       
       {/* --- NAVBAR --- */}
       <nav className="project-nav">
+        {/* 👇 NEW: Update href fallback to match the dynamic destination */}
         <a 
-            href="/#projects" 
+            href={location.state?.from === 'all-projects' ? "/all-projects" : "/#projects"} 
             onClick={handleBackClick} 
             className="back-link" 
             style={{cursor: 'pointer'}}
         >
-            <FaArrowLeft /> Back to Portfolio
+            <FaArrowLeft /> Back to {location.state?.from === 'all-projects' ? 'Project Archive' : 'Portfolio'}
         </a>
       </nav>
 
@@ -138,7 +147,7 @@ export default function ProjectPage() {
         {/* Divider Line */}
         <hr className="divider"/>
 
-        {/* 👇 NEW: AI ANALYSIS SECTION */}
+        {/* AI ANALYSIS SECTION */}
         <div className="project-details" style={{marginBottom: '3rem', display: 'block'}}> 
             {/* We use a separate block container for the AI box so it spans full width */}
             <div style={{
@@ -194,7 +203,7 @@ export default function ProjectPage() {
                     <div className="tech-stack-grid">
                         {project.techStack.map((tech, index) => (
                             <div key={index} className="tech-badge-small">
-                                {/* 👇 ADDED loading="lazy" HERE */}
+                                {/* ADDED loading="lazy" HERE */}
                                 <img src={tech.icon} alt={tech.name} loading="lazy" />
                                 <span>{tech.name}</span>
                             </div>

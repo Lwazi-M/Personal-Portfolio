@@ -117,7 +117,7 @@ export default function AllProjects() {
                       
                       <div className="card-buttons">
                             {(project.link || project.repoLink) ? (
-                                <Link to={`/project/${project.id}`} className="btn sm-btn">View More</Link>
+                                <Link to={`/project/${project.id}`} state={{ from: 'all-projects' }} className="btn sm-btn">View More</Link>
                             ) : (
                                 <button className="btn sm-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed', borderColor: '#555', color: '#555'}}>
                                     Coming Soon
