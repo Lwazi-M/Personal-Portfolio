@@ -95,7 +95,7 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     image: atomicLedgerLogo, 
     modalImage: atomicLedgerScreen, 
     
-    link: 'https://atomic-ledger.vercel.app/',
+    link: 'http://206.189.57.159:8080/',
     repoLink: 'https://github.com/Lwazi-M/atomic-ledger', 
     
     techStack: [
