@@ -64,7 +64,7 @@ export default function AllProjects() {
             </div>
 
             {/* Filter Pills */}
-            <div className="tech-container" style={{gap: '0.8rem'}}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.8rem', width: '100%' }}>
                 {allTech.map(tech => (
                     <button 
                         key={tech}
