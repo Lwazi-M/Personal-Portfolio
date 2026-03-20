@@ -35,7 +35,20 @@ import pythonIcon from './assets/python.svg'
 import sqliteIcon from './assets/sqlite.svg'
 
 // ====================================================================
-// 2. PROJECT DATA ARRAY
+// 2. MANUAL TECH STACK (Shows up on Home Page regardless of projects)
+// ====================================================================
+// 👇 NEW: This array allows you to manually force any technology to appear 
+// in your Home Page tech stack, even if it's not listed inside a specific project.
+export const manualTechStack = [
+  { name: 'HTML', icon: htmlIcon },
+  { name: 'CSS', icon: cssIcon },
+  { name: 'JavaScript', icon: jsIcon },
+  { name: 'React', icon: reactIcon },
+  { name: 'Python', icon: pythonIcon }
+];
+
+// ====================================================================
+// 3. PROJECT DATA ARRAY
 // ====================================================================
 // This array is the "Single Source of Truth" for your portfolio.
 // The ProjectPage.jsx and Overlay.jsx files loop through this array
@@ -63,7 +76,7 @@ Key Engineering Highlights:
 • Automated Audit Trail: Every asset purchase and price refresh automatically generates an immutable transaction log, powering the historical performance charts.`,
     image: assetCompassLogo,
     modalImage: assetCompassScreen,
-    link: 'https://asset-compass-beta.vercel.app',      
+    link: 'https://asset-compass-beta.vercel.app',       
     repoLink: 'https://github.com/Lwazi-M/asset-compass',  
     techStack: [
       { name: 'Next.js', icon: nextjsIcon },
@@ -191,7 +204,7 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     • Secure Coding: Utilized SQL placeholders to mitigate SQL Injection risks and implemented CORS middleware to secure cross-origin communication between the Vercel-hosted UI and the Railway-hosted API.`,
     image: loansysLogo,
     modalImage: loansysScreen,
-    link: 'https://mini-fintech-loan-system.vercel.app/',      
+    link: 'https://mini-fintech-loan-system.vercel.app/',       
     repoLink: 'https://github.com/Lwazi-M/mini-fintech-loan-system',  
     techStack: [
         { name: "React", icon: reactIcon },
