@@ -6,7 +6,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa'; 
 
 import './App.css'
-import { projects } from './projects'; 
+
+// 👇 ADDITION: Imported 'manualTechStack' alongside 'projects'
+import { projects, manualTechStack } from './projects'; 
 import GlareHover from './GlareHover';
 
 // ====================================================================
@@ -169,6 +171,12 @@ export default function Overlay() {
     return '';
   };
 
+  // 👇 ADDITION: DYNAMIC TECH STACK LOGIC
+  // Combine manual stack with all tech used in projects, then filter out any duplicates.
+  const projectTechs = projects.flatMap(p => p.techStack);
+  const combinedTechs = [...(manualTechStack || []), ...projectTechs];
+  const uniqueTechStack = Array.from(new Map(combinedTechs.map(item => [item.name, item])).values());
+
   // 9. RENDER
   return (
     <div className="overlay">
@@ -277,15 +285,13 @@ export default function Overlay() {
           <div className="card">
             <h3>My Tech Stack</h3>
             <div className="tech-container">
-              <div className="tech-badge"><img src={htmlIcon} alt="HTML" loading="lazy"/><span>HTML</span></div>
-              <div className="tech-badge"><img src={cssIcon} alt="CSS" loading="lazy"/><span>CSS</span></div>
-              <div className="tech-badge"><img src={jsIcon} alt="JS" loading="lazy"/><span>JavaScript</span></div>
-              <div className="tech-badge"><img src={gitIcon} alt="Git" loading="lazy"/><span>Git</span></div>
-              <div className="tech-badge"><img src={pythonIcon} alt="Python" loading="lazy"/><span>Python</span></div>
-              <div className="tech-badge"><img src={reactIcon} alt="React" loading="lazy"/><span>React</span></div>
-              <div className="tech-badge"><img src={typescriptIcon} alt="TypeScript" loading="lazy"/><span>TypeScript</span></div>
-              <div className="tech-badge"><img src={tailwindIcon} alt="Tailwind" loading="lazy"/><span>Tailwind</span></div>
-              <div className="tech-badge"><img src={nextjsIcon} alt="Nextjs" loading="lazy"/><span>Next JS</span></div>
+              {/* 👇 ADDITION: Replaced static icons with dynamic mapping */}
+              {uniqueTechStack.map((tech, index) => (
+                <div key={index} className="tech-badge">
+                  <img src={tech.icon} alt={tech.name} loading="lazy"/>
+                  <span>{tech.name}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
