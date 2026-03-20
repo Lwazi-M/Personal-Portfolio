@@ -147,7 +147,7 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     techStack: [
       { name: "TypeScript", icon: typescriptIcon },
       { name: "CSS", icon: cssIcon },
-      { name: "Javascript", icon: jsIcon },
+      { name: "JavaScript", icon: jsIcon },
       { name: "Git", icon: gitIcon }
     ]
   },
