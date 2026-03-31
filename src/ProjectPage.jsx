@@ -12,8 +12,8 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { projects } from './projects';
 
 // Import icons for the buttons.
-// Added FaMagic for the AI button
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaMagic } from 'react-icons/fa';
+// 👇 NEW: Added FaExpandArrowsAlt and FaTimes for the image modal
+import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaMagic, FaExpandArrowsAlt, FaTimes } from 'react-icons/fa';
 
 // React Hooks:
 // - useEffect: Used to run code when the page loads (like scrolling to the top).
@@ -48,6 +48,10 @@ export default function ProjectPage() {
   // AI STATE VARIABLES
   const [aiText, setAiText] = useState('');       // Stores the text as it gets typed out
   const [isTyping, setIsTyping] = useState(false); // Prevents clicking the button twice
+
+  // 👇 NEW: IMAGE EXPAND STATE
+  // Tracks whether the full-screen image modal is open or closed
+  const [isImageExpanded, setIsImageExpanded] = useState(false);
 
   // -- SCROLL TO TOP --
   useEffect(() => {
@@ -123,12 +127,26 @@ export default function ProjectPage() {
         <div className="project-hero">
             <h1 className="project-title">{project.title}</h1>
             
-            <img 
-                src={project.modalImage || project.image} 
-                alt={project.title} 
-                className="project-hero-image" 
-                // NOTE: No loading="lazy" here because this is "Above the Fold" (immediately visible)
-            />
+            {/* 👇 NEW: Wrapped the image in a relative container for the expand button */}
+            <div className="project-hero-image-wrapper">
+                <img 
+                    src={project.modalImage || project.image} 
+                    alt={project.title} 
+                    className="project-hero-image" 
+                    onClick={() => setIsImageExpanded(true)}
+                    title="Click to expand"
+                    // NOTE: No loading="lazy" here because this is "Above the Fold" (immediately visible)
+                />
+                
+                {/* The Corner Expand Button */}
+                <button 
+                    className="expand-btn"
+                    onClick={() => setIsImageExpanded(true)}
+                    title="View Fullscreen"
+                >
+                    <FaExpandArrowsAlt />
+                </button>
+            </div>
 
             <div className="project-links">
                 {project.link && (
@@ -213,6 +231,25 @@ export default function ProjectPage() {
             )}
         </div>
       </div>
+
+      {/* 👇 NEW: FULLSCREEN IMAGE MODAL */}
+      {/* This only renders if isImageExpanded is true */}
+      {isImageExpanded && (
+          <div className="image-modal-overlay" onClick={() => setIsImageExpanded(false)}>
+              
+              <button className="close-modal-btn" onClick={() => setIsImageExpanded(false)}>
+                  <FaTimes />
+              </button>
+              
+              <img 
+                  src={project.modalImage || project.image} 
+                  alt={`${project.title} Fullscreen`} 
+                  className="image-modal-content" 
+                  onClick={(e) => e.stopPropagation()} // Prevents click on image from closing the modal
+              />
+          </div>
+      )}
+
     </div>
   );
 }
