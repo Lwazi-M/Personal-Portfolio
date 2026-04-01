@@ -1096,3 +1096,40 @@ section {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* ================= FULLSCREEN MODAL MOBILE RESPONSIVENESS ================= */
+@media (max-width: 768px) {
+  /* 1. Shrink the expand button slightly so it doesn't block smaller images */
+  .expand-btn {
+    bottom: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+  }
+  
+  .expand-btn img.custom-expand-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* 2. Maximize image size on small screens */
+  .image-modal-content {
+    max-width: 95vw;
+    max-height: 85vh;
+  }
+
+  /* 3. Move close button into a safer zone for mobile notches/bezels */
+  .close-modal-btn {
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem;
+    /* Add a subtle dark background so it's always visible, even over bright white images */
+    background: rgba(0, 0, 0, 0.5); 
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
