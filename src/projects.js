@@ -76,7 +76,7 @@ Key Engineering Highlights:
 • Automated Audit Trail: Every asset purchase and price refresh automatically generates an immutable transaction log, powering the historical performance charts.`,
     image: assetCompassLogo,
     modalImage: assetCompassScreen,
-    link: 'https://asset-compass-beta.vercel.app',       
+    link: 'http://206.189.57.159:3000/',       
     repoLink: 'https://github.com/Lwazi-M/asset-compass',  
     techStack: [
       { name: 'Next.js', icon: nextjsIcon },
