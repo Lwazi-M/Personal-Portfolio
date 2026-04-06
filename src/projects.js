@@ -204,7 +204,7 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     • Secure Coding: Utilized SQL placeholders to mitigate SQL Injection risks and implemented CORS middleware to secure cross-origin communication between the Vercel-hosted UI and the Railway-hosted API.`,
     image: loansysLogo,
     modalImage: loansysScreen,
-    link: 'https://mini-fintech-loan-system.vercel.app/',       
+    link: 'http://206.189.57.159:3002/',       
     repoLink: 'https://github.com/Lwazi-M/mini-fintech-loan-system',  
     techStack: [
         { name: "React", icon: reactIcon },
