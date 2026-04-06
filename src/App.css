@@ -187,7 +187,7 @@ body {
 }
 
 .visit-btn {
-  padding: 0.5rem 1.5rem;
+  padding: 14px 29px;
   background: linear-gradient(to right, grey, blue);
   border-radius: 3rem;
   border: none;
@@ -301,13 +301,13 @@ section {
   display: grid;
   grid-template-columns: 1fr 2.5fr;
   gap: 2rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 /* ================== CARDS ================== */
 .card {
   background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
+  padding: 3rem;
   border-radius: var(--card-outer-radius); 
   border: 1px solid rgba(255,255,255,0.1);
   text-align: center;
@@ -315,7 +315,7 @@ section {
 
 .tech-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); 
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); 
   gap: 1rem; 
   justify-items: center;
   margin-top: 1rem;
