@@ -79,12 +79,12 @@ Key Engineering Highlights:
     link: 'http://206.189.57.159:3000/',       
     repoLink: 'https://github.com/Lwazi-M/asset-compass',  
     techStack: [
-      { name: 'Next.js', icon: nextjsIcon },
-      { name: 'TypeScript', icon: typescriptIcon },
-      { name: 'Tailwind CSS', icon: tailwindIcon },
-      { name: 'Java', icon: javaIcon },
-      { name: 'Spring Boot', icon: springBootIcon },
-      { name: 'PostgreSQL', icon: postgresIcon }
+      { name: 'Next.js', icon: nextjsIcon, category: "Frameworks & Libraries" },
+      { name: 'TypeScript', icon: typescriptIcon, category: "Languages" },
+      { name: 'Tailwind CSS', icon: tailwindIcon, category: "Frameworks & Libraries" },
+      { name: 'Java', icon: javaIcon, category: "Languages" },
+      { name: 'Spring Boot', icon: springBootIcon, category: "Frameworks & Libraries" },
+      { name: 'PostgreSQL', icon: postgresIcon, category: "Databases" }
     ]
   },
 
@@ -112,10 +112,10 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     repoLink: 'https://github.com/Lwazi-M/atomic-ledger', 
     
     techStack: [
-      { name: 'Java', icon: javaIcon },
-      { name: 'Spring Boot', icon: springBootIcon },
-      { name: 'PostgreSQL', icon: postgresIcon },
-      { name: 'Docker', icon: dockerIcon }
+      { name: 'Java', icon: javaIcon, category: "Languages" },
+      { name: 'Spring Boot', icon: springBootIcon, category: "Frameworks & Libraries" },
+      { name: 'PostgreSQL', icon: postgresIcon, category: "Databases" },
+      { name: 'Docker', icon: dockerIcon, category: "Tools & Platforms" }
     ]
   },
 
@@ -145,10 +145,10 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     link: "https://studyconnect-lovat.vercel.app/",
     repoLink: "https://github.com/Lwazi-M/studyconnect-2.0",
     techStack: [
-      { name: "TypeScript", icon: typescriptIcon },
-      { name: "CSS", icon: cssIcon },
-      { name: "JavaScript", icon: jsIcon },
-      { name: "Git", icon: gitIcon }
+      { name: "TypeScript", icon: typescriptIcon, category: "Languages" },
+      { name: "CSS", icon: cssIcon, category: "Languages" },
+      { name: "JavaScript", icon: jsIcon, category: "Languages" },
+      { name: "Git", icon: gitIcon, category: "Tools & Platforms" }
     ]
   },
 
@@ -176,10 +176,10 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     link: "https://humblecoffee-shop.vercel.app/",
     repoLink: "https://github.com/Lwazi-M/humble-coffee-redesign",
     techStack: [
-        { name: "Next.js", icon: nextjsIcon },
-        { name: "TypeScript", icon: typescriptIcon },
-        { name: "Tailwind CSS", icon: tailwindIcon },
-        { name: "Git", icon: gitIcon }
+        { name: "Next.js", icon: nextjsIcon, category: "Frameworks & Libraries" },
+        { name: "TypeScript", icon: typescriptIcon, category: "Languages" },
+        { name: "Tailwind CSS", icon: tailwindIcon, category: "Frameworks & Libraries" },
+        { name: "Git", icon: gitIcon, category: "Tools & Platforms" }
     ]
   },
 
@@ -207,12 +207,12 @@ The system was developed with Java 21 and Spring Boot 3, employing constructor-b
     link: 'http://206.189.57.159:3002/',       
     repoLink: 'https://github.com/Lwazi-M/mini-fintech-loan-system',  
     techStack: [
-        { name: "React", icon: reactIcon },
-        { name: "Python", icon: pythonIcon },
-        { name: "JavaScript", icon: jsIcon },
-        { name: "HTML", icon: htmlIcon }, 
-        { name: "Git", icon: gitIcon },
-        { name: "SQLite", icon: sqliteIcon } 
+        { name: "React", icon: reactIcon, category: "Frameworks & Libraries" },
+        { name: "Python", icon: pythonIcon, category: "Languages" },
+        { name: "JavaScript", icon: jsIcon, category: "Languages" },
+        { name: "HTML", icon: htmlIcon, category: "Languages" }, 
+        { name: "Git", icon: gitIcon, category: "Tools & Platforms" },
+        { name: "SQLite", icon: sqliteIcon, category: "Databases" } 
     ]
   },
 
