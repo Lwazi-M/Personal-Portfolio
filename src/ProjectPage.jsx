@@ -105,6 +105,17 @@ export default function ProjectPage() {
     return <div className="project-page-container"><h1>Project not found</h1></div>;
   }
 
+  // 👇 NEW: GROUPING LOGIC FOR TECH STACK
+  // This automatically sorts your flat array into categorized groups based on projects.js
+  const groupedTechStack = project.techStack?.reduce((groups, tech) => {
+      const category = tech.category || "Tools & Platforms"; // Fallback if you forget to add a category
+      if (!groups[category]) {
+          groups[category] = [];
+      }
+      groups[category].push(tech);
+      return groups;
+  }, {}) || {};
+
   // ====================================================================
   // 3. RENDER (HTML STRUCTURE)
   // ====================================================================
@@ -147,7 +158,7 @@ export default function ProjectPage() {
                     onClick={() => setIsImageExpanded(true)}
                     title="View Fullscreen"
                 >
-                    {/* 👇 NEW: Using your custom downloaded SVG via a standard image tag */}
+                    {/* Using your custom downloaded SVG via a standard image tag */}
                     <img src={expandIcon} alt="Expand" className="custom-expand-icon" />
                 </button>
             </div>
@@ -218,15 +229,22 @@ export default function ProjectPage() {
                 <p style={{whiteSpace: 'pre-line'}}>{project.fullDescription}</p>
             </div>
             
-            {/* Tech Stack Grid */}
-            {project.techStack.length > 0 && (
+            {/* 👇 UPDATED: Categorized Tech Stack Grid */}
+            {Object.keys(groupedTechStack).length > 0 && (
                 <div className="details-tech">
                     <h3>Technologies Used</h3>
-                    <div className="tech-stack-grid">
-                        {project.techStack.map((tech, index) => (
-                            <div key={index} className="tech-badge-small">
-                                <img src={tech.icon} alt={tech.name} loading="lazy" />
-                                <span>{tech.name}</span>
+                    <div className="tech-categories-container">
+                        {Object.entries(groupedTechStack).map(([category, techs]) => (
+                            <div key={category} className="tech-category-block">
+                                <h4>{category}</h4>
+                                <div className="tech-stack-grid">
+                                    {techs.map((tech, index) => (
+                                        <div key={index} className="tech-badge-small">
+                                            <img src={tech.icon} alt={tech.name} loading="lazy" />
+                                            <span>{tech.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         ))}
                     </div>

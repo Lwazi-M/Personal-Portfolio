@@ -1133,3 +1133,24 @@ section {
     justify-content: center;
   }
 }
+
+/* ================= PROJECT TECH CATEGORIES ================= */
+.tech-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; 
+}
+
+.tech-category-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.tech-category-block h4 {
+  font-size: 0.95rem;
+  color: #a0aec0; 
+  margin-bottom: 1rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase; 
+}
