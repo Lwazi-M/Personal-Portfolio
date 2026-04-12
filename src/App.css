@@ -1154,3 +1154,89 @@ section {
   letter-spacing: 1.5px;
   text-transform: uppercase; 
 }
+
+/* ================= OVERVIEW DROPDOWN ================= */
+.overview-dropdown {
+  /* Using the existing glass-morphism style, tailored for the overview box */
+  background: rgba(255, 255, 255, 0.03); 
+  border-radius: 15px; 
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden; /* Necessary for the height animation to work */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overview-dropdown.open {
+  background: rgba(255, 255, 255, 0.05); /* Slightly brighter when open */
+  border-color: rgba(255,255,255,0.2);
+}
+
+.overview-header {
+  padding: 1.5rem; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.overview-header:hover {
+  background: rgba(255, 255, 255, 0.02); /* Subtle highlight on hover */
+}
+
+/* Override the previous static title margin to avoid layout shifts */
+.overview-header h3 {
+  margin: 0; 
+}
+
+/* The native rotating icon that indicates dropdown state */
+.overview-chevron {
+  color: #fff; /* Match existing text colors */
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+/* Toggles rotation when the dropdown's parent div has the 'open' class */
+.overview-chevron.rotated {
+  transform: rotate(180deg);
+  color: #a0aec0; /* Subtly fade the icon when rotated to match existing blue-gray highlight patterns */
+}
+
+/* The content area that gets expanded. This height transition is crucial for the sliding animation. */
+.overview-content {
+  max-height: 0; 
+  padding: 0 1.5rem; /* Padding is inside so it animates smoothly */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+}
+
+.overview-content p {
+  color: #ccc; /* Match the existing muted description text color */
+}
+
+/* Activating the dropdown reveals the content and resets margins */
+.overview-dropdown.open .overview-content {
+  max-height: 1000px; /* An arbitrarily large max-height for complex descriptions */
+  padding-bottom: 2rem; /* Final bottom padding when open */
+  opacity: 1;
+}
+
+/* Styling for the Overview Sub-sections */
+.overview-subsection {
+  margin-bottom: 1.8rem;
+}
+
+.overview-subsection:last-child {
+  margin-bottom: 0;
+}
+
+.overview-subsection h4 {
+  font-size: 1.05rem;
+  color: #4a90e2; /* Matches your primary blue accent */
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.overview-subsection p {
+  margin-top: 0;
+}

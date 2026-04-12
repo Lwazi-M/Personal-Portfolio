@@ -12,18 +12,15 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { projects } from './projects';
 
 // Import icons for the buttons.
-// 👇 Removed FaExpandArrowsAlt, kept FaTimes for the close button
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaMagic, FaTimes } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaMagic, FaTimes, FaChevronDown } from 'react-icons/fa';
 
 // React Hooks:
-// - useEffect: Used to run code when the page loads (like scrolling to the top).
-// - useState: Used to track if the page is currently animating out.
 import { useEffect, useState } from 'react'; 
 
 // Import styles.
 import './App.css';
 
-// 👇 NEW: Import your downloaded custom SVG file
+// Import your downloaded custom SVG file
 import expandIcon from './assets/expand.svg'; 
 
 // ====================================================================
@@ -55,6 +52,17 @@ export default function ProjectPage() {
   // IMAGE EXPAND STATE
   // Tracks whether the full-screen image modal is open or closed
   const [isImageExpanded, setIsImageExpanded] = useState(false);
+
+  // 👇 UPDATED: ACCORDION STATE
+  // Instead of true/false, we track the NAME of the open section. 
+  // If it's null, all are closed.
+  const [activeAccordion, setActiveAccordion] = useState(null);
+
+  // Helper function to toggle accordions cleanly
+  const toggleAccordion = (sectionName) => {
+      // If clicking the one that's already open, close it (set to null). Otherwise, open the new one.
+      setActiveAccordion(prev => prev === sectionName ? null : sectionName);
+  };
 
   // -- SCROLL TO TOP --
   useEffect(() => {
@@ -105,7 +113,7 @@ export default function ProjectPage() {
     return <div className="project-page-container"><h1>Project not found</h1></div>;
   }
 
-  // 👇 NEW: GROUPING LOGIC FOR TECH STACK
+  // GROUPING LOGIC FOR TECH STACK
   // This automatically sorts your flat array into categorized groups based on projects.js
   const groupedTechStack = project.techStack?.reduce((groups, tech) => {
       const category = tech.category || "Tools & Platforms"; // Fallback if you forget to add a category
@@ -223,13 +231,63 @@ export default function ProjectPage() {
         {/* --- DETAILS SECTION --- */}
         <div className="project-details">
             
-            {/* Text Description */}
+            {/* 👇 UPDATED: Mutually Exclusive Accordions */}
             <div className="details-text">
-                <h3>Overview</h3>
-                <p style={{whiteSpace: 'pre-line'}}>{project.fullDescription}</p>
+                
+                {/* 1. ABOUT ACCORDION */}
+                {project.about && (
+                    <div className={`overview-dropdown ${activeAccordion === 'about' ? 'open' : ''}`} style={{marginBottom: '1.5rem'}}>
+                        <div 
+                            className="overview-header" 
+                            onClick={() => toggleAccordion('about')}
+                            style={{cursor: 'pointer'}}
+                        >
+                            <h3>About The Project</h3>
+                            <FaChevronDown className={`overview-chevron ${activeAccordion === 'about' ? 'rotated' : ''}`} />
+                        </div>
+                        <div className="overview-content">
+                            <p style={{whiteSpace: 'pre-line'}}>{project.about}</p>
+                        </div>
+                    </div>
+                )}
+
+                {/* 2. TECHNICAL ARCHITECTURE ACCORDION */}
+                {project.technical && (
+                    <div className={`overview-dropdown ${activeAccordion === 'technical' ? 'open' : ''}`} style={{marginBottom: '1.5rem'}}>
+                        <div 
+                            className="overview-header" 
+                            onClick={() => toggleAccordion('technical')}
+                            style={{cursor: 'pointer'}}
+                        >
+                            <h3>Technical Architecture</h3>
+                            <FaChevronDown className={`overview-chevron ${activeAccordion === 'technical' ? 'rotated' : ''}`} />
+                        </div>
+                        <div className="overview-content">
+                            <p style={{whiteSpace: 'pre-line'}}>{project.technical}</p>
+                        </div>
+                    </div>
+                )}
+
+                {/* 3. FALLBACK OVERVIEW (Only shows if the others are missing) */}
+                {!project.about && !project.technical && project.fullDescription && (
+                    <div className={`overview-dropdown ${activeAccordion === 'overview' ? 'open' : ''}`} style={{marginBottom: '1.5rem'}}>
+                        <div 
+                            className="overview-header" 
+                            onClick={() => toggleAccordion('overview')}
+                            style={{cursor: 'pointer'}}
+                        >
+                            <h3>Overview</h3>
+                            <FaChevronDown className={`overview-chevron ${activeAccordion === 'overview' ? 'rotated' : ''}`} />
+                        </div>
+                        <div className="overview-content">
+                            <p style={{whiteSpace: 'pre-line'}}>{project.fullDescription}</p>
+                        </div>
+                    </div>
+                )}
+
             </div>
             
-            {/* 👇 UPDATED: Categorized Tech Stack Grid */}
+            {/* Categorized Tech Stack Grid */}
             {Object.keys(groupedTechStack).length > 0 && (
                 <div className="details-tech">
                     <h3>Technologies Used</h3>
