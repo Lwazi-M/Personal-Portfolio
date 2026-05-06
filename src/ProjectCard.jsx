@@ -23,7 +23,15 @@ export default function ProjectCard({ title, description, image, onViewMore }) {
             3. If no, render a generic <div className="card-placeholder" />.
         */}
         {image ? (
-          <img src={image} alt={title} className="card-image" />
+          /* 👇 FIX: Added loading="lazy" and explicit dimensions for Performance */
+          <img 
+              src={image} 
+              alt={title} 
+              className="card-image" 
+              loading="lazy"
+              width="600"
+              height="400"
+          />
         ) : (
           <div className="card-placeholder"></div>
         )}
@@ -46,7 +54,12 @@ export default function ProjectCard({ title, description, image, onViewMore }) {
                 down from the parent component. This usually triggers 
                 navigation to the Project Page.
             */}
-            <button onClick={onViewMore} className="btn sm-btn">
+            {/* 👇 FIX: Added dynamic aria-label for Accessibility */}
+            <button 
+                onClick={onViewMore} 
+                className="btn sm-btn"
+                aria-label={`View details for ${title}`}
+            >
                 View More
             </button>
         </div>

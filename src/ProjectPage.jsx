@@ -53,7 +53,7 @@ export default function ProjectPage() {
   // Tracks whether the full-screen image modal is open or closed
   const [isImageExpanded, setIsImageExpanded] = useState(false);
 
-  // 👇 UPDATED: ACCORDION STATE
+  // ACCORDION STATE
   // Instead of true/false, we track the NAME of the open section. 
   // If it's null, all are closed.
   const [activeAccordion, setActiveAccordion] = useState(null);
@@ -151,34 +151,49 @@ export default function ProjectPage() {
             
             {/* Wrapped the image in a relative container for the expand button */}
             <div className="project-hero-image-wrapper" style={{ position: 'relative' }}>
+                {/* 👇 FIX: Added explicit dimensions to prevent Layout Shifts */}
                 <img 
                     src={project.modalImage || project.image} 
                     alt={project.title} 
                     className="project-hero-image" 
                     onClick={() => setIsImageExpanded(true)}
                     style={{cursor: 'zoom-in'}}
-                    // NOTE: No loading="lazy" here because this is "Above the Fold" (immediately visible)
+                    width="1200"
+                    height="675"
                 />
                 
                 {/* The Corner Expand Button */}
+                {/* 👇 FIX: Added aria-label for accessibility */}
                 <button 
                     className="expand-btn"
                     onClick={() => setIsImageExpanded(true)}
                     title="View Fullscreen"
+                    aria-label="Expand image fullscreen"
                 >
-                    {/* Using your custom downloaded SVG via a standard image tag */}
                     <img src={expandIcon} alt="Expand" className="custom-expand-icon" />
                 </button>
             </div>
 
             <div className="project-links">
                 {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn">
+                    <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn"
+                        aria-label={`View live demo for ${project.title}`}
+                    >
                         View Live <FaExternalLinkAlt style={{marginLeft:'8px'}}/>
                     </a>
                 )}
                 {project.repoLink && (
-                    <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="btn outline-btn">
+                    <a 
+                        href={project.repoLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn outline-btn"
+                        aria-label={`View GitHub repository for ${project.title}`}
+                    >
                         GitHub Repo <FaGithub style={{marginLeft:'8px'}}/>
                     </a>
                 )}
@@ -231,7 +246,7 @@ export default function ProjectPage() {
         {/* --- DETAILS SECTION --- */}
         <div className="project-details">
             
-            {/* 👇 UPDATED: Mutually Exclusive Accordions */}
+            {/* Mutually Exclusive Accordions */}
             <div className="details-text">
                 
                 {/* 1. ABOUT ACCORDION */}
@@ -298,7 +313,8 @@ export default function ProjectPage() {
                                 <div className="tech-stack-grid">
                                     {techs.map((tech, index) => (
                                         <div key={index} className="tech-badge-small">
-                                            <img src={tech.icon} alt={tech.name} loading="lazy" />
+                                            {/* 👇 FIX: Added explicit dimensions to prevent layout shifts */}
+                                            <img src={tech.icon} alt={tech.name} loading="lazy" width="50" height="50" />
                                             <span>{tech.name}</span>
                                         </div>
                                     ))}
@@ -316,15 +332,23 @@ export default function ProjectPage() {
       {isImageExpanded && (
           <div className="image-modal-overlay" onClick={() => setIsImageExpanded(false)}>
               
-              <button className="close-modal-btn" onClick={() => setIsImageExpanded(false)}>
+              {/* 👇 FIX: Added aria-label for accessibility */}
+              <button 
+                  className="close-modal-btn" 
+                  onClick={() => setIsImageExpanded(false)}
+                  aria-label="Close fullscreen image"
+              >
                   <FaTimes />
               </button>
               
+              {/* 👇 FIX: Added explicit dimensions to prevent Layout Shifts */}
               <img 
                   src={project.modalImage || project.image} 
                   alt={`${project.title} Fullscreen`} 
                   className="image-modal-content" 
                   onClick={(e) => e.stopPropagation()} // Prevents click on image from closing the modal
+                  width="1920"
+                  height="1080"
               />
           </div>
       )}
