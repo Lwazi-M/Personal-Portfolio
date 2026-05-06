@@ -24,7 +24,9 @@ import './App.css'
 function Content() {
   
   // -- STATE MANAGEMENT --
-  const [isMobile, setIsMobile] = useState(false)
+  // 👇 FIX: Initialize state by checking window size immediately! 
+  // This prevents the mobile browser from assuming it's desktop on the first render.
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1200);
   const location = useLocation(); 
 
   // -- SCREEN SIZE LISTENER --
