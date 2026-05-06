@@ -1,16 +1,19 @@
 // =========================================
 // 1. IMPORTS
 // =========================================
-import { useState, useEffect } from 'react'
+// 👇 FIX: Added Suspense and lazy for Performance Phase 3
+import { useState, useEffect, Suspense, lazy } from 'react'
 
 // 👇 FIX: Use HashRouter to prevent 404 errors on GitHub Pages
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-// Import custom components
+// Import custom components (Home page needs to load instantly)
 import Lanyard from './Lanyard'       
 import Overlay from './Overlay'       
-import ProjectPage from './ProjectPage' 
-import AllProjects from './AllProjects' 
+
+// 👇 FIX: Lazy Load extra pages so they don't block the initial load
+const ProjectPage = lazy(() => import('./ProjectPage'));
+const AllProjects = lazy(() => import('./AllProjects'));
 
 // Import global styles
 import './App.css'
@@ -42,12 +45,17 @@ function Content() {
 
   // -- RENDER HTML --
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Overlay />} />
-        <Route path="/all-projects" element={<AllProjects />} />
-        <Route path="/project/:id" element={<ProjectPage />} />
-      </Routes>
+    // 👇 FIX: Replaced <> with <main> for Accessibility Phase 1 (Landmarks)
+    <main>
+      
+      {/* 👇 FIX: Suspense wrapper catches the lazy-loaded pages while they download */}
+      <Suspense fallback={<div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff'}}>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Overlay />} />
+          <Route path="/all-projects" element={<AllProjects />} />
+          <Route path="/project/:id" element={<ProjectPage />} />
+        </Routes>
+      </Suspense>
 
       {/* PERFORMANCE FIX:
           We keep the Lanyard mounted on Desktop but toggle its visibility.
@@ -70,7 +78,7 @@ function Content() {
             <Lanyard position={[0, 0, 10]} gravity={[0, -40, 0]} />
         </div>
       )}
-    </>
+    </main>
   );
 }
 

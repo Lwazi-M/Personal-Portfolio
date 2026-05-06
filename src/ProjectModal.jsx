@@ -99,7 +99,13 @@ export default function ProjectModal({ project, onClose }) {
             <h2 className="modal-title">{project.title}</h2>
             
             {/* The "X" Button */}
-            <div className="closeModalButton" onClick={handleClose}>
+            {/* 👇 FIX: Added role and aria-label for accessibility */}
+            <div 
+                className="closeModalButton" 
+                onClick={handleClose}
+                role="button"
+                aria-label="Close project details"
+            >
                 <FaTimes size={22} />
             </div>
         </div>
@@ -111,10 +117,14 @@ export default function ProjectModal({ project, onClose }) {
             {/* Image Section */}
             <div className="image-wrapper">
                 {/* Checks if there is a specific 'modalImage', otherwise falls back to the main 'image' */}
+                {/* 👇 FIX: Added lazy loading and explicit dimensions for Performance */}
                 <img 
                     src={project.modalImage || project.image} 
                     alt={project.title} 
                     className="modal-image-preview" 
+                    loading="lazy"
+                    width="800"
+                    height="450"
                 />
             </div>
 
@@ -127,8 +137,16 @@ export default function ProjectModal({ project, onClose }) {
                     {/* CONDITIONAL RENDERING: Live Link 
                         Only renders this button if project.link exists (is true/not empty) 
                     */}
+
+                    {/* 👇 FIX: Added dynamic aria-label for screen readers */}
                     {project.link && (
-                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn modal-btn">
+                        <a 
+                            href={project.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="btn modal-btn"
+                            aria-label={`View live demo for ${project.title}`}
+                        >
                             View Live <FaExternalLinkAlt />
                         </a>
                     )}
@@ -136,8 +154,16 @@ export default function ProjectModal({ project, onClose }) {
                     {/* CONDITIONAL RENDERING: Repo Link 
                         Only renders this button if project.repoLink exists
                     */}
+
+                    {/* 👇 FIX: Added dynamic aria-label for screen readers */}
                     {project.repoLink && (
-                        <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="btn outline-btn modal-btn">
+                        <a 
+                            href={project.repoLink} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="btn outline-btn modal-btn"
+                            aria-label={`View GitHub repository for ${project.title}`}
+                        >
                             View Repo <FaGithub />
                         </a>
                     )}

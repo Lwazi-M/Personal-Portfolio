@@ -365,6 +365,7 @@ export default function Overlay() {
                 type="submit" 
                 className={`kk-submit-container ${getButtonClass()}`} 
                 disabled={isSubmitting || isSuccess}
+                aria-label="Send Message" /* 👇 FIX: Added aria-label for accessibility */
             >
                 <svg width="196" height="70" viewBox="0 0 196 70">
                     <rect className="btn-shape btn-bg" x="3" y="3" width="190" height="64" rx="32" ry="32" />
@@ -376,9 +377,10 @@ export default function Overlay() {
         </form>
         
         <div className="socials">
-             <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me" className="social-icon"><FaEnvelope /></a>
-             <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener" className="social-icon"><FaLinkedin /></a>
-             <a href="https://github.com/Lwazi-M" target="_blank" rel="noopener" className="social-icon"><FaGithub /></a>
+             {/* 👇 FIX: Added aria-labels to all social links for accessibility */}
+             <a href="mailto:nhlamhlongo.work@gmail.com" title="Email Me" aria-label="Send me an email" className="social-icon"><FaEnvelope /></a>
+             <a href="https://linkedin.com/in/nhlamhlongo" target="_blank" rel="noopener" aria-label="Visit my LinkedIn profile" className="social-icon"><FaLinkedin /></a>
+             <a href="https://github.com/Lwazi-M" target="_blank" rel="noopener" aria-label="Visit my GitHub profile" className="social-icon"><FaGithub /></a>
         </div>
       </section>
     </div>

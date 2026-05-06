@@ -60,6 +60,7 @@ export default function AllProjects() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     style={{paddingLeft: '1.5rem'}}
+                    aria-label="Search projects" /* 👇 FIX: Added aria-label for screen readers */
                 />
             </div>
 
@@ -98,12 +99,14 @@ export default function AllProjects() {
               >
                   <div className="card-image-container">
                       {project.image ? (
-                        /* 👇 ADDED loading="lazy" HERE */
+                        /* 👇 FIX: Added explicit width/height to prevent Layout Shifts (Phase 2) */
                         <img 
                             src={project.image} 
                             alt={project.title} 
                             className="card-image" 
                             loading="lazy" 
+                            width="600"
+                            height="400"
                         />
                       ) : (
                         <div className="card-placeholder"></div>
@@ -117,14 +120,15 @@ export default function AllProjects() {
                       
                       <div className="card-buttons">
                             {(project.link || project.repoLink) ? (
-                                <Link to={`/project/${project.id}`} state={{ from: 'all-projects' }} className="btn sm-btn">View More</Link>
+                                /* 👇 FIX: Differentiated link purposes for accessibility */
+                                <Link to={`/project/${project.id}`} state={{ from: 'all-projects' }} className="btn sm-btn" aria-label={`View details for ${project.title}`}>View More</Link>
                             ) : (
                                 <button className="btn sm-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed', borderColor: '#555', color: '#555'}}>
                                     Coming Soon
                                 </button>
                             )}
                       </div>
-                  </div> {/* 👈 FIXED: Added the missing closing div for card-content! */}
+                  </div> 
                   
               </GlareHover>
             ))
