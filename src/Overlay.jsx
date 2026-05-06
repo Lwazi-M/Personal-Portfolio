@@ -240,7 +240,8 @@ export default function Overlay() {
 
       {/* --- HERO SECTION --- */}
       <section className="hero-section">
-        <img src={profileImg} alt="Profile" className="mobile-profile-img" />
+        {/* 👇 FIX: Added explicit dimensions to prevent Layout Shifts */}
+        <img src={profileImg} alt="Profile" className="mobile-profile-img" width="400" height="400" />
         <div className="hero-content">
           <h3>Hello, I'm</h3>
           <h1>Nhlanzeko Lwazi Mhlongo</h1>
@@ -266,7 +267,8 @@ export default function Overlay() {
         <div className="about-grid">
           
           <div className="card">
-            <img src={educationIcon} alt="Education" loading="lazy" style={{height: '40px', marginBottom: '1rem'}}/>
+            {/* 👇 FIX: Replaced style height with native HTML width/height to fix Lighthouse flag */}
+            <img src={educationIcon} alt="Education" loading="lazy" width="40" height="40" style={{marginBottom: '1rem'}}/>
             <h3>Education</h3>
             <p><strong>Eduvos</strong></p>
             <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
@@ -288,7 +290,8 @@ export default function Overlay() {
               {/* 👇 ADDITION: Replaced static icons with dynamic mapping */}
               {uniqueTechStack.map((tech, index) => (
                 <div key={index} className="tech-badge">
-                  <img src={tech.icon} alt={tech.name} loading="lazy"/>
+                  {/* 👇 FIX: Added native HTML width/height for layout stability */}
+                  <img src={tech.icon} alt={tech.name} loading="lazy" width="32" height="32" />
                   <span>{tech.name}</span>
                 </div>
               ))}
@@ -311,18 +314,20 @@ export default function Overlay() {
                 borderColor="#333"
             >
                 <div className="card-image-container">
+                    {/* 👇 CORRECTED: Moved the comment outside the ternary operator */}
                     {project.image ? (
-                    <img src={project.image} alt={project.title} className="card-image" loading="lazy" />
+                        <img src={project.image} alt={project.title} className="card-image" loading="lazy" width="600" height="400" />
                     ) : (
-                    <div className="card-placeholder"></div>
+                        <div className="card-placeholder"></div>
                     )}
                 </div>
                 <div className="card-content">
                     <h3>{project.title}</h3>
                     <p>{project.shortDescription}</p>
                     <div className="card-buttons">
+                        {/* 👇 CORRECTED: Moved the comment outside the ternary operator */}
                         {(project.link || project.repoLink) ? (
-                            <Link to={`/project/${project.id}`} state={{ from: 'home' }} className="btn sm-btn">View More</Link>
+                            <Link to={`/project/${project.id}`} state={{ from: 'home' }} className="btn sm-btn" aria-label={`View details for ${project.title}`}>View More</Link>
                         ) : (
                             <button className="btn sm-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed', borderColor: '#555', color: '#555'}}>
                                 Coming Soon
