@@ -2,7 +2,8 @@
 // ⬆️ This comment tells the linter (code checker) to ignore errors about unknown properties in JSX 
 // (because React Three Fiber uses properties that standard React HTML doesn't know about).
 
-import { useEffect, useRef, useState } from 'react';
+// 👇 FIX: Added Suspense to the React imports
+import { useEffect, useRef, useState, Suspense } from 'react';
 // ⬆️ useEffect: Runs code when a component loads or updates.
 // ⬆️ useRef: Creates a reference to a specific object (like a 3D mesh) so we can control it directly.
 // ⬆️ useState: Creates variables that, when changed, tell React to re-render the component.
@@ -56,22 +57,25 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
         gl={{ alpha: transparent }} // Allows the background to be transparent
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)} // Sets background color
       >
-        {/* Adds generic light everywhere so things aren't pitch black */}
-        <ambientLight intensity={Math.PI} />
-        
-        {/* Enables the Physics simulation (Gravity, Collisions) */}
-        {/* timeStep={1/60} means physics calculates 60 times per second */}
-        <Physics gravity={gravity} timeStep={1 / 60}>
-          <Band /> {/* Renders the actual Lanyard and Card */}
-        </Physics>
-        
-        {/* Environment creates realistic reflections on the card */}
-        <Environment blur={0.75}>
-          {/* Lightformers are glowing shapes placed around the scene to create nice highlights on the plastic card */}
-          <Lightformer intensity={2} color="white" position={[0, -1, 5]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-          <Lightformer intensity={3} color="white" position={[-1, -1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-          <Lightformer intensity={3} color="white" position={[1, 1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-        </Environment>
+        {/* 👇 FIX: Suspense added INSIDE the Canvas. This prevents WebGL from crashing while 3D assets load */}
+        <Suspense fallback={null}>
+            {/* Adds generic light everywhere so things aren't pitch black */}
+            <ambientLight intensity={Math.PI} />
+            
+            {/* Enables the Physics simulation (Gravity, Collisions) */}
+            {/* timeStep={1/60} means physics calculates 60 times per second */}
+            <Physics gravity={gravity} timeStep={1 / 60}>
+              <Band /> {/* Renders the actual Lanyard and Card */}
+            </Physics>
+            
+            {/* Environment creates realistic reflections on the card */}
+            <Environment blur={0.75}>
+              {/* Lightformers are glowing shapes placed around the scene to create nice highlights on the plastic card */}
+              <Lightformer intensity={2} color="white" position={[0, -1, 5]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
+              <Lightformer intensity={3} color="white" position={[-1, -1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
+              <Lightformer intensity={3} color="white" position={[1, 1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
+            </Environment>
+        </Suspense>
       </Canvas>
     </div>
   );
@@ -185,8 +189,8 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
     <>
       <group position={[0, 0, 0]}>
         {/* INVISIBLE PHYSICS CHAIN 
-           We create 4 rigid bodies. "fixed" is the anchor at the top.
-           j1, j2, j3 are the dangling segments.
+            We create 4 rigid bodies. "fixed" is the anchor at the top.
+            j1, j2, j3 are the dangling segments.
         */}
         <RigidBody ref={fixed} {...segmentProps} type="fixed" position={[xOffset, yOffset, 0]} />
         <RigidBody position={[xOffset, yOffset - 0.5, 0]} ref={j1} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
@@ -194,7 +198,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
         <RigidBody position={[xOffset, yOffset - 1.5, 0]} ref={j3} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
         
         {/* THE CARD BODY 
-           This is the main object at the bottom of the chain.
+            This is the main object at the bottom of the chain.
         */}
         <RigidBody position={[xOffset, yOffset - 2, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} /> {/* The Hitbox of the card */}

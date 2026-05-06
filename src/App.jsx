@@ -8,10 +8,10 @@ import { useState, useEffect, Suspense, lazy } from 'react'
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 // Import custom components (Home page needs to load instantly)
-import Lanyard from './Lanyard'       
 import Overlay from './Overlay'       
 
-// 👇 FIX: Lazy Load extra pages so they don't block the initial load
+// 👇 FIX: Lazy Load extra pages AND the 3D Lanyard so they don't block the initial load
+const Lanyard = lazy(() => import('./Lanyard'));
 const ProjectPage = lazy(() => import('./ProjectPage'));
 const AllProjects = lazy(() => import('./AllProjects'));
 
@@ -75,7 +75,10 @@ function Content() {
             pointerEvents: isHome ? 'auto' : 'none', 
             transition: 'opacity 0.5s ease'
         }}>
-            <Lanyard position={[0, 0, 10]} gravity={[0, -40, 0]} />
+            {/* 👇 FIX: Suspense catches the heavy 3D Lanyard file in the background */}
+            <Suspense fallback={null}>
+                <Lanyard position={[0, 0, 10]} gravity={[0, -40, 0]} />
+            </Suspense>
         </div>
       )}
     </main>
