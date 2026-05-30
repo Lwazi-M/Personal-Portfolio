@@ -15,7 +15,7 @@ import GlareHover from './GlareHover';
 // 2. ASSET IMPORTS
 // ====================================================================
 import myResume from './assets/Lwazi_Mhlongo_CV_21-03-2026.pdf'
-import completionLetter from './assets/CompletionLetter.pdf'
+import Degree from './assets/Lwazi_Degree.pdf'
 
 // Profile Image
 import profileImg from './assets/Me-Profile.jpeg' 
@@ -271,10 +271,10 @@ export default function Overlay() {
             <img src={educationIcon} alt="Education" loading="lazy" width="40" height="40" style={{marginBottom: '1rem'}}/>
             <h3>Education</h3>
             <p><strong>Eduvos</strong></p>
-            <p>B.Sc. Information Technology<br/>(Software Engineering)</p>
+            <p>B.Sc. Information Technology</p>
             <br/>
             <a 
-                href={completionLetter} 
+                href={Degree} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="link-text" 
