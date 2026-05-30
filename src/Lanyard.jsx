@@ -72,7 +72,7 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
             <Environment blur={0.75}>
               {/* Lightformers are glowing shapes placed around the scene to create nice highlights on the plastic card */}
               <Lightformer intensity={2} color="white" position={[0, -1, 5]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-              <Lightformer intensity={3} color="white" position={[-1, -1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
+              <Lightformer intensity={3} color="white" position={[-1.1, -1, 1.2]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
               <Lightformer intensity={3} color="white" position={[1, 1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
             </Environment>
         </Suspense>
@@ -107,7 +107,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
   // ⬇️ POSITION VARIABLES
   // These control where the lanyard hangs from on the screen.
   const xOffset = -1.52; // Moves it Left/Right
-  const yOffset = 4.3;   // Moves it Up/Down
+  const yOffset = 4.4;   // Moves it Up/Down
 
   // -- CURVE DEFINITION --
   // Creates a smooth curve path based on 4 points (Start, Joint 1, Joint 2, End).
@@ -177,7 +177,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
       // Tilt the card slightly based on how fast it is spinning (Angular Velocity).
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
-      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.30, z: ang.z });
     }
   });
 
