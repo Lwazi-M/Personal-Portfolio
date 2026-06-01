@@ -14,7 +14,7 @@ import GlareHover from './GlareHover';
 // ====================================================================
 // 2. ASSET IMPORTS
 // ====================================================================
-import myResume from './assets/Lwazi_Mhlongo_CV_21-03-2026.pdf'
+import myResume from './assets/Lwazi_Mhlongo_CV_01-06-2026.pdf'
 import Degree from './assets/Lwazi_Degree.pdf'
 
 // Profile Image
