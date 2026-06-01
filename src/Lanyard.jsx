@@ -39,7 +39,7 @@ import * as THREE from 'three';
 // These lines grab the actual files from your project folder.
 import cardGLB from './assets/card.glb'; 
 import lanyard from './assets/lanyard.png';
-import profileImg from './assets/Me-Profile.jpeg';
+import profileImg from './assets/Me-Profile.png';
 
 // ⬇️ Register MeshLine so we can use <meshLineGeometry /> in JSX
 extend({ MeshLineGeometry, MeshLineMaterial });
@@ -236,24 +236,24 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
                         </mesh>
 
                         {/* Text: "SOFTWARE ENGINEER" */}
-                        <Text fontSize={0.14} color="white" position={[-1.3, 1.7, 0]} anchorX="center" anchorY="middle">
+                        <Text fontSize={0.14} color="white" position={[-1.3, 1.6, 0]} anchorX="center" anchorY="middle">
                             SOFTWARE ENGINEER
                         </Text>
 
                         {/* Text: "Lwazi Mhlongo" */}
-                        <Text fontSize={0.22} color="white" position={[-1.3, 2, 0]} anchorX="center" anchorY="middle" fontWeight="bold">
+                        <Text fontSize={0.22} color="white" position={[-1.3, 1.9, 0]} anchorX="center" anchorY="middle" fontWeight="bold">
                             Lwazi Mhlongo
                         </Text>
 
                         {/* White Border Frame for the Photo */}
-                        <mesh position={[-1.51, 0.24, -0.9]}>
-                            <planeGeometry args={[1.89, 2.71]} />
+                        <mesh position={[-1.51, 0.23, -0.9]}>
+                            <planeGeometry args={[2.1, 2.47]} />
                             <meshBasicMaterial color="white" />
                         </mesh>
                         
                         {/* Your Profile Photo */}
                         <mesh position={[-1.3, 0.2, 0]}>
-                            <planeGeometry args={[1.6, 2.3]} />
+                            <planeGeometry args={[1.8, 2.1]} />
                             <meshBasicMaterial map={profileTexture} />
                         </mesh>
                     </group>

@@ -18,7 +18,7 @@ import myResume from './assets/Lwazi_Mhlongo_CV_01-06-2026.pdf'
 import Degree from './assets/Lwazi_Degree.pdf'
 
 // Profile Image
-import profileImg from './assets/Me-Profile.jpeg' 
+import profileImg from './assets/Me-Profile.png' 
 
 // Icons
 import htmlIcon from './assets/html.svg'
