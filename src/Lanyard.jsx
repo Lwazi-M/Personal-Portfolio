@@ -246,14 +246,14 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
                         </Text>
 
                         {/* White Border Frame for the Photo */}
-                        <mesh position={[-1.51, 0.23, -0.9]}>
-                            <planeGeometry args={[2.1, 2.47]} />
+                        <mesh position={[-1.51, 0.12, -0.9]}>
+                            <planeGeometry args={[1.99, 2.66]} />
                             <meshBasicMaterial color="white" />
                         </mesh>
                         
                         {/* Your Profile Photo */}
-                        <mesh position={[-1.3, 0.2, 0]}>
-                            <planeGeometry args={[1.8, 2.1]} />
+                        <mesh position={[-1.3, 0.1, 0]}>
+                            <planeGeometry args={[1.7, 2.28]} />
                             <meshBasicMaterial map={profileTexture} />
                         </mesh>
                     </group>
