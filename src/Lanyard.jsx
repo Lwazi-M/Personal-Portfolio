@@ -116,7 +116,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
       new THREE.Vector3(xOffset, yOffset, 0), 
       new THREE.Vector3(xOffset, yOffset - 0.5, 0), 
       new THREE.Vector3(xOffset, yOffset - 1, 0),   
-      new THREE.Vector3(xOffset, yOffset - 1.5, 0)  
+      new THREE.Vector3(xOffset, yOffset - 0.5, 0)  
   ]));
   
   // -- STATE --
@@ -232,7 +232,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
                         {/* Background Panel on the card */}
                         <mesh position={[0, 0, -2]}>
                             <planeGeometry args={[10, 10]} />
-                            <meshBasicMaterial color="#1a1a1a" />
+                            <meshBasicMaterial color="#0e0d0d" />
                         </mesh>
 
                         {/* Text: "SOFTWARE ENGINEER" */}
